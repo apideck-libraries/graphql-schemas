@@ -1,1 +1,2083 @@
+type Query {
+  crm: Crm
+  vault: Vault
+  lead: Lead
+}
 
+type Mutation {
+  crm: MutationCrm
+  vault: MutationVault
+  lead: MutationLead
+}
+
+type Crm {
+  """
+  List activities
+  """
+  activities(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): ActivityList
+  """
+  Get activity
+  """
+  activity(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Activity
+  """
+  List companies
+  """
+  companies(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Apply filters (beta)
+    """
+    filter: CompaniesFilter
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    """
+    Apply sorting (beta)
+    """
+    sort: CompaniesSort
+  ): CompanyList
+  """
+  Get company
+  """
+  company(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Company
+  """
+  Get contact
+  """
+  contact(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Contact
+  """
+  List contacts
+  """
+  contacts(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Apply filters (beta)
+    """
+    filter: ContactsFilter
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    """
+    Apply sorting (beta)
+    """
+    sort: ContactsSort
+  ): ContactList
+  """
+  Get lead
+  """
+  lead(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Lead
+  """
+  List leads
+  """
+  leads(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Apply filters (beta)
+    """
+    filter: LeadsFilter
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    """
+    Apply sorting (beta)
+    """
+    sort: LeadsSort
+  ): LeadList
+  """
+  Get note
+  """
+  note(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Note
+  """
+  List notes
+  """
+  notes(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): NoteList
+  """
+  List opportunities
+  """
+  opportunities(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Apply filters (beta)
+    """
+    filter: OpportunitiesFilter
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    """
+    Apply sorting (beta)
+    """
+    sort: OpportunitiesSort
+  ): OpportunityList
+  """
+  Get opportunity
+  """
+  opportunity(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Opportunity
+  """
+  Get pipeline
+  """
+  pipeline(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Pipeline
+  """
+  List pipelines
+  """
+  pipelines(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): PipelinesList
+  """
+  Get user
+  """
+  user(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): User
+  """
+  List users
+  """
+  users(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UserList
+}
+
+type ActivityList {
+  data: [Activity]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+type Activity {
+  accountId: String
+  activityDate: String
+  activityDatetime: String
+  allDayEvent: Boolean
+  archived: Boolean
+  assetId: String
+  campaignId: String
+  caseId: String
+  child: Boolean
+  companyId: String
+  contactId: String
+  contractId: String
+  createdAt: String
+  createdBy: String
+  customFields: [CustomField]
+  customObjectId: String
+  deleted: Boolean
+  description: String
+  durationMinutes: Int
+  durationSeconds: Int
+  endDate: String
+  endDatetime: String
+  eventSubType: String
+  groupEvent: Boolean
+  groupEventType: String
+  id: String
+  leadId: String
+  location: String
+  opportunityId: String
+  ownerId: String
+  private: Boolean
+  productId: String
+  recurrent: Boolean
+  reminderDatetime: String
+  reminderSet: Boolean
+  showAs: ShowAs
+  solutionId: String
+  startDatetime: String
+  title: String
+  type: Type!
+  updatedAt: String
+  updatedBy: String
+}
+
+type CustomField {
+  id: String!
+  value: JSON
+}
+
+"""
+The \`JSON\` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+  @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+enum ShowAs {
+  free
+  busy
+}
+
+enum Type {
+  text
+  checkbox
+  tel
+  email
+  url
+  textarea
+  select
+  filteredselect
+  multiselect
+  datetime
+  date
+  time
+  number
+  call
+  meeting
+  note
+  task
+  sendletter
+  sendquote
+  other
+}
+
+"""
+Reponse metadata
+"""
+type Meta {
+  """
+  Cursors to navigate to previous or next pages through the API
+  """
+  cursors: Cursors
+  """
+  Number of items returned in the data property of the response
+  """
+  itemsOnPage: Int
+}
+
+"""
+Cursors to navigate to previous or next pages through the API
+"""
+type Cursors {
+  """
+  Cursor to navigate to the current page of results through the API
+  """
+  current: String
+  """
+  Cursor to navigate to the next page of results through the API
+  """
+  next: String
+  """
+  Cursor to navigate to the previous page of results through the API
+  """
+  previous: String
+}
+
+type CompanyList {
+  data: [Company]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+type Company {
+  addresses: [Address]
+  bankAccounts: [BankAccount]
+  createdAt: String
+  createdBy: String
+  currency: String
+  customFields: [CustomField]
+  description: String
+  emails: [Email]
+  fax: String
+  id: String
+  imageUrl: String
+  interactionCount: Int
+  name: String!
+  ownerId: String
+  phoneNumbers: [PhoneNumber]
+  socialLinks: [SocialLink]
+  status: String
+  tags: [String]
+  updatedAt: String
+  updatedBy: String
+  """
+  VAT number
+  """
+  vatNumber: String
+  websites: [Website]
+}
+
+type Address {
+  """
+  Name of city.
+  """
+  city: String
+  """
+  country code according to ISO 3166-1 alpha-2.
+  """
+  country: String
+  id: String
+  latitude: String
+  """
+  Line 1 of the address e.g. number, street, suite, apt #, etc.
+  """
+  line1: String
+  """
+  Line 2 of the address
+  """
+  line2: String
+  longitude: String
+  name: String
+  """
+  Zip code or equivalent.
+  """
+  postalCode: String
+  """
+  Name of state
+  """
+  state: String
+  type: AddressType
+}
+
+enum AddressType {
+  primary
+  secondary
+  home
+  office
+  shipping
+  billing
+  other
+}
+
+type BankAccount {
+  bic: String
+  iban: String
+}
+
+type Email {
+  email: String!
+  id: String
+  type: EmailType
+}
+
+enum EmailType {
+  primary
+  secondary
+  work
+  personal
+  billing
+  other
+}
+
+type PhoneNumber {
+  id: String
+  number: String!
+  type: PhoneType
+}
+
+enum PhoneType {
+  primary
+  secondary
+  home
+  office
+  mobile
+  assistant
+  fax
+  other
+}
+
+type SocialLink {
+  id: String
+  type: String
+  url: String!
+}
+
+type Website {
+  id: String
+  type: WebsiteType
+  url: String!
+}
+
+enum WebsiteType {
+  primary
+  secondary
+  work
+  personal
+  other
+}
+
+input CompaniesFilter {
+  """
+  Name of the company to filter on
+  """
+  name: String
+}
+
+input CompaniesSort {
+  """
+  The field on which to sort the Companies
+  """
+  by: CompaniesSortBy!
+  """
+  The direction in which to sort the results
+  """
+  direction: SortDirection
+}
+
+enum CompaniesSortBy {
+  created_at
+  updated_at
+  name
+}
+
+enum SortDirection {
+  asc
+  desc
+}
+
+type Contact {
+  addresses: [Address]
+  birthday: String
+  companyId: String
+  companyName: String
+  createdAt: String
+  customFields: [CustomField]
+  department: String
+  description: String
+  emails: [Email]
+  fax: String
+  firstName: String
+  gender: Gender
+  id: String
+  image: String
+  """
+  language code according to ISO 639-1. For the United States - EN
+  """
+  language: String
+  lastName: String
+  leadId: String
+  leadSource: String
+  middleName: String
+  name: String!
+  ownerId: String
+  phoneNumbers: [PhoneNumber]
+  prefix: String
+  socialLinks: [SocialLink]
+  status: String
+  suffix: String
+  tags: [String]
+  title: String
+  updatedAt: String
+  websites: [Website]
+}
+
+enum Gender {
+  male
+  female
+  unisex
+}
+
+type ContactList {
+  data: [Contact]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+input ContactsFilter {
+  """
+  E-mail of the contact to filter on
+  """
+  email: String
+  """
+  First name of the contact to filter on
+  """
+  firstName: String
+  """
+  Last name of the contact to filter on
+  """
+  lastName: String
+  """
+  Name of the contact to filter on
+  """
+  name: String
+}
+
+input ContactsSort {
+  """
+  The field on which to sort the Contacts
+  """
+  by: ContactsSortBy!
+  """
+  The direction in which to sort the results
+  """
+  direction: SortDirection
+}
+
+enum ContactsSortBy {
+  created_at
+  updated_at
+  name
+  first_name
+  last_name
+  email
+}
+
+type Lead {
+  addresses: [Address]
+  companyId: String
+  companyName: String!
+  contactId: String
+  createdAt: String
+  currency: String
+  customFields: [CustomField]
+  description: String
+  emails: [Email]
+  fax: String
+  firstName: String
+  id: String
+  """
+  language code according to ISO 639-1. For the United States - EN
+  """
+  language: String
+  lastName: String
+  leadSource: String
+  monetaryAmount: Float
+  name: String!
+  ownerId: String
+  phoneNumbers: [PhoneNumber]
+  prefix: String
+  socialLinks: [SocialLink]
+  status: String
+  tags: [String]
+  title: String
+  updatedAt: String
+  websites: [Website]
+  """
+  Get lead
+  """
+  lead(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Lead
+  """
+  List leads
+  """
+  leads(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): LeadList
+}
+
+type LeadList {
+  data: [Lead]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+input LeadsFilter {
+  """
+  E-mail of the lead to filter on
+  """
+  email: String
+  """
+  First name of the lead to filter on
+  """
+  firstName: String
+  """
+  Last name of the lead to filter on
+  """
+  lastName: String
+  """
+  Name of the lead to filter on
+  """
+  name: String
+}
+
+input LeadsSort {
+  """
+  The field on which to sort the Leads
+  """
+  by: LeadsSortBy!
+  """
+  The direction in which to sort the results
+  """
+  direction: SortDirection
+}
+
+enum LeadsSortBy {
+  created_at
+  updated_at
+  name
+  first_name
+  last_name
+  email
+}
+
+type Note {
+  content: String
+  createdAt: String
+  createdBy: String
+  id: String
+  ownerId: String
+  title: String
+  updatedAt: String
+  updatedBy: String
+}
+
+type NoteList {
+  data: [Note]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+type OpportunityList {
+  data: [Opportunity]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+type Opportunity {
+  closeDate: String
+  companyId: String
+  companyName: String
+  contactId: String
+  createdAt: String
+  createdBy: String
+  currency: String
+  customFields: [CustomField]
+  dateLastContacted: String
+  dateLeadCreated: String
+  dateStageChanged: String
+  description: String
+  id: String
+  interactionCount: Float
+  leadId: String
+  lossReason: String
+  lossReasonId: String
+  monetaryAmount: Float
+  ownerId: String
+  pipelineId: String
+  pipelineStageId: String
+  primaryContactId: String!
+  priority: String
+  sourceId: String
+  status: String
+  statusId: String
+  tags: [String]
+  title: String!
+  updatedAt: String
+  updatedBy: String
+  winProbability: Float
+  wonReason: String
+  wonReasonId: String
+}
+
+input OpportunitiesFilter {
+  """
+  Monetary amount to filter on
+  """
+  monetaryAmount: Float
+  """
+  Status to filter on
+  """
+  status: String
+  """
+  Title of the opportunity to filter on
+  """
+  title: String
+  """
+  Win probability to filter on
+  """
+  winProbability: Float
+}
+
+input OpportunitiesSort {
+  """
+  The field on which to sort the Opportunities
+  """
+  by: OpportunitiesSortBy!
+  """
+  The direction in which to sort the results
+  """
+  direction: SortDirection
+}
+
+enum OpportunitiesSortBy {
+  created_at
+  updated_at
+  title
+  win_probability
+  monetary_amount
+  status
+}
+
+type Pipeline {
+  archived: Boolean
+  createdAt: String
+  currency: String
+  displayOrder: Int
+  id: String
+  name: String!
+  stages: [StagesListItem]
+  updatedAt: String
+}
+
+type StagesListItem {
+  displayOrder: Int
+  id: String
+  name: String
+  value: String
+}
+
+type PipelinesList {
+  data: [Pipeline]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+type User {
+  createdAt: String
+  email: String!
+  firstName: String
+  id: String
+  image: String
+  language: String
+  lastName: String
+  parentId: String
+  status: String
+  updatedAt: String
+  username: String
+}
+
+type UserList {
+  data: [User]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+type MutationCrm {
+  """
+  Create activity
+  """
+  activitiesAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: ActivityInput!
+  ): UnifiedId
+  """
+  Delete activity
+  """
+  activitiesDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update activity
+  """
+  activitiesUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: ActivityInput!
+  ): UnifiedId
+  """
+  Create company
+  """
+  companiesAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: CompanyInput!
+  ): UnifiedId
+  """
+  Delete company
+  """
+  companiesDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update company
+  """
+  companiesUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: CompanyInput!
+  ): UnifiedId
+  """
+  Create contact
+  """
+  contactsAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: ContactInput!
+  ): UnifiedId
+  """
+  Delete contact
+  """
+  contactsDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update contact
+  """
+  contactsUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: ContactInput!
+  ): UnifiedId
+  """
+  Create lead
+  """
+  leadsAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: LeadInput!
+  ): UnifiedId
+  """
+  Delete lead
+  """
+  leadsDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update lead
+  """
+  leadsUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: LeadInput!
+  ): UnifiedId
+  """
+  Create note
+  """
+  notesAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: NoteInput!
+  ): UnifiedId
+  """
+  Delete note
+  """
+  notesDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update note
+  """
+  notesUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: NoteInput!
+  ): UnifiedId
+  """
+  Create opportunity
+  """
+  opportunitiesAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: OpportunityInput!
+  ): UnifiedId
+  """
+  Delete opportunity
+  """
+  opportunitiesDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update opportunity
+  """
+  opportunitiesUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: OpportunityInput!
+  ): UnifiedId
+  """
+  Create pipeline
+  """
+  pipelinesAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: PipelineInput!
+  ): UnifiedId
+  """
+  Delete pipeline
+  """
+  pipelinesDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update pipeline
+  """
+  pipelinesUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: PipelineInput!
+  ): UnifiedId
+  """
+  Create user
+  """
+  usersAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: UserInput!
+  ): UnifiedId
+  """
+  Delete user
+  """
+  usersDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update user
+  """
+  usersUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: UserInput!
+  ): UnifiedId
+}
+
+type UnifiedId {
+  id: String!
+}
+
+input ActivityInput {
+  accountId: String
+  activityDate: String
+  activityDatetime: String
+  allDayEvent: Boolean
+  archived: Boolean
+  assetId: String
+  campaignId: String
+  caseId: String
+  child: Boolean
+  companyId: String
+  contactId: String
+  contractId: String
+  customFields: [CustomFieldInput]
+  customObjectId: String
+  deleted: Boolean
+  description: String
+  durationMinutes: Int
+  durationSeconds: Int
+  endDate: String
+  endDatetime: String
+  eventSubType: String
+  groupEvent: Boolean
+  groupEventType: String
+  leadId: String
+  location: String
+  opportunityId: String
+  ownerId: String
+  private: Boolean
+  productId: String
+  recurrent: Boolean
+  reminderDatetime: String
+  reminderSet: Boolean
+  showAs: ShowAs
+  solutionId: String
+  startDatetime: String
+  title: String
+  type: Type!
+}
+
+input CustomFieldInput {
+  id: String!
+  value: JSON
+}
+
+input CompanyInput {
+  addresses: [AddressInput]
+  bankAccounts: [BankAccountInput]
+  currency: String
+  customFields: [CustomFieldInput]
+  description: String
+  emails: [EmailInput]
+  fax: String
+  imageUrl: String
+  name: String!
+  ownerId: String
+  phoneNumbers: [PhoneNumberInput]
+  socialLinks: [SocialLinkInput]
+  status: String
+  tags: [String]
+  """
+  VAT number
+  """
+  vatNumber: String
+  websites: [WebsiteInput]
+}
+
+input AddressInput {
+  """
+  Name of city.
+  """
+  city: String
+  """
+  country code according to ISO 3166-1 alpha-2.
+  """
+  country: String
+  id: String
+  latitude: String
+  """
+  Line 1 of the address e.g. number, street, suite, apt #, etc.
+  """
+  line1: String
+  """
+  Line 2 of the address
+  """
+  line2: String
+  longitude: String
+  name: String
+  """
+  Zip code or equivalent.
+  """
+  postalCode: String
+  """
+  Name of state
+  """
+  state: String
+  type: AddressType
+}
+
+input BankAccountInput {
+  bic: String
+  iban: String
+}
+
+input EmailInput {
+  email: String!
+  id: String
+  type: EmailType
+}
+
+input PhoneNumberInput {
+  id: String
+  number: String!
+  type: PhoneType
+}
+
+input SocialLinkInput {
+  id: String
+  type: String
+  url: String!
+}
+
+input WebsiteInput {
+  id: String
+  type: WebsiteType
+  url: String!
+}
+
+input ContactInput {
+  addresses: [AddressInput]
+  birthday: String
+  companyId: String
+  companyName: String
+  customFields: [CustomFieldInput]
+  department: String
+  description: String
+  emails: [EmailInput]
+  fax: String
+  firstName: String
+  gender: Gender
+  image: String
+  """
+  language code according to ISO 639-1. For the United States - EN
+  """
+  language: String
+  lastName: String
+  leadId: String
+  leadSource: String
+  middleName: String
+  name: String!
+  ownerId: String
+  phoneNumbers: [PhoneNumberInput]
+  prefix: String
+  socialLinks: [SocialLinkInput]
+  status: String
+  suffix: String
+  tags: [String]
+  title: String
+  websites: [WebsiteInput]
+}
+
+input LeadInput {
+  addresses: [AddressInput]
+  companyId: String
+  companyName: String!
+  contactId: String
+  currency: String
+  customFields: [CustomFieldInput]
+  description: String
+  emails: [EmailInput]
+  fax: String
+  firstName: String
+  """
+  language code according to ISO 639-1. For the United States - EN
+  """
+  language: String
+  lastName: String
+  leadSource: String
+  monetaryAmount: Float
+  name: String!
+  ownerId: String
+  phoneNumbers: [PhoneNumberInput]
+  prefix: String
+  socialLinks: [SocialLinkInput]
+  status: String
+  tags: [String]
+  title: String
+  websites: [WebsiteInput]
+}
+
+input NoteInput {
+  content: String
+  ownerId: String
+  title: String
+}
+
+input OpportunityInput {
+  closeDate: String
+  companyId: String
+  companyName: String
+  contactId: String
+  currency: String
+  customFields: [CustomFieldInput]
+  description: String
+  leadId: String
+  lossReason: String
+  lossReasonId: String
+  monetaryAmount: Float
+  ownerId: String
+  pipelineId: String
+  pipelineStageId: String
+  primaryContactId: String!
+  priority: String
+  sourceId: String
+  status: String
+  statusId: String
+  tags: [String]
+  title: String!
+  winProbability: Float
+  wonReason: String
+  wonReasonId: String
+}
+
+input PipelineInput {
+  archived: Boolean
+  currency: String
+  displayOrder: Int
+  id: String
+  name: String!
+  stages: [StagesListItemInput]
+}
+
+input StagesListItemInput {
+  displayOrder: Int
+  name: String
+  value: String
+}
+
+input UserInput {
+  email: String!
+  firstName: String
+  image: String
+  language: String
+  lastName: String
+  parentId: String
+  password: String
+  status: String
+  username: String
+}
+
+type Vault {
+  """
+  This endpoint returns custom settings and their defaults required by connection for a given resource.
+  """
+  connectionSettings(
+    """
+    Resource Name
+    """
+    resource: String!
+    """
+    Service ID of the resource to return
+    """
+    serviceId: String!
+    """
+    Unified API
+    """
+    unifiedApi: String!
+  ): Connection
+  """
+  This endpoint includes all the configured integrations and contains the required assets
+  to build an integrations page where your users can install integrations.
+  OAuth2 supported integrations will contain authorize and revoke links to handle the authentication flows.
+  """
+  connections(
+    """
+    Scope results to Unified API
+    """
+    api: String
+    """
+    Scopes results to connections that have been configured or not
+    """
+    configured: Boolean
+  ): [Connection]
+  """
+  Consumer detail including their aggregated counts with the connections they have authorized.
+  """
+  consumer(
+    """
+    ID of the consumer to return
+    """
+    consumerId: String!
+  ): Consumer
+  """
+  Get consumer request counts within a given datetime range.
+  """
+  consumerRequestCounts(
+    """
+    ID of the consumer to return
+    """
+    consumerId: String!
+    """
+    Scopes results to requests that happened before datetime
+    """
+    endDatetime: String!
+    """
+    Scopes results to requests that happened after datetime
+    """
+    startDatetime: String!
+  ): ConsumerRequestCountsInDateRangeResponse
+  """
+  This endpoint includes all application consumers, along with an aggregated count of requests made.
+  """
+  consumers(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+  ): [GetConsumersResponseListItem]
+  """
+  This endpoint includes all consumer request logs.
+  """
+  logs(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Filter results
+    """
+    filter: FilterInput
+    """
+    Number of records to return
+    """
+    limit: Int
+  ): LogList
+}
+
+type Connection {
+  authType: AuthType
+  authorizeUrl: String
+  configurableResources: [String]
+  configuration: [ConfigurationListItem]
+  createdAt: Float
+  enabled: Boolean
+  formFields: [FormField]
+  icon: String
+  id: String
+  logo: String
+  metadata: Metadata
+  name: String
+  resourceSchemaSupport: [String]
+  resourceSettingsSupport: [String]
+  revokeUrl: String
+  serviceId: String
+  """
+  Connection settings. Values will persist to \`form_fields\` with corresponding id
+  """
+  settings: JSON
+  settingsRequiredForAuthorization: [String]
+  state: ConnectionState
+  status: Status
+  tagLine: String
+  unifiedApi: String
+  updatedAt: Float
+  website: String
+}
+
+enum AuthType {
+  oauth2
+  apiKey
+  basic
+  none
+}
+
+type ConfigurationListItem {
+  defaults: [DefaultsListItem]
+  resource: String
+}
+
+type DefaultsListItem {
+  id: String
+  options: [FormFieldOption]
+  target: Target
+  value: JSON
+}
+
+type FormFieldOption {
+  id: String
+  label: String
+  options: [SimpleFormFieldOption]
+  value: JSON
+}
+
+type SimpleFormFieldOption {
+  label: String
+  value: JSON
+}
+
+enum Target {
+  custom_fields
+  resource
+}
+
+type FormField {
+  customField: Boolean
+  description: String
+  disabled: Boolean
+  id: String
+  label: String
+  options: [FormFieldOption]
+  placeholder: String
+  required: Boolean
+  type: Type
+}
+
+type Metadata {
+  account: ConnectionMetadata
+  ecosystem: ConnectionMetadata
+}
+
+type ConnectionMetadata {
+  id: String
+  name: String
+}
+
+enum ConnectionState {
+  available
+  callable
+  added
+  authorized
+}
+
+enum Status {
+  live
+  upcoming
+  requested
+}
+
+type Consumer {
+  aggregatedRequestCount: Float
+  applicationId: String
+  connections: [ConnectionsListItem]
+  consumerId: String
+  created: String
+  metadata: ConsumerMetadata
+  modified: String
+  requestCountUpdated: String
+  requestCounts: RequestCountAllocation
+  services: [String]
+}
+
+type ConnectionsListItem {
+  authType: AuthType
+  createdAt: String
+  enabled: Boolean
+  icon: String
+  id: String
+  logo: String
+  name: String
+  serviceId: String
+  state: State
+  unifiedApi: String
+  updatedAt: String
+}
+
+enum State {
+  available
+  callable
+  added
+  configured
+  authorized
+}
+
+type ConsumerMetadata {
+  accountName: String
+  email: String
+  image: String
+  userName: String
+}
+
+type RequestCountAllocation {
+  proxy: Float
+  unify: Float
+  vault: Float
+}
+
+type ConsumerRequestCountsInDateRangeResponse {
+  aggregatedRequestCount: Float
+  applicationId: String
+  consumerId: String
+  endDatetime: String
+  requestCounts: RequestCountAllocation
+  startDatetime: String
+}
+
+type GetConsumersResponseListItem {
+  aggregatedRequestCount: Float
+  applicationId: String
+  consumerId: String
+  created: String
+  metadata: ConsumerMetadata
+  modified: String
+  requestCountUpdated: String
+  requestCounts: RequestCountAllocation
+  services: [String]
+}
+
+type LogList {
+  data: [Log]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+type Log {
+  """
+  Indicates if the request was made via REST or Graphql endpoint.
+  """
+  apiStyle: String!
+  """
+  The Apideck base URL the request was made to.
+  """
+  baseUrl: String!
+  """
+  Indicates whether or not this is a child or parent request.
+  """
+  childRequest: Boolean!
+  """
+  The consumer Id associated with the request.
+  """
+  consumerId: String!
+  """
+  The entire execution time in milliseconds it took to call the Apideck service provider.
+  """
+  duration: Float!
+  """
+  If error occured, this is brief explanation
+  """
+  errorMessage: String
+  """
+  The entire execution time in milliseconds it took to make the request.
+  """
+  execution: Int!
+  """
+  When request is a parent request, this indicates if there are child requests associated.
+  """
+  hasChildren: Boolean!
+  """
+  HTTP Method of request.
+  """
+  httpMethod: String!
+  """
+  UUID acting as Request Identifier.
+  """
+  id: String!
+  """
+  Latency added by making this request via Unified Api.
+  """
+  latency: Float!
+  """
+  The request as defined in OpenApi Spec.
+  """
+  operation: Operation!
+  """
+  When request is a child request, this UUID indicates it's parent request.
+  """
+  parentId: String!
+  """
+  The path component of the URI the request was made to.
+  """
+  path: String!
+  """
+  Indicates whether the request was made using Apidecks sandbox credentials or not.
+  """
+  sandbox: Boolean!
+  """
+  Apideck service provider associated with request.
+  """
+  service: Service!
+  """
+  The IP address of the source of the request.
+  """
+  sourceIp: String
+  """
+  HTTP Status code that was returned.
+  """
+  statusCode: Int!
+  """
+  Whether or not the request was successful.
+  """
+  success: Boolean!
+  """
+  ISO Date and time when the request was made.
+  """
+  timestamp: String!
+  """
+  Which Unified Api request was made to.
+  """
+  unifiedApi: UnifiedApi!
+}
+
+"""
+The request as defined in OpenApi Spec.
+"""
+type Operation {
+  """
+  The OpenApi Operation Id associated with the request
+  """
+  id: String!
+  """
+  The OpenApi Operation name associated with the request
+  """
+  name: String!
+}
+
+"""
+Apideck service provider associated with request.
+"""
+type Service {
+  """
+  Apideck service provider id.
+  """
+  id: String!
+  """
+  Apideck service provider name.
+  """
+  name: String!
+}
+
+enum UnifiedApi {
+  crm
+  lead
+  proxy
+  vault
+}
+
+input FilterInput {
+  connectorId: String
+  excludeUnifiedApis: String
+  statusCode: Float
+}
+
+type MutationVault {
+  """
+  Update default values for a connection's resource settings
+  """
+  connectionSettingsUpdate(
+    requestBody: ConnectionInput!
+    """
+    Resource Name
+    """
+    resource: String!
+    """
+    Service ID of the resource to return
+    """
+    serviceId: String!
+    """
+    Unified API
+    """
+    unifiedApi: String!
+  ): Connection
+  """
+  Create an authorized connection
+  """
+  connectionsAdd(
+    requestBody: CreateConnectionRequestBodyInput!
+    """
+    Service ID of the resource to return
+    """
+    serviceId: String!
+    """
+    Unified API
+    """
+    unifiedApi: String!
+  ): Connection
+  """
+  Deletes a connection
+  """
+  connectionsDelete(
+    """
+    Service ID of the resource to return
+    """
+    serviceId: String!
+    """
+    Unified API
+    """
+    unifiedApi: String!
+  ): JSON
+  """
+  Update a connection
+  """
+  connectionsUpdate(
+    requestBody: CreateConnectionRequestBodyInput!
+    """
+    Service ID of the resource to return
+    """
+    serviceId: String!
+    """
+    Unified API
+    """
+    unifiedApi: String!
+  ): Connection
+  """
+  Making a POST request to this endpoint will initiate a Hosted Vault session. Redirect the consumer to the returned
+  url to allow temporary access to manage their integrations and settings.
+
+  Note: This is a short lived token that will expire after 1 hour (TTL: 3600).
+  """
+  createSession(requestBody: SessionRequestInput): Session
+}
+
+input ConnectionInput {
+  authType: AuthType
+  authorizeUrl: String
+  configurableResources: [String]
+  configuration: [ConfigurationListItemInput]
+  createdAt: Float
+  enabled: Boolean
+  formFields: [FormFieldInput]
+  icon: String
+  logo: String
+  metadata: MetadataInput
+  name: String
+  resourceSchemaSupport: [String]
+  resourceSettingsSupport: [String]
+  revokeUrl: String
+  serviceId: String
+  """
+  Connection settings. Values will persist to \`form_fields\` with corresponding id
+  """
+  settings: JSON
+  settingsRequiredForAuthorization: [String]
+  state: ConnectionState
+  status: Status
+  tagLine: String
+  unifiedApi: String
+  updatedAt: Float
+  website: String
+}
+
+input ConfigurationListItemInput {
+  defaults: [DefaultsListItemInput]
+  resource: String
+}
+
+input DefaultsListItemInput {
+  id: String
+  options: [FormFieldOptionInput]
+  value: JSON
+}
+
+input FormFieldOptionInput {
+  id: String
+  label: String
+  options: [SimpleFormFieldOptionInput]
+  value: JSON
+}
+
+input SimpleFormFieldOptionInput {
+  label: String
+  value: JSON
+}
+
+input FormFieldInput {
+  customField: Boolean
+  description: String
+  disabled: Boolean
+  id: String
+  label: String
+  options: [FormFieldOptionInput]
+  placeholder: String
+  required: Boolean
+  type: Type
+}
+
+input MetadataInput {
+  account: ConnectionMetadataInput
+  ecosystem: ConnectionMetadataInput
+}
+
+input ConnectionMetadataInput {
+  id: String
+  name: String
+}
+
+input CreateConnectionRequestBodyInput {
+  enabled: Boolean
+  metadata: MetadataInput
+  """
+  Connection settings. Values will persist to \`form_fields\` with corresponding id
+  """
+  settings: JSON
+}
+
+type Session {
+  sessionUri: String
+}
+
+input SessionRequestInput {
+  consumerMetadata: ConsumerMetadataInput
+  redirectUri: String
+  theme: ThemeInput
+}
+
+input ConsumerMetadataInput {
+  accountName: String
+  email: String
+  image: String
+  userName: String
+}
+
+input ThemeInput {
+  favicon: String
+  primaryColor: String
+  privacyUrl: String
+  sidepanelBackgroundColor: String
+  sidepanelTextColor: String
+  termsUrl: String
+  vaultName: String
+}
+
+type MutationLead {
+  """
+  Create lead
+  """
+  leadsAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: LeadInput!
+  ): UnifiedId
+  """
+  Delete lead
+  """
+  leadsDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update lead
+  """
+  leadsUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: LeadInput!
+  ): UnifiedId
+}
