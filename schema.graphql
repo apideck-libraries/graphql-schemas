@@ -411,19 +411,41 @@ type CompanyList {
 
 type Company {
   addresses: [Address]
+  """
+  Annual Revenue
+  """
+  annualRevenue: String
   bankAccounts: [BankAccount]
   createdAt: String
   createdBy: String
   currency: String
   customFields: [CustomField]
+  deleted: Boolean
   description: String
   emails: [Email]
   fax: String
   id: String
-  imageUrl: String
+  image: String
+  """
+  Industry
+  """
+  industry: String
   interactionCount: Int
+  lastActivityAt: String
   name: String!
+  """
+  Number of employees
+  """
+  numberOfEmployees: String
   ownerId: String
+  """
+  Ownership
+  """
+  ownership: String
+  """
+  Parent ID
+  """
+  parentId: String
   phoneNumbers: [PhoneNumber]
   socialLinks: [SocialLink]
   status: String
@@ -576,6 +598,8 @@ type Contact {
   description: String
   emails: [Email]
   fax: String
+  firstCallAt: String
+  firstEmailAt: String
   firstName: String
   gender: Gender
   id: String
@@ -584,6 +608,7 @@ type Contact {
   language code according to ISO 639-1. For the United States - EN
   """
   language: String
+  lastActivityAt: String
   lastName: String
   leadId: String
   leadSource: String
@@ -802,10 +827,20 @@ type Opportunity {
   dateLastContacted: String
   dateLeadCreated: String
   dateStageChanged: String
+  deleted: Boolean
   description: String
+  """
+  Expected Revenue
+  """
+  expectedRevenue: Float
   id: String
   interactionCount: Float
+  lastActivityAt: String
   leadId: String
+  """
+  Lead source
+  """
+  leadSource: String
   lossReason: String
   lossReasonId: String
   monetaryAmount: Float
@@ -815,10 +850,12 @@ type Opportunity {
   primaryContactId: String!
   priority: String
   sourceId: String
+  stageLastChangedAt: String
   status: String
   statusId: String
   tags: [String]
   title: String!
+  type: String
   updatedAt: String
   updatedBy: String
   winProbability: Float
@@ -1263,15 +1300,31 @@ input CustomFieldInput {
 
 input CompanyInput {
   addresses: [AddressInput]
+  """
+  Annual Revenue
+  """
+  annualRevenue: String
   bankAccounts: [BankAccountInput]
   currency: String
   customFields: [CustomFieldInput]
   description: String
   emails: [EmailInput]
   fax: String
-  imageUrl: String
+  image: String
+  """
+  Industry
+  """
+  industry: String
   name: String!
+  """
+  Number of employees
+  """
+  numberOfEmployees: String
   ownerId: String
+  """
+  Ownership
+  """
+  ownership: String
   phoneNumbers: [PhoneNumberInput]
   socialLinks: [SocialLinkInput]
   status: String
@@ -1421,6 +1474,10 @@ input OpportunityInput {
   customFields: [CustomFieldInput]
   description: String
   leadId: String
+  """
+  Lead source
+  """
+  leadSource: String
   lossReason: String
   lossReasonId: String
   monetaryAmount: Float
@@ -1430,10 +1487,12 @@ input OpportunityInput {
   primaryContactId: String!
   priority: String
   sourceId: String
+  stageLastChangedAt: String
   status: String
   statusId: String
   tags: [String]
   title: String!
+  type: String
   winProbability: Float
   wonReason: String
   wonReasonId: String
