@@ -2081,6 +2081,7 @@ type Session {
 input SessionRequestInput {
   consumerMetadata: ConsumerMetadataInput
   redirectUri: String
+  settings: SessionSettings
   theme: ThemeInput
 }
 
@@ -2089,6 +2090,16 @@ input ConsumerMetadataInput {
   email: String
   image: String
   userName: String
+}
+
+input SessionSettings {
+  hideResourceSettings: Boolean
+  sandboxMode: Boolean
+  """
+  The duration of time the session is valid for (maximum 1 week).
+  """
+  sessionLength: String
+  showLogs: Boolean
 }
 
 input ThemeInput {
