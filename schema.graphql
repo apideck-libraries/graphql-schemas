@@ -325,7 +325,7 @@ type Activity {
   solutionId: String
   startDatetime: String
   title: String
-  type: Type!
+  type: Type2!
   updatedAt: String
   updatedBy: String
 }
@@ -346,22 +346,10 @@ enum ShowAs {
   busy
 }
 
-enum Type {
-  text
-  checkbox
-  tel
-  email
-  url
-  textarea
-  select
-  filteredselect
-  multiselect
-  datetime
-  date
-  time
-  number
+enum Type2 {
   call
   meeting
+  email
   note
   task
   sendletter
@@ -410,9 +398,21 @@ type CompanyList {
 }
 
 type Company {
+  """
+  An ABN Branch (also known as a GST Branch) is used if part of your business needs to account for GST separately from its parent entity.
+  """
+  abnBranch: String
+  """
+  An ABN is necessary for operating a business, while a TFN (Tax File Number) is required for any person working in Australia.
+  """
+  abnOrTfn: String
+  """
+  The Australian Company Number (ACN) is a nine digit number with the last digit being a check digit calculated using a modified modulus 10 calculation. ASIC has adopted a convention of always printing and displaying the ACN in the format XXX XXX XXX; three blocks of three characters, each block separated by a blank.
+  """
+  acn: String
   addresses: [Address]
   """
-  Annual Revenue
+  Annual revenue
   """
   annualRevenue: String
   bankAccounts: [BankAccount]
@@ -446,7 +446,10 @@ type Company {
   Parent ID
   """
   parentId: String
+  payeeNumber: String
   phoneNumbers: [PhoneNumber]
+  readOnly: Boolean
+  salesTaxNumber: String
   socialLinks: [SocialLink]
   status: String
   tags: [String]
@@ -488,6 +491,7 @@ type Address {
   Name of state
   """
   state: String
+  string: String
   type: AddressType
 }
 
@@ -502,7 +506,23 @@ enum AddressType {
 }
 
 type BankAccount {
+  """
+  The name which you used in opening your bank account.
+  """
+  accountName: String
+  """
+  A bank account number is a number that is tied to your bank account. If you have several bank accounts, such as personal, joint, business (and so on), each account will have a different account number.
+  """
+  accountNumber: String
+  """
+  A bank code is a code assigned by a central bank, a bank supervisory body or a Bankers Association in a country to all its licensed member banks or financial institutions.
+  """
+  bankCode: String
   bic: String
+  """
+  A BSB is a 6 digit numeric code used for identifying the branch of an Australian or New Zealand bank or financial institution.
+  """
+  bsbNumber: String
   iban: String
 }
 
@@ -588,11 +608,13 @@ enum SortDirection {
 }
 
 type Contact {
+  active: Boolean
   addresses: [Address]
   birthday: String
   companyId: String
   companyName: String
   createdAt: String
+  currentBalance: Float
   customFields: [CustomField]
   department: String
   description: String
@@ -622,6 +644,7 @@ type Contact {
   suffix: String
   tags: [String]
   title: String
+  type: Type
   updatedAt: String
   websites: [Website]
 }
@@ -630,6 +653,26 @@ enum Gender {
   male
   female
   unisex
+}
+
+enum Type {
+  text
+  checkbox
+  tel
+  email
+  url
+  textarea
+  select
+  filteredselect
+  multiselect
+  datetime
+  date
+  time
+  number
+  customer
+  supplier
+  employee
+  personal
 }
 
 type ContactList {
@@ -1290,7 +1333,7 @@ input ActivityInput {
   solutionId: String
   startDatetime: String
   title: String
-  type: Type!
+  type: Type2!
 }
 
 input CustomFieldInput {
@@ -1299,9 +1342,21 @@ input CustomFieldInput {
 }
 
 input CompanyInput {
+  """
+  An ABN Branch (also known as a GST Branch) is used if part of your business needs to account for GST separately from its parent entity.
+  """
+  abnBranch: String
+  """
+  An ABN is necessary for operating a business, while a TFN (Tax File Number) is required for any person working in Australia.
+  """
+  abnOrTfn: String
+  """
+  The Australian Company Number (ACN) is a nine digit number with the last digit being a check digit calculated using a modified modulus 10 calculation. ASIC has adopted a convention of always printing and displaying the ACN in the format XXX XXX XXX; three blocks of three characters, each block separated by a blank.
+  """
+  acn: String
   addresses: [AddressInput]
   """
-  Annual Revenue
+  Annual revenue
   """
   annualRevenue: String
   bankAccounts: [BankAccountInput]
@@ -1325,7 +1380,10 @@ input CompanyInput {
   Ownership
   """
   ownership: String
+  payeeNumber: String
   phoneNumbers: [PhoneNumberInput]
+  readOnly: Boolean
+  salesTaxNumber: String
   socialLinks: [SocialLinkInput]
   status: String
   tags: [String]
@@ -1365,11 +1423,28 @@ input AddressInput {
   Name of state
   """
   state: String
+  string: String
   type: AddressType
 }
 
 input BankAccountInput {
+  """
+  The name which you used in opening your bank account.
+  """
+  accountName: String
+  """
+  A bank account number is a number that is tied to your bank account. If you have several bank accounts, such as personal, joint, business (and so on), each account will have a different account number.
+  """
+  accountNumber: String
+  """
+  A bank code is a code assigned by a central bank, a bank supervisory body or a Bankers Association in a country to all its licensed member banks or financial institutions.
+  """
+  bankCode: String
   bic: String
+  """
+  A BSB is a 6 digit numeric code used for identifying the branch of an Australian or New Zealand bank or financial institution.
+  """
+  bsbNumber: String
   iban: String
 }
 
@@ -1398,10 +1473,12 @@ input WebsiteInput {
 }
 
 input ContactInput {
+  active: Boolean
   addresses: [AddressInput]
   birthday: String
   companyId: String
   companyName: String
+  currentBalance: Float
   customFields: [CustomFieldInput]
   department: String
   description: String
@@ -1427,6 +1504,7 @@ input ContactInput {
   suffix: String
   tags: [String]
   title: String
+  type: Type
   websites: [WebsiteInput]
 }
 
@@ -1568,9 +1646,22 @@ type Vault {
     consumerId: String!
   ): Consumer
   """
+  This endpoint includes all application consumers, along with an aggregated count of requests made.
+  """
+  consumers(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+  ): [GetConsumersResponseListItem]
+  """
   Get consumer request counts within a given datetime range.
   """
-  consumerRequestCounts(
+  consumersRequestCounts(
     """
     ID of the consumer to return
     """
@@ -1584,19 +1675,6 @@ type Vault {
     """
     startDatetime: String!
   ): ConsumerRequestCountsInDateRangeResponse
-  """
-  This endpoint includes all application consumers, along with an aggregated count of requests made.
-  """
-  consumers(
-    """
-    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
-    """
-    cursor: String
-    """
-    Number of records to return
-    """
-    limit: Int
-  ): [GetConsumersResponseListItem]
   """
   This endpoint includes all consumer request logs.
   """
@@ -1765,15 +1843,6 @@ type RequestCountAllocation {
   vault: Float
 }
 
-type ConsumerRequestCountsInDateRangeResponse {
-  aggregatedRequestCount: Float
-  applicationId: String
-  consumerId: String
-  endDatetime: String
-  requestCounts: RequestCountAllocation
-  startDatetime: String
-}
-
 type GetConsumersResponseListItem {
   aggregatedRequestCount: Float
   applicationId: String
@@ -1784,6 +1853,15 @@ type GetConsumersResponseListItem {
   requestCountUpdated: String
   requestCounts: RequestCountAllocation
   services: [String]
+}
+
+type ConsumerRequestCountsInDateRangeResponse {
+  aggregatedRequestCount: Float
+  applicationId: String
+  consumerId: String
+  endDatetime: String
+  requestCounts: RequestCountAllocation
+  startDatetime: String
 }
 
 type LogList {
@@ -1942,20 +2020,6 @@ type MutationVault {
     unifiedApi: String!
   ): Connection
   """
-  Create an authorized connection
-  """
-  connectionsAdd(
-    requestBody: CreateConnectionRequestBodyInput!
-    """
-    Service ID of the resource to return
-    """
-    serviceId: String!
-    """
-    Unified API
-    """
-    unifiedApi: String!
-  ): Connection
-  """
   Deletes a connection
   """
   connectionsDelete(
@@ -1988,7 +2052,7 @@ type MutationVault {
 
   Note: This is a short lived token that will expire after 1 hour (TTL: 3600).
   """
-  createSession(requestBody: SessionRequestInput): Session
+  sessionsCreate(requestBody: SessionRequestInput): Session
 }
 
 input ConnectionInput {
