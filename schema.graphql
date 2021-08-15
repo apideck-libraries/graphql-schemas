@@ -1,13 +1,358 @@
 type Query {
-  crm: Crm
-  vault: Vault
   lead: Lead
+  crm: Crm
+  accounting: Accounting
+  vault: Vault
 }
 
 type Mutation {
-  crm: MutationCrm
-  vault: MutationVault
   lead: MutationLead
+  crm: MutationCrm
+  accounting: MutationAccounting
+  vault: MutationVault
+}
+
+type Lead {
+  """
+  Get lead
+  """
+  lead(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Lead
+  """
+  List leads
+  """
+  leads(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): LeadList
+  addresses: [Address]
+  companyId: String
+  companyName: String!
+  contactId: String
+  createdAt: String
+  currency: String
+  customFields: [CustomField]
+  description: String
+  emails: [Email]
+  fax: String
+  firstName: String
+  id: String
+  """
+  language code according to ISO 639-1. For the United States - EN
+  """
+  language: String
+  lastName: String
+  leadSource: String
+  monetaryAmount: Float
+  name: String!
+  ownerId: String
+  phoneNumbers: [PhoneNumber]
+  prefix: String
+  socialLinks: [SocialLink]
+  status: String
+  tags: [String]
+  title: String
+  updatedAt: String
+  websites: [Website]
+}
+
+type Address {
+  """
+  Name of city.
+  """
+  city: String
+  """
+  country code according to ISO 3166-1 alpha-2.
+  """
+  country: String
+  id: String
+  latitude: String
+  """
+  Line 1 of the address e.g. number, street, suite, apt #, etc.
+  """
+  line1: String
+  """
+  Line 2 of the address
+  """
+  line2: String
+  longitude: String
+  name: String
+  """
+  Zip code or equivalent.
+  """
+  postalCode: String
+  """
+  Name of state
+  """
+  state: String
+  string: String
+  type: AddressType
+}
+
+enum AddressType {
+  primary
+  secondary
+  home
+  office
+  shipping
+  billing
+  other
+}
+
+type CustomField {
+  id: String!
+  value: JSON
+}
+
+"""
+The \`JSON\` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+  @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+type Email {
+  email: String!
+  id: String
+  type: EmailType
+}
+
+enum EmailType {
+  primary
+  secondary
+  work
+  personal
+  billing
+  other
+}
+
+type PhoneNumber {
+  id: String
+  number: String!
+  type: PhoneType
+}
+
+enum PhoneType {
+  primary
+  secondary
+  home
+  office
+  mobile
+  assistant
+  fax
+  other
+}
+
+type SocialLink {
+  id: String
+  type: String
+  url: String!
+}
+
+type Website {
+  id: String
+  type: WebsiteType
+  url: String!
+}
+
+enum WebsiteType {
+  primary
+  secondary
+  work
+  personal
+  other
+}
+
+type LeadList {
+  data: [Lead]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+"""
+Reponse metadata
+"""
+type Meta {
+  """
+  Cursors to navigate to previous or next pages through the API
+  """
+  cursors: Cursors
+  """
+  Number of items returned in the data property of the response
+  """
+  itemsOnPage: Int
+}
+
+"""
+Cursors to navigate to previous or next pages through the API
+"""
+type Cursors {
+  """
+  Cursor to navigate to the current page of results through the API
+  """
+  current: String
+  """
+  Cursor to navigate to the next page of results through the API
+  """
+  next: String
+  """
+  Cursor to navigate to the previous page of results through the API
+  """
+  previous: String
+}
+
+type MutationLead {
+  """
+  Create lead
+  """
+  leadsAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: LeadInput!
+  ): UnifiedId
+  """
+  Delete lead
+  """
+  leadsDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update lead
+  """
+  leadsUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: LeadInput!
+  ): UnifiedId
+}
+
+type UnifiedId {
+  id: String!
+}
+
+input LeadInput {
+  addresses: [AddressInput]
+  companyId: String
+  companyName: String!
+  contactId: String
+  currency: String
+  customFields: [CustomFieldInput]
+  description: String
+  emails: [EmailInput]
+  fax: String
+  firstName: String
+  """
+  language code according to ISO 639-1. For the United States - EN
+  """
+  language: String
+  lastName: String
+  leadSource: String
+  monetaryAmount: Float
+  name: String!
+  ownerId: String
+  phoneNumbers: [PhoneNumberInput]
+  prefix: String
+  socialLinks: [SocialLinkInput]
+  status: String
+  tags: [String]
+  title: String
+  websites: [WebsiteInput]
+}
+
+input AddressInput {
+  """
+  Name of city.
+  """
+  city: String
+  """
+  country code according to ISO 3166-1 alpha-2.
+  """
+  country: String
+  id: String
+  latitude: String
+  """
+  Line 1 of the address e.g. number, street, suite, apt #, etc.
+  """
+  line1: String
+  """
+  Line 2 of the address
+  """
+  line2: String
+  longitude: String
+  name: String
+  """
+  Zip code or equivalent.
+  """
+  postalCode: String
+  """
+  Name of state
+  """
+  state: String
+  string: String
+  type: AddressType
+}
+
+input CustomFieldInput {
+  id: String!
+  value: JSON
+}
+
+input EmailInput {
+  email: String!
+  id: String
+  type: EmailType
+}
+
+input PhoneNumberInput {
+  id: String
+  number: String!
+  type: PhoneType
+}
+
+input SocialLinkInput {
+  id: String
+  type: String
+  url: String!
+}
+
+input WebsiteInput {
+  id: String
+  type: WebsiteType
+  url: String!
 }
 
 type Crm {
@@ -330,23 +675,26 @@ type Activity {
   updatedBy: String
 }
 
-type CustomField {
-  id: String!
-  value: JSON
-}
-
-"""
-The \`JSON\` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
-  @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
-
 enum ShowAs {
   free
   busy
 }
 
 enum Type2 {
+  accounts_receivable
+  bank
+  current_asset
+  non_current_asset
+  other_asset
+  equity
+  expense
+  other_expense
+  costs_of_sales
+  accounts_payable
+  credit_card
+  current_liability
+  non_current_liability
+  other_liability
   call
   meeting
   email
@@ -355,38 +703,6 @@ enum Type2 {
   sendletter
   sendquote
   other
-}
-
-"""
-Reponse metadata
-"""
-type Meta {
-  """
-  Cursors to navigate to previous or next pages through the API
-  """
-  cursors: Cursors
-  """
-  Number of items returned in the data property of the response
-  """
-  itemsOnPage: Int
-}
-
-"""
-Cursors to navigate to previous or next pages through the API
-"""
-type Cursors {
-  """
-  Cursor to navigate to the current page of results through the API
-  """
-  current: String
-  """
-  Cursor to navigate to the next page of results through the API
-  """
-  next: String
-  """
-  Cursor to navigate to the previous page of results through the API
-  """
-  previous: String
 }
 
 type CompanyList {
@@ -462,49 +778,6 @@ type Company {
   websites: [Website]
 }
 
-type Address {
-  """
-  Name of city.
-  """
-  city: String
-  """
-  country code according to ISO 3166-1 alpha-2.
-  """
-  country: String
-  id: String
-  latitude: String
-  """
-  Line 1 of the address e.g. number, street, suite, apt #, etc.
-  """
-  line1: String
-  """
-  Line 2 of the address
-  """
-  line2: String
-  longitude: String
-  name: String
-  """
-  Zip code or equivalent.
-  """
-  postalCode: String
-  """
-  Name of state
-  """
-  state: String
-  string: String
-  type: AddressType
-}
-
-enum AddressType {
-  primary
-  secondary
-  home
-  office
-  shipping
-  billing
-  other
-}
-
 type BankAccount {
   """
   The name which you used in opening your bank account.
@@ -524,58 +797,6 @@ type BankAccount {
   """
   bsbNumber: String
   iban: String
-}
-
-type Email {
-  email: String!
-  id: String
-  type: EmailType
-}
-
-enum EmailType {
-  primary
-  secondary
-  work
-  personal
-  billing
-  other
-}
-
-type PhoneNumber {
-  id: String
-  number: String!
-  type: PhoneType
-}
-
-enum PhoneType {
-  primary
-  secondary
-  home
-  office
-  mobile
-  assistant
-  fax
-  other
-}
-
-type SocialLink {
-  id: String
-  type: String
-  url: String!
-}
-
-type Website {
-  id: String
-  type: WebsiteType
-  url: String!
-}
-
-enum WebsiteType {
-  primary
-  secondary
-  work
-  personal
-  other
 }
 
 input CompaniesFilter {
@@ -722,76 +943,6 @@ enum ContactsSortBy {
   email
 }
 
-type Lead {
-  addresses: [Address]
-  companyId: String
-  companyName: String!
-  contactId: String
-  createdAt: String
-  currency: String
-  customFields: [CustomField]
-  description: String
-  emails: [Email]
-  fax: String
-  firstName: String
-  id: String
-  """
-  language code according to ISO 639-1. For the United States - EN
-  """
-  language: String
-  lastName: String
-  leadSource: String
-  monetaryAmount: Float
-  name: String!
-  ownerId: String
-  phoneNumbers: [PhoneNumber]
-  prefix: String
-  socialLinks: [SocialLink]
-  status: String
-  tags: [String]
-  title: String
-  updatedAt: String
-  websites: [Website]
-  """
-  Get lead
-  """
-  lead(
-    """
-    ID of the record you are acting upon.
-    """
-    id: String!
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-  ): Lead
-  """
-  List leads
-  """
-  leads(
-    """
-    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
-    """
-    cursor: String
-    """
-    Number of records to return
-    """
-    limit: Int
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-  ): LeadList
-}
-
-type LeadList {
-  data: [Lead]!
-  """
-  Reponse metadata
-  """
-  meta: Meta
-}
-
 input LeadsFilter {
   """
   E-mail of the lead to filter on
@@ -832,10 +983,15 @@ enum LeadsSortBy {
 }
 
 type Note {
+  active: Boolean
+  companyId: String
+  contactId: String
   content: String
   createdAt: String
   createdBy: String
   id: String
+  leadId: String
+  opportunityId: String
   ownerId: String
   title: String
   updatedAt: String
@@ -1292,10 +1448,6 @@ type MutationCrm {
   ): UnifiedId
 }
 
-type UnifiedId {
-  id: String!
-}
-
 input ActivityInput {
   accountId: String
   activityDate: String
@@ -1334,11 +1486,6 @@ input ActivityInput {
   startDatetime: String
   title: String
   type: Type2!
-}
-
-input CustomFieldInput {
-  id: String!
-  value: JSON
 }
 
 input CompanyInput {
@@ -1394,39 +1541,6 @@ input CompanyInput {
   websites: [WebsiteInput]
 }
 
-input AddressInput {
-  """
-  Name of city.
-  """
-  city: String
-  """
-  country code according to ISO 3166-1 alpha-2.
-  """
-  country: String
-  id: String
-  latitude: String
-  """
-  Line 1 of the address e.g. number, street, suite, apt #, etc.
-  """
-  line1: String
-  """
-  Line 2 of the address
-  """
-  line2: String
-  longitude: String
-  name: String
-  """
-  Zip code or equivalent.
-  """
-  postalCode: String
-  """
-  Name of state
-  """
-  state: String
-  string: String
-  type: AddressType
-}
-
 input BankAccountInput {
   """
   The name which you used in opening your bank account.
@@ -1446,30 +1560,6 @@ input BankAccountInput {
   """
   bsbNumber: String
   iban: String
-}
-
-input EmailInput {
-  email: String!
-  id: String
-  type: EmailType
-}
-
-input PhoneNumberInput {
-  id: String
-  number: String!
-  type: PhoneType
-}
-
-input SocialLinkInput {
-  id: String
-  type: String
-  url: String!
-}
-
-input WebsiteInput {
-  id: String
-  type: WebsiteType
-  url: String!
 }
 
 input ContactInput {
@@ -1508,37 +1598,13 @@ input ContactInput {
   websites: [WebsiteInput]
 }
 
-input LeadInput {
-  addresses: [AddressInput]
-  companyId: String
-  companyName: String!
-  contactId: String
-  currency: String
-  customFields: [CustomFieldInput]
-  description: String
-  emails: [EmailInput]
-  fax: String
-  firstName: String
-  """
-  language code according to ISO 639-1. For the United States - EN
-  """
-  language: String
-  lastName: String
-  leadSource: String
-  monetaryAmount: Float
-  name: String!
-  ownerId: String
-  phoneNumbers: [PhoneNumberInput]
-  prefix: String
-  socialLinks: [SocialLinkInput]
-  status: String
-  tags: [String]
-  title: String
-  websites: [WebsiteInput]
-}
-
 input NoteInput {
+  active: Boolean
+  companyId: String
+  contactId: String
   content: String
+  leadId: String
+  opportunityId: String
   ownerId: String
   title: String
 }
@@ -1601,6 +1667,879 @@ input UserInput {
   password: String
   status: String
   username: String
+}
+
+type Accounting {
+  """
+  List Companies
+  """
+  companies(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): CompanyList
+  """
+  Get Company
+  """
+  company(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Company
+  """
+  Get Contact
+  """
+  contact(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Contact
+  """
+  List Contacts
+  """
+  contacts(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): ContactList
+  """
+  Get Invoice
+  """
+  invoice(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Invoice
+  """
+  List Invoices
+  """
+  invoices(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): InvoiceList
+  """
+  Get Ledger Account
+  """
+  ledgerAccount(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): LedgerAccount
+  """
+  List Ledger Accounts
+  """
+  ledgerAccounts(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): LedgerAccountList
+  """
+  Get Tax Rate
+  """
+  taxRate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): TaxRate
+  """
+  List Tax Rates
+  """
+  taxRates(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): TaxRateList
+}
+
+type Invoice {
+  balance: Float
+  billingAddress: Address
+  createdAt: String
+  createdBy: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  The customer this invoice is linked to.
+  """
+  customer: Customer
+  customerMemo: String
+  """
+  Date invoice was issued - YYYY-MM-DD
+  """
+  date: String
+  deposit: Float
+  """
+  The invoice due date is the date on which a payment or invoice is scheduled to be received by the seller - YYYY-MM-DD
+  """
+  dueDate: String
+  id: String
+  lineItems: [LineItemsListItem]
+  number: String
+  """
+  A PO Number uniquely identifies a purchase order and is generally defined by the buyer. The buyer will match the PO number in the invoice to the Purchase Order.
+  """
+  poNumber: String
+  shippingAddress: Address
+  """
+  Invoice status
+  """
+  status: Status
+  subTotal: Float
+  total: Float
+  totalTax: Float
+  """
+
+  """
+  type: String
+  updatedAt: String
+  updatedBy: String
+}
+
+enum Currency {
+  UNKNOWN_CURRENCY
+  AED
+  AFN
+  ALL
+  AMD
+  ANG
+  AOA
+  ARS
+  AUD
+  AWG
+  AZN
+  BAM
+  BBD
+  BDT
+  BGN
+  BHD
+  BIF
+  BMD
+  BND
+  BOB
+  BOV
+  BRL
+  BSD
+  BTN
+  BWP
+  BYR
+  BZD
+  CAD
+  CDF
+  CHE
+  CHF
+  CHW
+  CLF
+  CLP
+  CNY
+  COP
+  COU
+  CRC
+  CUC
+  CUP
+  CVE
+  CZK
+  DJF
+  DKK
+  DOP
+  DZD
+  EGP
+  ERN
+  ETB
+  EUR
+  FJD
+  FKP
+  GBP
+  GEL
+  GHS
+  GIP
+  GMD
+  GNF
+  GTQ
+  GYD
+  HKD
+  HNL
+  HRK
+  HTG
+  HUF
+  IDR
+  ILS
+  INR
+  IQD
+  IRR
+  ISK
+  JMD
+  JOD
+  JPY
+  KES
+  KGS
+  KHR
+  KMF
+  KPW
+  KRW
+  KWD
+  KYD
+  KZT
+  LAK
+  LBP
+  LKR
+  LRD
+  LSL
+  LTL
+  LVL
+  LYD
+  MAD
+  MDL
+  MGA
+  MKD
+  MMK
+  MNT
+  MOP
+  MRO
+  MUR
+  MVR
+  MWK
+  MXN
+  MXV
+  MYR
+  MZN
+  NAD
+  NGN
+  NIO
+  NOK
+  NPR
+  NZD
+  OMR
+  PAB
+  PEN
+  PGK
+  PHP
+  PKR
+  PLN
+  PYG
+  QAR
+  RON
+  RSD
+  RUB
+  RWF
+  SAR
+  SBD
+  SCR
+  SDG
+  SEK
+  SGD
+  SHP
+  SLL
+  SOS
+  SRD
+  SSP
+  STD
+  SVC
+  SYP
+  SZL
+  THB
+  TJS
+  TMT
+  TND
+  TOP
+  TRY
+  TTD
+  TWD
+  TZS
+  UAH
+  UGX
+  USD
+  USN
+  USS
+  UYI
+  UYU
+  UZS
+  VEF
+  VND
+  VUV
+  WST
+  XAF
+  XAG
+  XAU
+  XBA
+  XBB
+  XBC
+  XBD
+  XCD
+  XDR
+  XOF
+  XPD
+  XPF
+  XPT
+  XTS
+  XXX
+  YER
+  ZAR
+  ZMK
+  ZMW
+  BTC
+}
+
+"""
+The customer this invoice is linked to.
+"""
+type Customer {
+  companyName: String
+  id: String
+}
+
+type LineItemsListItem {
+  description: String
+  discountPercentage: Int
+  generalLedgerAccount: GeneralLedgerAccount
+  id: String
+  """
+  ID of the linked item
+  """
+  itemId: Int
+  lineNumber: Int
+  quantity: Int
+  taxAmount: Int
+  taxRate: TaxRate2
+  totalAmount: Int
+  type: String
+  unitPrice: Int
+}
+
+type GeneralLedgerAccount {
+  id: String
+  name: String
+}
+
+type TaxRate2 {
+  code: String
+  id: String
+  name: String
+}
+
+enum Status {
+  live
+  upcoming
+  requested
+  draft
+  submitted
+  partially_paid
+  paid
+  void
+}
+
+type InvoiceList {
+  data: [Invoice]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+type LedgerAccount {
+  active: Boolean
+  bankAccount: BankAccount
+  classification: Classification
+  createdAt: String
+  createdBy: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  The current balance. A positive integer representing the smallest currency unit (e.g., 20000 cents equals $200.00 or 20000 equals ¥20000, a zero-decimal currency)
+  """
+  currentBalance: Float
+  description: String
+  displayId: String
+  fullyQualifiedName: String
+  id: String
+  """
+  Reconciliation Date means the last calendar day of each Reconciliation Period.
+  """
+  lastReconciliationDate: String
+  level: String
+  name: String
+  nominalCode: String
+  """
+  The opening balance. A positive integer representing the smallest currency unit (e.g., 100 cents equals $1.00 or 100 equals ¥100, a zero-decimal currency)
+  """
+  openingBalance: Float
+  parentAccount: ParentAccount
+  subAccount: Boolean
+  subAccounts: [SubAccountsListItem]
+  subType: String
+  taxCode: String
+  taxType: String
+  type: Type2
+  updatedAt: String
+  updatedBy: String
+}
+
+enum Classification {
+  asset
+  equity
+  expense
+  liability
+  revenue
+  income
+  other_income
+  other_expense
+  costs_of_sales
+}
+
+type ParentAccount {
+  displayId: String
+  id: String
+  name: String
+}
+
+type SubAccountsListItem {
+  accountSubName: String
+  id: String
+}
+
+type LedgerAccountList {
+  data: [LedgerAccount]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+type TaxRate {
+  active: Boolean
+  code: String
+  components: [ComponentsListItem]
+  createdAt: String
+  createdBy: String
+  description: String
+  effectiveTaxRate: Float
+  id: String
+  name: String
+  """
+  ID of the original tax rate from which the new tax rate is derived. Helps to understand the relationship between corresponding tax rate entities.
+  """
+  originalTaxRateId: String
+  """
+  Special tax type to handle zero rate taxes. Used with VAT registered Businesses who receive goods/services (acquisitions) from other EU countries, will need to calculate the VAT due, but not paid, on these acquisitions. The rate of VAT payable is the same that would have been paid if the goods had been supplied by a UK supplier.
+  """
+  specialTaxType: String
+  """
+  Not compounded sum of the components of a tax rate
+  """
+  totalTaxRate: Float
+  updatedAt: String
+  updatedBy: String
+}
+
+type ComponentsListItem {
+  compound: Boolean
+  name: String
+  rate: Float
+}
+
+type TaxRateList {
+  data: [TaxRate]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+type MutationAccounting {
+  """
+  Create Company
+  """
+  companiesAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: CompanyInput!
+  ): UnifiedId
+  """
+  Delete Company
+  """
+  companiesDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Company
+  """
+  companiesUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: CompanyInput!
+  ): UnifiedId
+  """
+  Create Contact
+  """
+  contactsAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: ContactInput!
+  ): UnifiedId
+  """
+  Delete Contact
+  """
+  contactsDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Contact
+  """
+  contactsUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: ContactInput!
+  ): UnifiedId
+  """
+  Create Invoice
+  """
+  invoicesAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: InvoiceInput!
+  ): UnifiedId
+  """
+  Delete Invoice
+  """
+  invoicesDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Invoice
+  """
+  invoicesUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: InvoiceInput!
+  ): UnifiedId
+  """
+  Create Ledger Account
+  """
+  ledgerAccountsAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: LedgerAccountInput!
+  ): UnifiedId
+  """
+  Delete Ledger Account
+  """
+  ledgerAccountsDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Ledger Account
+  """
+  ledgerAccountsUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: LedgerAccountInput!
+  ): UnifiedId
+  """
+  Create Tax Rate
+  """
+  taxRatesAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: TaxRateInput!
+  ): UnifiedId
+  """
+  Delete Tax Rate
+  """
+  taxRatesDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Tax Rate
+  """
+  taxRatesUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: TaxRateInput!
+  ): UnifiedId
+}
+
+input InvoiceInput {
+  balance: Float
+  billingAddress: AddressInput
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  The customer this invoice is linked to.
+  """
+  customer: CustomerInput
+  customerMemo: String
+  """
+  Date invoice was issued - YYYY-MM-DD
+  """
+  date: String
+  deposit: Float
+  """
+  The invoice due date is the date on which a payment or invoice is scheduled to be received by the seller - YYYY-MM-DD
+  """
+  dueDate: String
+  lineItems: [LineItemsListItemInput]
+  number: String
+  """
+  A PO Number uniquely identifies a purchase order and is generally defined by the buyer. The buyer will match the PO number in the invoice to the Purchase Order.
+  """
+  poNumber: String
+  shippingAddress: AddressInput
+  """
+  Invoice status
+  """
+  status: Status
+  subTotal: Float
+  total: Float
+  totalTax: Float
+  """
+
+  """
+  type: String
+}
+
+"""
+The customer this invoice is linked to.
+"""
+input CustomerInput {
+  companyName: String
+}
+
+input LineItemsListItemInput {
+  description: String
+  discountPercentage: Int
+  generalLedgerAccount: GeneralLedgerAccountInput
+  """
+  ID of the linked item
+  """
+  itemId: Int
+  lineNumber: Int
+  quantity: Int
+  taxAmount: Int
+  taxRate: TaxRate2Input
+  totalAmount: Int
+  type: String
+  unitPrice: Int
+}
+
+input GeneralLedgerAccountInput {
+  name: String
+}
+
+input TaxRate2Input {
+  code: String
+  name: String
+}
+
+input LedgerAccountInput {
+  active: Boolean
+  bankAccount: BankAccountInput
+  classification: Classification
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  The current balance. A positive integer representing the smallest currency unit (e.g., 20000 cents equals $200.00 or 20000 equals ¥20000, a zero-decimal currency)
+  """
+  currentBalance: Float
+  description: String
+  fullyQualifiedName: String
+  level: String
+  name: String
+  nominalCode: String
+  """
+  The opening balance. A positive integer representing the smallest currency unit (e.g., 100 cents equals $1.00 or 100 equals ¥100, a zero-decimal currency)
+  """
+  openingBalance: Float
+  parentAccount: ParentAccountInput
+  subAccount: Boolean
+  subAccounts: [SubAccountsListItemInput]
+  subType: String
+  taxCode: String
+  taxType: String
+  type: Type2
+}
+
+input ParentAccountInput
+
+input SubAccountsListItemInput
+
+input TaxRateInput {
+  active: Boolean
+  code: String
+  components: [ComponentsListItemInput]
+  description: String
+  effectiveTaxRate: Float
+  name: String
+  """
+  ID of the original tax rate from which the new tax rate is derived. Helps to understand the relationship between corresponding tax rate entities.
+  """
+  originalTaxRateId: String
+  """
+  Special tax type to handle zero rate taxes. Used with VAT registered Businesses who receive goods/services (acquisitions) from other EU countries, will need to calculate the VAT due, but not paid, on these acquisitions. The rate of VAT payable is the same that would have been paid if the goods had been supplied by a UK supplier.
+  """
+  specialTaxType: String
+  """
+  Not compounded sum of the components of a tax rate
+  """
+  totalTaxRate: Float
+}
+
+input ComponentsListItemInput {
+  compound: Boolean
+  name: String
+  rate: Float
 }
 
 type Vault {
@@ -1787,12 +2726,6 @@ enum ConnectionState {
   callable
   added
   authorized
-}
-
-enum Status {
-  live
-  upcoming
-  requested
 }
 
 type Consumer {
@@ -2174,44 +3107,4 @@ input ThemeInput {
   sidepanelTextColor: String
   termsUrl: String
   vaultName: String
-}
-
-type MutationLead {
-  """
-  Create lead
-  """
-  leadsAdd(
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-    requestBody: LeadInput!
-  ): UnifiedId
-  """
-  Delete lead
-  """
-  leadsDelete(
-    """
-    ID of the record you are acting upon.
-    """
-    id: String!
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-  ): UnifiedId
-  """
-  Update lead
-  """
-  leadsUpdate(
-    """
-    ID of the record you are acting upon.
-    """
-    id: String!
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-    requestBody: LeadInput!
-  ): UnifiedId
 }
