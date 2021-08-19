@@ -2638,7 +2638,10 @@ type Connection {
   icon: String
   id: String
   logo: String
-  metadata: Metadata
+  """
+  Attach your own consumer specific metadata
+  """
+  metadata: JSON
   name: String
   resourceSchemaSupport: [String]
   resourceSettingsSupport: [String]
@@ -2649,6 +2652,9 @@ type Connection {
   """
   settings: JSON
   settingsRequiredForAuthorization: [String]
+  """
+  [Connection state flow](#section/Connection-state)
+  """
   state: ConnectionState
   status: Status
   tagLine: String
@@ -2703,16 +2709,6 @@ type FormField {
   placeholder: String
   required: Boolean
   type: Type
-}
-
-type Metadata {
-  account: ConnectionMetadata
-  ecosystem: ConnectionMetadata
-}
-
-type ConnectionMetadata {
-  id: String
-  name: String
 }
 
 enum ConnectionState {
@@ -2992,7 +2988,10 @@ input ConnectionInput {
   formFields: [FormFieldInput]
   icon: String
   logo: String
-  metadata: MetadataInput
+  """
+  Attach your own consumer specific metadata
+  """
+  metadata: JSON
   name: String
   resourceSchemaSupport: [String]
   resourceSettingsSupport: [String]
@@ -3003,6 +3002,9 @@ input ConnectionInput {
   """
   settings: JSON
   settingsRequiredForAuthorization: [String]
+  """
+  [Connection state flow](#section/Connection-state)
+  """
   state: ConnectionState
   status: Status
   tagLine: String
@@ -3046,7 +3048,16 @@ input FormFieldInput {
   type: Type
 }
 
-input MetadataInput {
+input CreateConnectionRequestBodyInput {
+  enabled: Boolean
+  metadata: Metadata2Input
+  """
+  Connection settings. Values will persist to \`form_fields\` with corresponding id
+  """
+  settings: JSON
+}
+
+input Metadata2Input {
   account: ConnectionMetadataInput
   ecosystem: ConnectionMetadataInput
 }
@@ -3056,21 +3067,16 @@ input ConnectionMetadataInput {
   name: String
 }
 
-input CreateConnectionRequestBodyInput {
-  enabled: Boolean
-  metadata: MetadataInput
-  """
-  Connection settings. Values will persist to \`form_fields\` with corresponding id
-  """
-  settings: JSON
-}
-
 type Session {
   sessionUri: String
 }
 
 input SessionRequestInput {
   consumerMetadata: ConsumerMetadataInput
+  """
+  Custom consumer settings that are passed part of the session.
+  """
+  customConsumerSettings: JSON
   redirectUri: String
   settings: SessionSettings
   theme: ThemeInput
