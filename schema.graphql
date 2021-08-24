@@ -670,7 +670,7 @@ type Activity {
   solutionId: String
   startDatetime: String
   title: String
-  type: Type2!
+  type: ActivityType!
   updatedAt: String
   updatedBy: String
 }
@@ -680,21 +680,7 @@ enum ShowAs {
   busy
 }
 
-enum Type2 {
-  accounts_receivable
-  bank
-  current_asset
-  non_current_asset
-  other_asset
-  equity
-  expense
-  other_expense
-  costs_of_sales
-  accounts_payable
-  credit_card
-  current_liability
-  non_current_liability
-  other_liability
+enum ActivityType {
   call
   meeting
   email
@@ -1485,7 +1471,7 @@ input ActivityInput {
   solutionId: String
   startDatetime: String
   title: String
-  type: Type2!
+  type: ActivityType!
 }
 
 input CompanyInput {
@@ -2072,7 +2058,7 @@ type LineItemsListItem {
   lineNumber: Int
   quantity: Int
   taxAmount: Int
-  taxRate: TaxRate2
+  taxRate: LinkedTaxRate
   totalAmount: Int
   type: String
   unitPrice: Int
@@ -2083,10 +2069,9 @@ type GeneralLedgerAccount {
   name: String
 }
 
-type TaxRate2 {
+type LinkedTaxRate {
   code: String
   id: String
-  name: String
 }
 
 enum Status {
@@ -2118,32 +2103,28 @@ type LedgerAccount {
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
-  """
-  The current balance. A positive integer representing the smallest currency unit (e.g., 20000 cents equals $200.00 or 20000 equals ¥20000, a zero-decimal currency)
-  """
   currentBalance: Float
   description: String
   displayId: String
   fullyQualifiedName: String
+  header: Boolean
   id: String
   """
   Reconciliation Date means the last calendar day of each Reconciliation Period.
   """
   lastReconciliationDate: String
-  level: String
+  level: Float
   name: String
   nominalCode: String
-  """
-  The opening balance. A positive integer representing the smallest currency unit (e.g., 100 cents equals $1.00 or 100 equals ¥100, a zero-decimal currency)
-  """
   openingBalance: Float
   parentAccount: ParentAccount
+  rowVersion: String
   subAccount: Boolean
   subAccounts: [SubAccountsListItem]
   subType: String
-  taxCode: String
+  taxRate: LinkedTaxRate
   taxType: String
-  type: Type2
+  type: ledgerAccountType
   updatedAt: String
   updatedBy: String
 }
@@ -2169,6 +2150,23 @@ type ParentAccount {
 type SubAccountsListItem {
   accountSubName: String
   id: String
+}
+
+enum ledgerAccountType {
+  accounts_receivable
+  bank
+  current_asset
+  non_current_asset
+  other_asset
+  equity
+  expense
+  other_expense
+  costs_of_sales
+  accounts_payable
+  credit_card
+  current_liability
+  non_current_liability
+  other_liability
 }
 
 type LedgerAccountList {
@@ -2466,7 +2464,7 @@ input LineItemsListItemInput {
   lineNumber: Int
   quantity: Int
   taxAmount: Int
-  taxRate: TaxRate2Input
+  taxRate: LinkedTaxRateInput
   totalAmount: Int
   type: String
   unitPrice: Int
@@ -2476,9 +2474,8 @@ input GeneralLedgerAccountInput {
   name: String
 }
 
-input TaxRate2Input {
+input LinkedTaxRateInput {
   code: String
-  name: String
 }
 
 input LedgerAccountInput {
@@ -2489,24 +2486,19 @@ input LedgerAccountInput {
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
-  """
-  The current balance. A positive integer representing the smallest currency unit (e.g., 20000 cents equals $200.00 or 20000 equals ¥20000, a zero-decimal currency)
-  """
   currentBalance: Float
   description: String
   fullyQualifiedName: String
-  level: String
+  header: Boolean
+  level: Float
   name: String
   nominalCode: String
-  """
-  The opening balance. A positive integer representing the smallest currency unit (e.g., 100 cents equals $1.00 or 100 equals ¥100, a zero-decimal currency)
-  """
   openingBalance: Float
   subAccount: Boolean
   subType: String
-  taxCode: String
+  taxRate: LinkedTaxRateInput
   taxType: String
-  type: Type2
+  type: ledgerAccountType
 }
 
 input TaxRateInput {
