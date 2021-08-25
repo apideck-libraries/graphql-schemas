@@ -1451,7 +1451,6 @@ input ActivityInput {
   customObjectId: String
   deleted: Boolean
   description: String
-  durationMinutes: Int
   durationSeconds: Int
   endDate: String
   endDatetime: String
