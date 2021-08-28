@@ -35,6 +35,10 @@ type Lead {
     """
     cursor: String
     """
+    Apply filters (beta)
+    """
+    filter: LeadsFilterInput
+    """
     Number of records to return
     """
     limit: Int
@@ -42,6 +46,10 @@ type Lead {
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
+    """
+    Apply sorting (beta)
+    """
+    sort: LeadsSortInput
   ): LeadList
   addresses: [Address]
   companyId: String
@@ -218,6 +226,50 @@ type Cursors {
   Cursor to navigate to the previous page of results through the API
   """
   previous: String
+}
+
+input LeadsFilterInput {
+  """
+  E-mail of the lead to filter on
+  """
+  email: String
+  """
+  First name of the lead to filter on
+  """
+  firstName: String
+  """
+  Last name of the lead to filter on
+  """
+  lastName: String
+  """
+  Name of the lead to filter on
+  """
+  name: String
+}
+
+input LeadsSortInput {
+  """
+  The field on which to sort the Leads
+  """
+  by: LeadsSortBy!
+  """
+  The direction in which to sort the results
+  """
+  direction: SortDirection
+}
+
+enum LeadsSortBy {
+  created_at
+  updated_at
+  name
+  first_name
+  last_name
+  email
+}
+
+enum SortDirection {
+  asc
+  desc
 }
 
 type MutationLead {
@@ -397,7 +449,7 @@ type Crm {
     """
     Apply filters (beta)
     """
-    filter: CompaniesFilter
+    filter: CompaniesFilterInput
     """
     Number of records to return
     """
@@ -409,7 +461,7 @@ type Crm {
     """
     Apply sorting (beta)
     """
-    sort: CompaniesSort
+    sort: CompaniesSortInput
   ): CompanyList
   """
   Get company
@@ -448,7 +500,7 @@ type Crm {
     """
     Apply filters (beta)
     """
-    filter: ContactsFilter
+    filter: ContactsFilterInput
     """
     Number of records to return
     """
@@ -460,7 +512,7 @@ type Crm {
     """
     Apply sorting (beta)
     """
-    sort: ContactsSort
+    sort: ContactsSortInput
   ): ContactList
   """
   Get lead
@@ -486,7 +538,7 @@ type Crm {
     """
     Apply filters (beta)
     """
-    filter: LeadsFilter
+    filter: LeadsFilterInput
     """
     Number of records to return
     """
@@ -498,7 +550,7 @@ type Crm {
     """
     Apply sorting (beta)
     """
-    sort: LeadsSort
+    sort: LeadsSortInput
   ): LeadList
   """
   Get note
@@ -541,7 +593,7 @@ type Crm {
     """
     Apply filters (beta)
     """
-    filter: OpportunitiesFilter
+    filter: OpportunitiesFilterInput
     """
     Number of records to return
     """
@@ -553,7 +605,7 @@ type Crm {
     """
     Apply sorting (beta)
     """
-    sort: OpportunitiesSort
+    sort: OpportunitiesSortInput
   ): OpportunityList
   """
   Get opportunity
@@ -785,14 +837,14 @@ type BankAccount {
   iban: String
 }
 
-input CompaniesFilter {
+input CompaniesFilterInput {
   """
   Name of the company to filter on
   """
   name: String
 }
 
-input CompaniesSort {
+input CompaniesSortInput {
   """
   The field on which to sort the Companies
   """
@@ -807,11 +859,6 @@ enum CompaniesSortBy {
   created_at
   updated_at
   name
-}
-
-enum SortDirection {
-  asc
-  desc
 }
 
 type Contact {
@@ -890,7 +937,7 @@ type ContactList {
   meta: Meta
 }
 
-input ContactsFilter {
+input ContactsFilterInput {
   """
   E-mail of the contact to filter on
   """
@@ -909,7 +956,7 @@ input ContactsFilter {
   name: String
 }
 
-input ContactsSort {
+input ContactsSortInput {
   """
   The field on which to sort the Contacts
   """
@@ -921,45 +968,6 @@ input ContactsSort {
 }
 
 enum ContactsSortBy {
-  created_at
-  updated_at
-  name
-  first_name
-  last_name
-  email
-}
-
-input LeadsFilter {
-  """
-  E-mail of the lead to filter on
-  """
-  email: String
-  """
-  First name of the lead to filter on
-  """
-  firstName: String
-  """
-  Last name of the lead to filter on
-  """
-  lastName: String
-  """
-  Name of the lead to filter on
-  """
-  name: String
-}
-
-input LeadsSort {
-  """
-  The field on which to sort the Leads
-  """
-  by: LeadsSortBy!
-  """
-  The direction in which to sort the results
-  """
-  direction: SortDirection
-}
-
-enum LeadsSortBy {
   created_at
   updated_at
   name
@@ -1048,7 +1056,7 @@ type Opportunity {
   wonReasonId: String
 }
 
-input OpportunitiesFilter {
+input OpportunitiesFilterInput {
   """
   Monetary amount to filter on
   """
@@ -1067,7 +1075,7 @@ input OpportunitiesFilter {
   winProbability: Float
 }
 
-input OpportunitiesSort {
+input OpportunitiesSortInput {
   """
   The field on which to sort the Opportunities
   """
@@ -2123,7 +2131,7 @@ type LedgerAccount {
   subType: String
   taxRate: LinkedTaxRate
   taxType: String
-  type: ledgerAccountType
+  type: LedgerAccountType
   updatedAt: String
   updatedBy: String
 }
@@ -2151,7 +2159,7 @@ type SubAccountsListItem {
   id: String
 }
 
-enum ledgerAccountType {
+enum LedgerAccountType {
   accounts_receivable
   bank
   current_asset
@@ -2497,7 +2505,7 @@ input LedgerAccountInput {
   subType: String
   taxRate: LinkedTaxRateInput
   taxType: String
-  type: ledgerAccountType
+  type: LedgerAccountType
 }
 
 input TaxRateInput {
@@ -2610,7 +2618,7 @@ type Vault {
     """
     Filter results
     """
-    filter: FilterInput
+    filter: LogsFilterInput
     """
     Number of records to return
     """
@@ -2908,7 +2916,7 @@ enum UnifiedApi {
   vault
 }
 
-input FilterInput {
+input LogsFilterInput {
   connectorId: String
   excludeUnifiedApis: String
   statusCode: Float
@@ -2950,7 +2958,7 @@ type MutationVault {
   Update a connection
   """
   connectionsUpdate(
-    requestBody: CreateConnectionRequestBodyInput!
+    requestBody: ConnectionInput!
     """
     Service ID of the resource to return
     """
@@ -2966,42 +2974,22 @@ type MutationVault {
 
   Note: This is a short lived token that will expire after 1 hour (TTL: 3600).
   """
-  sessionsCreate(requestBody: SessionRequestInput): Session
+  sessionsCreate(requestBody: SessionInput): CreateSessionResponse
 }
 
 input ConnectionInput {
   authType: AuthType
-  authorizeUrl: String
-  configurableResources: [String]
   configuration: [ConfigurationListItemInput]
-  createdAt: Float
   enabled: Boolean
   formFields: [FormFieldInput]
-  icon: String
-  logo: String
   """
   Attach your own consumer specific metadata
   """
   metadata: JSON
-  name: String
-  resourceSchemaSupport: [String]
-  resourceSettingsSupport: [String]
-  revokeUrl: String
-  serviceId: String
   """
   Connection settings. Values will persist to \`form_fields\` with corresponding id
   """
   settings: JSON
-  settingsRequiredForAuthorization: [String]
-  """
-  [Connection state flow](#section/Connection-state)
-  """
-  state: ConnectionState
-  status: Status
-  tagLine: String
-  unifiedApi: String
-  updatedAt: Float
-  website: String
 }
 
 input ConfigurationListItemInput {
@@ -3039,37 +3027,18 @@ input FormFieldInput {
   type: Type
 }
 
-input CreateConnectionRequestBodyInput {
-  enabled: Boolean
-  metadata: Metadata2Input
-  """
-  Connection settings. Values will persist to \`form_fields\` with corresponding id
-  """
-  settings: JSON
+type CreateSessionResponse {
+  sessionUri: String!
 }
 
-input Metadata2Input {
-  account: ConnectionMetadataInput
-  ecosystem: ConnectionMetadataInput
-}
-
-input ConnectionMetadataInput {
-  id: String
-  name: String
-}
-
-type Session {
-  sessionUri: String
-}
-
-input SessionRequestInput {
+input SessionInput {
   consumerMetadata: ConsumerMetadataInput
   """
-  Custom consumer settings that are passed part of the session.
+  Custom consumer settings that are passed as part of the session.
   """
   customConsumerSettings: JSON
   redirectUri: String
-  settings: SessionSettings
+  settings: SessionSettingsInput
   theme: ThemeInput
 }
 
@@ -3080,7 +3049,7 @@ input ConsumerMetadataInput {
   userName: String
 }
 
-input SessionSettings {
+input SessionSettingsInput {
   hideResourceSettings: Boolean
   sandboxMode: Boolean
   """
