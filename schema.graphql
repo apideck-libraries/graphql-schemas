@@ -1737,6 +1737,36 @@ type Accounting {
     raw: Boolean
   ): Invoice
   """
+  Get Invoice Item
+  """
+  invoiceItem(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): InvoiceItem
+  """
+  List Invoice Items
+  """
+  invoiceItems(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): InvoiceItemList
+  """
   List Invoices
   """
   invoices(
@@ -1829,28 +1859,33 @@ type Invoice {
   """
   customer: Customer
   customerMemo: String
-  """
-  Date invoice was issued - YYYY-MM-DD
-  """
-  date: String
   deposit: Float
   """
   The invoice due date is the date on which a payment or invoice is scheduled to be received by the seller - YYYY-MM-DD
   """
   dueDate: String
   id: String
+  """
+  Date invoice was issued - YYYY-MM-DD
+  """
+  invoiceDate: String
   lineItems: [LineItemsListItem]
   number: String
   """
   A PO Number uniquely identifies a purchase order and is generally defined by the buyer. The buyer will match the PO number in the invoice to the Purchase Order.
   """
   poNumber: String
+  rowVersion: String
   shippingAddress: Address
   """
   Invoice status
   """
   status: Status
   subTotal: Float
+  """
+  Amounts include tax
+  """
+  taxInclusive: Boolean
   total: Float
   totalTax: Float
   """
@@ -2050,28 +2085,43 @@ The customer this invoice is linked to.
 """
 type Customer {
   companyName: String
-  id: String
+  id: String!
 }
 
 type LineItemsListItem {
+  """
+  User defined item code
+  """
+  code: String
   description: String
   discountPercentage: Int
-  generalLedgerAccount: GeneralLedgerAccount
   id: String
+  item: Item
+  ledgerAccount: LinkedLedgerAccount
+  lineNumber: Int
+  quantity: Int
+  rowId: String
+  rowVersion: String
+  taxAmount: Float
+  taxRate: LinkedTaxRate
+  totalAmount: Float
+  type: InvoiceLineItemType
+  unitPrice: Float
+}
+
+type Item {
+  """
+  User defined item code
+  """
+  code: String
   """
   ID of the linked item
   """
-  itemId: Int
-  lineNumber: Int
-  quantity: Int
-  taxAmount: Int
-  taxRate: LinkedTaxRate
-  totalAmount: Int
-  type: String
-  unitPrice: Int
+  id: String
+  name: String
 }
 
-type GeneralLedgerAccount {
+type LinkedLedgerAccount {
   id: String
   name: String
 }
@@ -2079,6 +2129,11 @@ type GeneralLedgerAccount {
 type LinkedTaxRate {
   code: String
   id: String
+}
+
+enum InvoiceLineItemType {
+  inventory
+  service
 }
 
 enum Status {
@@ -2090,6 +2145,55 @@ enum Status {
   partially_paid
   paid
   void
+  credit
+}
+
+type InvoiceItem {
+  active: Boolean
+  """
+  User defined item code
+  """
+  code: String
+  createdAt: String
+  createdBy: String
+  description: String
+  id: String
+  ledgerAccount: LinkedLedgerAccount
+  name: String
+  quantity: Int
+  rowVersion: String
+  salesDetails: SalesDetails
+  """
+  Item can be sold
+  """
+  sold: Boolean
+  type: InvoiceItemType
+  unitPrice: Float
+  updatedAt: String
+  updatedBy: String
+}
+
+type SalesDetails {
+  """
+  Indicates the unit price includes tax.
+  """
+  taxInclusive: Boolean
+  taxRate: LinkedTaxRate
+  unitOfMeasure: String
+  unitPrice: Float
+}
+
+enum InvoiceItemType {
+  inventory
+  service
+}
+
+type InvoiceItemList {
+  data: [InvoiceItem]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
 }
 
 type InvoiceList {
@@ -2300,6 +2404,43 @@ type MutationAccounting {
     requestBody: ContactInput!
   ): UnifiedId
   """
+  Create Invoice Item
+  """
+  invoiceItemsAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: InvoiceItemInput!
+  ): UnifiedId
+  """
+  Delete Invoice Item
+  """
+  invoiceItemsDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Invoice Item
+  """
+  invoiceItemsUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: InvoiceItemInput!
+  ): UnifiedId
+  """
   Create Invoice
   """
   invoicesAdd(
@@ -2412,6 +2553,47 @@ type MutationAccounting {
   ): UnifiedId
 }
 
+input InvoiceItemInput {
+  active: Boolean
+  """
+  User defined item code
+  """
+  code: String
+  description: String
+  id: String
+  ledgerAccount: LinkedLedgerAccountInput
+  name: String
+  quantity: Int
+  rowVersion: String
+  salesDetails: SalesDetailsInput
+  """
+  Item can be sold
+  """
+  sold: Boolean
+  type: InvoiceItemType
+  unitPrice: Float
+}
+
+input LinkedLedgerAccountInput {
+  id: String
+  name: String
+}
+
+input SalesDetailsInput {
+  """
+  Indicates the unit price includes tax.
+  """
+  taxInclusive: Boolean
+  taxRate: LinkedTaxRateInput
+  unitOfMeasure: String
+  unitPrice: Float
+}
+
+input LinkedTaxRateInput {
+  code: String
+  id: String
+}
+
 input InvoiceInput {
   balance: Float
   billingAddress: AddressInput
@@ -2424,27 +2606,33 @@ input InvoiceInput {
   """
   customer: CustomerInput
   customerMemo: String
-  """
-  Date invoice was issued - YYYY-MM-DD
-  """
-  date: String
   deposit: Float
   """
   The invoice due date is the date on which a payment or invoice is scheduled to be received by the seller - YYYY-MM-DD
   """
   dueDate: String
+  id: String
+  """
+  Date invoice was issued - YYYY-MM-DD
+  """
+  invoiceDate: String
   lineItems: [LineItemsListItemInput]
   number: String
   """
   A PO Number uniquely identifies a purchase order and is generally defined by the buyer. The buyer will match the PO number in the invoice to the Purchase Order.
   """
   poNumber: String
+  rowVersion: String
   shippingAddress: AddressInput
   """
   Invoice status
   """
   status: Status
   subTotal: Float
+  """
+  Amounts include tax
+  """
+  taxInclusive: Boolean
   total: Float
   totalTax: Float
   """
@@ -2458,31 +2646,40 @@ The customer this invoice is linked to.
 """
 input CustomerInput {
   companyName: String
+  id: String!
 }
 
 input LineItemsListItemInput {
+  """
+  User defined item code
+  """
+  code: String
   description: String
   discountPercentage: Int
-  generalLedgerAccount: GeneralLedgerAccountInput
+  id: String
+  item: ItemInput
+  ledgerAccount: LinkedLedgerAccountInput
+  lineNumber: Int
+  quantity: Int
+  rowId: String
+  rowVersion: String
+  taxAmount: Float
+  taxRate: LinkedTaxRateInput
+  totalAmount: Float
+  type: InvoiceLineItemType
+  unitPrice: Float
+}
+
+input ItemInput {
+  """
+  User defined item code
+  """
+  code: String
   """
   ID of the linked item
   """
-  itemId: Int
-  lineNumber: Int
-  quantity: Int
-  taxAmount: Int
-  taxRate: LinkedTaxRateInput
-  totalAmount: Int
-  type: String
-  unitPrice: Int
-}
-
-input GeneralLedgerAccountInput {
+  id: String
   name: String
-}
-
-input LinkedTaxRateInput {
-  code: String
 }
 
 input LedgerAccountInput {
@@ -2497,6 +2694,7 @@ input LedgerAccountInput {
   description: String
   fullyQualifiedName: String
   header: Boolean
+  id: String
   level: Float
   name: String
   nominalCode: String
@@ -2514,6 +2712,7 @@ input TaxRateInput {
   components: [ComponentsListItemInput]
   description: String
   effectiveTaxRate: Float
+  id: String
   name: String
   """
   ID of the original tax rate from which the new tax rate is derived. Helps to understand the relationship between corresponding tax rate entities.
