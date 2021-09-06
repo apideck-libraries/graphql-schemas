@@ -1694,6 +1694,23 @@ type Accounting {
     raw: Boolean
   ): Company
   """
+  Get company info
+  """
+  companyInfo(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): CompanyInfo
+  """
   Get Contact
   """
   contact(
@@ -1873,6 +1890,16 @@ type Accounting {
     """
     raw: Boolean
   ): TaxRateList
+}
+
+type CompanyInfo {
+  companyName: String
+  createdAt: String
+  createdBy: String
+  id: String
+  salexTaxNumber: String
+  updatedAt: String
+  updatedBy: String
 }
 
 type Customer {
