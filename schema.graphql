@@ -1664,36 +1664,6 @@ input UserInput {
 
 type Accounting {
   """
-  List Companies
-  """
-  companies(
-    """
-    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
-    """
-    cursor: String
-    """
-    Number of records to return
-    """
-    limit: Int
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-  ): CompanyList
-  """
-  Get Company
-  """
-  company(
-    """
-    ID of the record you are acting upon.
-    """
-    id: String!
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-  ): Company
-  """
   Get company info
   """
   companyInfo(
@@ -1710,36 +1680,6 @@ type Accounting {
     """
     raw: Boolean
   ): CompanyInfo
-  """
-  Get Contact
-  """
-  contact(
-    """
-    ID of the record you are acting upon.
-    """
-    id: String!
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-  ): Contact
-  """
-  List Contacts
-  """
-  contacts(
-    """
-    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
-    """
-    cursor: String
-    """
-    Number of records to return
-    """
-    limit: Int
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-  ): ContactList
   """
   Get Customer
   """
@@ -2412,80 +2352,6 @@ type TaxRateList {
 }
 
 type MutationAccounting {
-  """
-  Create Company
-  """
-  companiesAdd(
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-    requestBody: CompanyInput!
-  ): UnifiedId
-  """
-  Delete Company
-  """
-  companiesDelete(
-    """
-    ID of the record you are acting upon.
-    """
-    id: String!
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-  ): UnifiedId
-  """
-  Update Company
-  """
-  companiesUpdate(
-    """
-    ID of the record you are acting upon.
-    """
-    id: String!
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-    requestBody: CompanyInput!
-  ): UnifiedId
-  """
-  Create Contact
-  """
-  contactsAdd(
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-    requestBody: ContactInput!
-  ): UnifiedId
-  """
-  Delete Contact
-  """
-  contactsDelete(
-    """
-    ID of the record you are acting upon.
-    """
-    id: String!
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-  ): UnifiedId
-  """
-  Update Contact
-  """
-  contactsUpdate(
-    """
-    ID of the record you are acting upon.
-    """
-    id: String!
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-    requestBody: ContactInput!
-  ): UnifiedId
   """
   Create Customer
   """
