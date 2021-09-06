@@ -1724,6 +1724,36 @@ type Accounting {
     raw: Boolean
   ): ContactList
   """
+  Get Customer
+  """
+  customer(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Customer
+  """
+  List Customers
+  """
+  customers(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): CustomerList
+  """
   Get Invoice
   """
   invoice(
@@ -1845,53 +1875,20 @@ type Accounting {
   ): TaxRateList
 }
 
-type Invoice {
-  balance: Float
-  billingAddress: Address
+type Customer {
+  addresses: [Address]
+  companyName: String
   createdAt: String
   createdBy: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
-  """
-  The customer this invoice is linked to.
-  """
-  customer: Customer
-  customerMemo: String
-  deposit: Float
-  """
-  The invoice due date is the date on which a payment or invoice is scheduled to be received by the seller - YYYY-MM-DD
-  """
-  dueDate: String
+  firstName: String
   id: String
-  """
-  Date invoice was issued - YYYY-MM-DD
-  """
-  invoiceDate: String
-  lineItems: [LineItemsListItem]
-  number: String
-  """
-  A PO Number uniquely identifies a purchase order and is generally defined by the buyer. The buyer will match the PO number in the invoice to the Purchase Order.
-  """
-  poNumber: String
-  rowVersion: String
-  shippingAddress: Address
-  """
-  Invoice status
-  """
-  status: Status
-  subTotal: Float
-  """
-  Amounts include tax
-  """
-  taxInclusive: Boolean
-  total: Float
-  totalTax: Float
-  """
-
-  """
-  type: String
+  individual: Boolean
+  lastName: String
+  notes: String
   updatedAt: String
   updatedBy: String
 }
@@ -2080,10 +2077,69 @@ enum Currency {
   BTC
 }
 
+type CustomerList {
+  data: [Customer]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+type Invoice {
+  balance: Float
+  billingAddress: Address
+  createdAt: String
+  createdBy: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  The customer this invoice is linked to.
+  """
+  customer: LinkedCustomer
+  customerMemo: String
+  deposit: Float
+  """
+  The invoice due date is the date on which a payment or invoice is scheduled to be received by the seller - YYYY-MM-DD
+  """
+  dueDate: String
+  id: String
+  """
+  Date invoice was issued - YYYY-MM-DD
+  """
+  invoiceDate: String
+  lineItems: [LineItemsListItem]
+  number: String
+  """
+  A PO Number uniquely identifies a purchase order and is generally defined by the buyer. The buyer will match the PO number in the invoice to the Purchase Order.
+  """
+  poNumber: String
+  rowVersion: String
+  shippingAddress: Address
+  """
+  Invoice status
+  """
+  status: Status
+  subTotal: Float
+  """
+  Amounts include tax
+  """
+  taxInclusive: Boolean
+  total: Float
+  totalTax: Float
+  """
+
+  """
+  type: String
+  updatedAt: String
+  updatedBy: String
+}
+
 """
 The customer this invoice is linked to.
 """
-type Customer {
+type LinkedCustomer {
   companyName: String
   id: String!
 }
@@ -2404,6 +2460,43 @@ type MutationAccounting {
     requestBody: ContactInput!
   ): UnifiedId
   """
+  Create Customer
+  """
+  customersAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: CustomerInput!
+  ): UnifiedId
+  """
+  Delete Customer
+  """
+  customersDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Customer
+  """
+  customersUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: CustomerInput!
+  ): UnifiedId
+  """
   Create Invoice Item
   """
   invoiceItemsAdd(
@@ -2553,6 +2646,20 @@ type MutationAccounting {
   ): UnifiedId
 }
 
+input CustomerInput {
+  addresses: [AddressInput]
+  companyName: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  firstName: String
+  id: String
+  individual: Boolean
+  lastName: String
+  notes: String
+}
+
 input InvoiceItemInput {
   active: Boolean
   """
@@ -2604,7 +2711,7 @@ input InvoiceInput {
   """
   The customer this invoice is linked to.
   """
-  customer: CustomerInput
+  customer: LinkedCustomerInput
   customerMemo: String
   deposit: Float
   """
@@ -2644,7 +2751,7 @@ input InvoiceInput {
 """
 The customer this invoice is linked to.
 """
-input CustomerInput {
+input LinkedCustomerInput {
   companyName: String
   id: String!
 }
