@@ -3026,7 +3026,7 @@ enum ConnectionState {
 type Consumer {
   aggregatedRequestCount: Float
   applicationId: String
-  connections: [ConnectionsListItem]
+  connections: [ConsumerConnection]
   consumerId: String
   created: String
   metadata: ConsumerMetadata
@@ -3036,18 +3036,28 @@ type Consumer {
   services: [String]
 }
 
-type ConnectionsListItem {
+type ConsumerConnection {
   authType: AuthType
   createdAt: String
   enabled: Boolean
   icon: String
   id: String
   logo: String
+  """
+  Attach your own consumer specific metadata
+  """
+  metadata: JSON
   name: String
   serviceId: String
+  """
+  Connection settings. Values will persist to \`form_fields\` with corresponding id
+  """
+  settings: JSON
   state: State
+  tagLine: String
   unifiedApi: String
   updatedAt: String
+  website: String
 }
 
 enum State {
