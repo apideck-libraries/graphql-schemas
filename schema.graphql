@@ -1833,17 +1833,7 @@ type Accounting {
 }
 
 type CompanyInfo {
-  companyName: String
-  createdAt: String
-  createdBy: String
-  id: String
-  salexTaxNumber: String
-  updatedAt: String
-  updatedBy: String
-}
-
-type Customer {
-  addresses: [Address]
+  addressses: [Address]
   companyName: String
   createdAt: String
   createdBy: String
@@ -1851,11 +1841,10 @@ type Customer {
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
-  firstName: String
+  emails: [Email]
   id: String
-  individual: Boolean
-  lastName: String
-  notes: String
+  phoneNumbers: [PhoneNumber]
+  salexTaxNumber: String
   updatedAt: String
   updatedBy: String
 }
@@ -2042,6 +2031,24 @@ enum Currency {
   ZMK
   ZMW
   BTC
+}
+
+type Customer {
+  addresses: [Address]
+  companyName: String
+  createdAt: String
+  createdBy: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  firstName: String
+  id: String
+  individual: Boolean
+  lastName: String
+  notes: String
+  updatedAt: String
+  updatedBy: String
 }
 
 type CustomerList {
