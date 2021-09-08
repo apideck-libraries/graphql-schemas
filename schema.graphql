@@ -1687,6 +1687,10 @@ type FileStorage {
     """
     cursor: String
     """
+    Apply filters (beta)
+    """
+    filter: FilesFilterInput
+    """
     Number of records to return
     """
     limit: Int
@@ -1777,6 +1781,13 @@ type FileList {
   Reponse metadata
   """
   meta: Meta
+}
+
+input FilesFilterInput {
+  """
+  ID of the folder to filter on. The root folder has an alias "root"
+  """
+  folderId: String
 }
 
 type MutationFileStorage {
