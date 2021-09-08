@@ -1,6 +1,7 @@
 type Query {
   lead: Lead
   crm: Crm
+  fileStorage: FileStorage
   accounting: Accounting
   vault: Vault
 }
@@ -8,6 +9,7 @@ type Query {
 type Mutation {
   lead: MutationLead
   crm: MutationCrm
+  fileStorage: MutationFileStorage
   accounting: MutationAccounting
   vault: MutationVault
 }
@@ -1660,6 +1662,137 @@ input UserInput {
   password: String
   status: String
   username: String
+}
+
+type FileStorage {
+  """
+  Get file
+  """
+  file(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): File
+  """
+  List files
+  """
+  files(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): FileList
+}
+
+type File {
+  createdAt: String
+  createdBy: String
+  """
+  Optional description of the file
+  """
+  description: String
+  """
+  Whether the current user can download this file
+  """
+  downloadable: Boolean
+  id: String!
+  """
+  The MIME type of the file.
+  """
+  mimeType: String
+  """
+  The name of the file
+  """
+  name: String!
+  owner: Owner
+  """
+  The parent folders of the file, starting from the root
+  """
+  parentFolders: [ParentFoldersListItem]
+  """
+  Whether the list of parent folder is complete. Some connectors only return the direct parent of a file
+  """
+  parentFoldersComplete: Boolean
+  """
+  The full path of the file or folder (includes the file name)
+  """
+  path: String
+  """
+  The size of the file in bytes
+  """
+  size: Int
+  """
+  The type of resource. Could be file, folder or url
+  """
+  type: FileType!
+  updatedAt: String
+  updatedBy: String
+}
+
+type Owner {
+  """
+  Email of the owner of the file
+  """
+  email: String
+  """
+  ID of the owner of the file
+  """
+  id: String
+  """
+  Name of the owner of the file
+  """
+  name: String
+}
+
+type ParentFoldersListItem {
+  id: String
+  """
+  The name of the folder
+  """
+  name: String
+}
+
+enum FileType {
+  file
+  folder
+  url
+}
+
+type FileList {
+  data: [File]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+type MutationFileStorage {
+  """
+  Delete file
+  """
+  filesDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
 }
 
 type Accounting {
