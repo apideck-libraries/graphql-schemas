@@ -1666,7 +1666,7 @@ input UserInput {
 
 type FileStorage {
   """
-  Get file
+  Get File
   """
   file(
     """
@@ -1679,7 +1679,7 @@ type FileStorage {
     raw: Boolean
   ): File
   """
-  List files
+  List Files
   """
   files(
     """
@@ -1781,7 +1781,7 @@ type FileList {
 
 type MutationFileStorage {
   """
-  Delete file
+  Delete File
   """
   filesDelete(
     """
