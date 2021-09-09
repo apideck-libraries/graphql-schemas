@@ -89,10 +89,13 @@ type Address {
   Name of city.
   """
   city: String
+  contactName: String
   """
   country code according to ISO 3166-1 alpha-2.
   """
   country: String
+  email: String
+  fax: String
   id: String
   latitude: String
   """
@@ -105,16 +108,19 @@ type Address {
   line2: String
   longitude: String
   name: String
+  phoneNumber: String
   """
   Zip code or equivalent.
   """
   postalCode: String
+  salutation: String
   """
   Name of state
   """
   state: String
   string: String
   type: AddressType
+  website: String
 }
 
 enum AddressType {
@@ -352,10 +358,13 @@ input AddressInput {
   Name of city.
   """
   city: String
+  contactName: String
   """
   country code according to ISO 3166-1 alpha-2.
   """
   country: String
+  email: String
+  fax: String
   id: String
   latitude: String
   """
@@ -368,16 +377,19 @@ input AddressInput {
   line2: String
   longitude: String
   name: String
+  phoneNumber: String
   """
   Zip code or equivalent.
   """
   postalCode: String
+  salutation: String
   """
   Name of state
   """
   state: String
   string: String
   type: AddressType
+  website: String
 }
 
 input CustomFieldInput {
@@ -2191,8 +2203,14 @@ type Customer {
   individual: Boolean
   lastName: String
   notes: String
+  taxRate: LinkedTaxRate
   updatedAt: String
   updatedBy: String
+}
+
+type LinkedTaxRate {
+  code: String
+  id: String
 }
 
 type CustomerList {
@@ -2298,11 +2316,6 @@ type Item {
 type LinkedLedgerAccount {
   id: String
   name: String
-}
-
-type LinkedTaxRate {
-  code: String
-  id: String
 }
 
 enum InvoiceLineItemType {
@@ -2702,6 +2715,12 @@ input CustomerInput {
   individual: Boolean
   lastName: String
   notes: String
+  taxRate: LinkedTaxRateInput
+}
+
+input LinkedTaxRateInput {
+  code: String
+  id: String
 }
 
 input InvoiceItemInput {
@@ -2738,11 +2757,6 @@ input SalesDetailsInput {
   taxRate: LinkedTaxRateInput
   unitOfMeasure: String
   unitPrice: Float
-}
-
-input LinkedTaxRateInput {
-  code: String
-  id: String
 }
 
 input InvoiceInput {
