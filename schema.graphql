@@ -3096,6 +3096,7 @@ type Consumer {
 
 type ConsumerConnection {
   authType: AuthType
+  consumerId: String
   createdAt: String
   enabled: Boolean
   icon: String
@@ -3288,6 +3289,7 @@ enum UnifiedApi {
   lead
   proxy
   vault
+  accounting
 }
 
 input LogsFilterInput {
