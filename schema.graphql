@@ -1800,6 +1800,10 @@ input FilesFilterInput {
   ID of the folder to filter on. The root folder has an alias "root"
   """
   folderId: String
+  """
+  Only return files and folders that are shared
+  """
+  shared: Boolean
 }
 
 type MutationFileStorage {
