@@ -1820,6 +1820,17 @@ type MutationFileStorage {
     """
     raw: Boolean
   ): UnifiedId
+  """
+  Search Files
+  """
+  filesSearch(requestBody: FilesSearchInput!): FileList
+}
+
+input FilesSearchInput {
+  """
+  The query to search for. May match across multiple fields.
+  """
+  query: String!
 }
 
 type Accounting {
