@@ -160,6 +160,8 @@ enum EmailType {
 }
 
 type PhoneNumber {
+  areaCode: String
+  countryCode: String
   id: String
   number: String!
   type: PhoneType
@@ -173,6 +175,7 @@ enum PhoneType {
   mobile
   assistant
   fax
+  directdialin
   other
 }
 
@@ -404,6 +407,8 @@ input EmailInput {
 }
 
 input PhoneNumberInput {
+  areaCode: String
+  countryCode: String
   id: String
   number: String!
   type: PhoneType
@@ -2206,6 +2211,7 @@ enum Currency {
 
 type Customer {
   addresses: [Address]
+  bankAccounts: BankAccount
   companyName: String
   createdAt: String
   createdBy: String
@@ -2213,14 +2219,25 @@ type Customer {
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
+  emails: [Email]
   firstName: String
   id: String
   individual: Boolean
   lastName: String
   notes: String
+  phoneNumbers: [PhoneNumber]
+  status: CustomerStatus
+  taxNumber: String
   taxRate: LinkedTaxRate
   updatedAt: String
   updatedBy: String
+}
+
+enum CustomerStatus {
+  active
+  archived
+  gdprerasurerequest
+  unknown
 }
 
 type LinkedTaxRate {
@@ -2720,16 +2737,21 @@ type MutationAccounting {
 
 input CustomerInput {
   addresses: [AddressInput]
+  bankAccounts: BankAccountInput
   companyName: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
+  emails: [EmailInput]
   firstName: String
   id: String
   individual: Boolean
   lastName: String
   notes: String
+  phoneNumbers: [PhoneNumberInput]
+  status: CustomerStatus
+  taxNumber: String
   taxRate: LinkedTaxRateInput
 }
 
