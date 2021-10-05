@@ -3464,6 +3464,13 @@ input ConsumerMetadataInput {
 
 input SessionSettingsInput {
   hideResourceSettings: Boolean
+  """
+  Forces Vault to run in isolation mode, meaning it only shows the connection settings and hides the navigation items.
+  """
+  isolationMode: Boolean
+  """
+  Forces Vault to shows a banner informing the current consumer is in a test environment.
+  """
   sandboxMode: Boolean
   """
   The duration of time the session is valid for (maximum 1 week).
