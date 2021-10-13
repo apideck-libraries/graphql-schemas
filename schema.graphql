@@ -3394,7 +3394,6 @@ input ConnectionInput {
   authType: AuthType
   configuration: [ConfigurationListItemInput]
   enabled: Boolean
-  formFields: [FormFieldInput]
   """
   Attach your own consumer specific metadata
   """
@@ -3426,18 +3425,6 @@ input FormFieldOptionInput {
 input SimpleFormFieldOptionInput {
   label: String
   value: JSON
-}
-
-input FormFieldInput {
-  customField: Boolean
-  description: String
-  disabled: Boolean
-  id: String
-  label: String
-  options: [FormFieldOptionInput]
-  placeholder: String
-  required: Boolean
-  type: Type
 }
 
 type CreateSessionResponse {
