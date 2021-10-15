@@ -3100,6 +3100,10 @@ enum Target {
 }
 
 type FormField {
+  """
+  Only applicable to select fields. Allow the user to add a custom value though the option select if the desired value is not in the option select list.
+  """
+  allowCustomValues: Boolean
   customField: Boolean
   description: String
   disabled: Boolean
