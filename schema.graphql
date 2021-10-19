@@ -2226,6 +2226,9 @@ type Customer {
   lastName: String
   notes: String
   phoneNumbers: [PhoneNumber]
+  """
+  Customer status
+  """
   status: CustomerStatus
   taxNumber: String
   taxRate: LinkedTaxRate
@@ -2750,6 +2753,9 @@ input CustomerInput {
   lastName: String
   notes: String
   phoneNumbers: [PhoneNumberInput]
+  """
+  Customer status
+  """
   status: CustomerStatus
   taxNumber: String
   taxRate: LinkedTaxRateInput
