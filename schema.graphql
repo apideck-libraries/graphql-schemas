@@ -3,6 +3,7 @@ type Query {
   crm: Crm
   fileStorage: FileStorage
   accounting: Accounting
+  customerSupport: CustomerSupport
   vault: Vault
 }
 
@@ -11,6 +12,7 @@ type Mutation {
   crm: MutationCrm
   fileStorage: MutationFileStorage
   accounting: MutationAccounting
+  customerSupport: MutationCustomerSupport
   vault: MutationVault
 }
 
@@ -2940,6 +2942,135 @@ input ComponentsListItemInput {
   compound: Boolean
   name: String
   rate: Float
+}
+
+type CustomerSupport {
+  """
+  Get Customer Support Customer
+  """
+  customerSupportCustomer(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): CustomerSupportCustomer
+  """
+  List Customer Support Customers
+  """
+  customerSupportCustomers(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): CustomerSupportCustomerList
+}
+
+type CustomerSupportCustomer {
+  addresses: [Address]
+  bankAccounts: BankAccount
+  companyName: String
+  createdAt: String
+  createdBy: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  emails: [Email]
+  firstName: String
+  id: String
+  individual: Boolean
+  lastName: String
+  notes: String
+  phoneNumbers: [PhoneNumber]
+  """
+  Customer status
+  """
+  status: CustomerStatus
+  taxNumber: String
+  updatedAt: String
+  updatedBy: String
+}
+
+type CustomerSupportCustomerList {
+  data: [CustomerSupportCustomer]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+type MutationCustomerSupport {
+  """
+  Create Customer Support Customer
+  """
+  customersAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: CustomerSupportCustomerInput!
+  ): UnifiedId
+  """
+  Delete Customer Support Customer
+  """
+  customersDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Customer Support Customer
+  """
+  customersUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: CustomerSupportCustomerInput!
+  ): UnifiedId
+}
+
+input CustomerSupportCustomerInput {
+  addresses: [AddressInput]
+  bankAccounts: BankAccountInput
+  companyName: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  emails: [EmailInput]
+  firstName: String
+  id: String
+  individual: Boolean
+  lastName: String
+  notes: String
+  phoneNumbers: [PhoneNumberInput]
+  """
+  Customer status
+  """
+  status: CustomerStatus
+  taxNumber: String
 }
 
 type Vault {
