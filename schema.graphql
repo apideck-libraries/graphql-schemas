@@ -659,6 +659,14 @@ type Crm {
   """
   pipelines(
     """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
