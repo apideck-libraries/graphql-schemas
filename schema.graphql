@@ -1854,14 +1854,6 @@ type Accounting {
   """
   companyInfo(
     """
-    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
-    """
-    cursor: String
-    """
-    Number of records to return
-    """
-    limit: Int
-    """
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
@@ -2019,7 +2011,7 @@ type Accounting {
 }
 
 type CompanyInfo {
-  addressses: [Address]
+  addresses: [Address]
   companyName: String
   createdAt: String
   createdBy: String
@@ -2030,7 +2022,7 @@ type CompanyInfo {
   emails: [Email]
   id: String
   phoneNumbers: [PhoneNumber]
-  salexTaxNumber: String
+  salesTaxNumber: String
   updatedAt: String
   updatedBy: String
 }
@@ -2229,6 +2221,7 @@ type Customer {
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
+  displayId: String
   emails: [Email]
   firstName: String
   id: String
@@ -2537,7 +2530,7 @@ type TaxRate {
   """
   Special tax type to handle zero rate taxes. Used with VAT registered Businesses who receive goods/services (acquisitions) from other EU countries, will need to calculate the VAT due, but not paid, on these acquisitions. The rate of VAT payable is the same that would have been paid if the goods had been supplied by a UK supplier.
   """
-  specialTaxType: String
+  taxType: String
   """
   Not compounded sum of the components of a tax rate
   """
@@ -2756,9 +2749,9 @@ input CustomerInput {
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
+  displayId: String
   emails: [EmailInput]
   firstName: String
-  id: String
   individual: Boolean
   lastName: String
   notes: String
@@ -2783,7 +2776,6 @@ input InvoiceItemInput {
   """
   code: String
   description: String
-  id: String
   ledgerAccount: LinkedLedgerAccountInput
   name: String
   quantity: Int
@@ -2798,7 +2790,6 @@ input InvoiceItemInput {
 }
 
 input LinkedLedgerAccountInput {
-  id: String
   name: String
 }
 
@@ -2829,7 +2820,6 @@ input InvoiceInput {
   The invoice due date is the date on which a payment or invoice is scheduled to be received by the seller - YYYY-MM-DD
   """
   dueDate: String
-  id: String
   """
   Date invoice was issued - YYYY-MM-DD
   """
@@ -2864,7 +2854,6 @@ The customer this invoice is linked to.
 """
 input LinkedCustomerInput {
   companyName: String
-  id: String!
 }
 
 input LineItemsListItemInput {
@@ -2874,7 +2863,6 @@ input LineItemsListItemInput {
   code: String
   description: String
   discountPercentage: Int
-  id: String
   item: ItemInput
   ledgerAccount: LinkedLedgerAccountInput
   lineNumber: Int
@@ -2910,18 +2898,26 @@ input LedgerAccountInput {
   currency: Currency
   currentBalance: Float
   description: String
+  displayId: String
   fullyQualifiedName: String
   header: Boolean
-  id: String
   level: Float
   name: String
   nominalCode: String
   openingBalance: Float
+  parentAccount: ParentAccountInput
+  rowVersion: String
   subAccount: Boolean
   subType: String
   taxRate: LinkedTaxRateInput
   taxType: String
   type: LedgerAccountType
+}
+
+input ParentAccountInput {
+  displayId: String
+  id: String
+  name: String
 }
 
 input TaxRateInput {
@@ -2930,7 +2926,6 @@ input TaxRateInput {
   components: [ComponentsListItemInput]
   description: String
   effectiveTaxRate: Float
-  id: String
   name: String
   """
   ID of the original tax rate from which the new tax rate is derived. Helps to understand the relationship between corresponding tax rate entities.
@@ -2939,7 +2934,7 @@ input TaxRateInput {
   """
   Special tax type to handle zero rate taxes. Used with VAT registered Businesses who receive goods/services (acquisitions) from other EU countries, will need to calculate the VAT due, but not paid, on these acquisitions. The rate of VAT payable is the same that would have been paid if the goods had been supplied by a UK supplier.
   """
-  specialTaxType: String
+  taxType: String
   """
   Not compounded sum of the components of a tax rate
   """
@@ -3069,7 +3064,6 @@ input CustomerSupportCustomerInput {
   currency: Currency
   emails: [EmailInput]
   firstName: String
-  id: String
   individual: Boolean
   lastName: String
   notes: String
