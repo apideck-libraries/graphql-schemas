@@ -1151,15 +1151,32 @@ type PipelinesList {
 }
 
 type User {
+  addresses: [Address]
+  companyName: String
   createdAt: String
-  email: String!
+  """
+  The department the user is currently in.
+  """
+  department: String
+  description: String
+  """
+  The division the user is currently in.
+  """
+  division: String
+  emails: [Email]!
+  """
+  An Employee Number, Employee ID or Employee Code, is a unique number that has been assigned to each individual staff member within a company.
+  """
+  employeeNumber: String
   firstName: String
   id: String
   image: String
   language: String
   lastName: String
   parentId: String
+  phoneNumbers: [PhoneNumber]
   status: String
+  title: String
   updatedAt: String
   username: String
 }
@@ -1680,14 +1697,31 @@ input StagesListItemInput {
 }
 
 input UserInput {
-  email: String!
+  addresses: [AddressInput]
+  companyName: String
+  """
+  The department the user is currently in.
+  """
+  department: String
+  description: String
+  """
+  The division the user is currently in.
+  """
+  division: String
+  emails: [EmailInput]!
+  """
+  An Employee Number, Employee ID or Employee Code, is a unique number that has been assigned to each individual staff member within a company.
+  """
+  employeeNumber: String
   firstName: String
   image: String
   language: String
   lastName: String
   parentId: String
   password: String
+  phoneNumbers: [PhoneNumberInput]
   status: String
+  title: String
   username: String
 }
 
