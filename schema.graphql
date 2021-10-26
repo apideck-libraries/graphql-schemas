@@ -633,7 +633,7 @@ type LineItemsListItem {
   description: String
   discountPercentage: Int
   id: String
-  item: Item
+  item: LinkedInvoiceItem
   ledgerAccount: LinkedLedgerAccount
   lineNumber: Int
   quantity: Int
@@ -646,7 +646,7 @@ type LineItemsListItem {
   unitPrice: Float
 }
 
-type Item {
+type LinkedInvoiceItem {
   """
   User defined item code
   """
@@ -1282,7 +1282,7 @@ input LineItemsListItemInput {
   code: String
   description: String
   discountPercentage: Int
-  item: ItemInput
+  item: LinkedInvoiceItemInput
   ledgerAccount: LinkedLedgerAccountInput
   lineNumber: Int
   quantity: Int
@@ -1295,7 +1295,7 @@ input LineItemsListItemInput {
   unitPrice: Float
 }
 
-input ItemInput {
+input LinkedInvoiceItemInput {
   """
   User defined item code
   """
