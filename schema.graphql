@@ -1918,6 +1918,8 @@ enum Type {
   date
   time
   number
+  sms
+  mms
   customer
   supplier
   employee
@@ -3212,7 +3214,7 @@ type Message {
   from: String!
   id: String
   """
-  The ID of the Messaging Service used with the message.
+  The ID of the Messaging Service used with the message. In case of Plivo this links to the Powerpack ID.
   """
   messagingServiceId: String
   """
@@ -3220,9 +3222,9 @@ type Message {
   """
   numberOfMediaFiles: Int
   """
-  The number of segments that make up the complete message. Messages can be split up due to the constraints of the message size.
+  The number of units that make up the complete message. Messages can be split up due to the constraints of the message size.
   """
-  numberOfSegments: Int
+  numberOfUnits: Int
   """
   Price of the message.
   """
@@ -3239,6 +3241,10 @@ type Message {
   The phone number that received the message.
   """
   to: String!
+  """
+  Set to sms for SMS messages and mms for MMS messages.
+  """
+  type: Type
   updatedAt: String
   updatedBy: String
 }
@@ -3267,13 +3273,17 @@ Price of the message.
 """
 type Price {
   """
-
-  """
-  amount: String
-  """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
+  """
+
+  """
+  perUnit: String
+  """
+
+  """
+  totalAmount: String
 }
 
 type MessageList {
@@ -3334,13 +3344,17 @@ input MessageInput {
   """
   from: String!
   """
-  The ID of the Messaging Service used with the message.
+  The ID of the Messaging Service used with the message. In case of Plivo this links to the Powerpack ID.
   """
   messagingServiceId: String
   """
   The phone number that received the message.
   """
   to: String!
+  """
+  Set to sms for SMS messages and mms for MMS messages.
+  """
+  type: Type
 }
 
 type Vault {
