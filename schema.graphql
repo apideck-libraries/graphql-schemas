@@ -523,7 +523,7 @@ enum CustomerStatus {
 
 type LinkedTaxRate {
   code: String
-  id: String
+  id: String!
 }
 
 type CustomerList {
@@ -582,6 +582,10 @@ type Invoice {
   customerMemo: String
   deposit: Float
   """
+  The third-party API ID of original entity
+  """
+  downstreamId: String
+  """
   The invoice due date is the date on which a payment or invoice is scheduled to be received by the seller - YYYY-MM-DD
   """
   dueDate: String
@@ -609,10 +613,7 @@ type Invoice {
   taxInclusive: Boolean
   total: Float
   totalTax: Float
-  """
-
-  """
-  type: String
+  type: InvoiceType
   updatedAt: String
   updatedBy: String
 }
@@ -622,6 +623,7 @@ The customer this invoice is linked to.
 """
 type LinkedCustomer {
   companyName: String
+  displayId: String
   id: String!
 }
 
@@ -643,6 +645,7 @@ type LineItemsListItem {
   taxRate: LinkedTaxRate
   totalAmount: Float
   type: InvoiceLineItemType
+  unitOfMeasure: String
   unitPrice: Float
 }
 
@@ -659,7 +662,7 @@ type LinkedInvoiceItem {
 }
 
 type LinkedLedgerAccount {
-  id: String
+  id: String!
   name: String
 }
 
@@ -690,6 +693,14 @@ enum Status {
   paid
   void
   credit
+}
+
+enum InvoiceType {
+  standard
+  credit
+  service
+  product
+  other
 }
 
 type InvoiceItem {
@@ -978,7 +989,7 @@ type MutationAccounting {
     """
     raw: Boolean
     requestBody: InvoiceInput!
-  ): UnifiedId
+  ): InvoiceResponse
   """
   Delete Invoice
   """
@@ -991,7 +1002,7 @@ type MutationAccounting {
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
-  ): UnifiedId
+  ): InvoiceResponse
   """
   Update Invoice
   """
@@ -1005,7 +1016,7 @@ type MutationAccounting {
     """
     raw: Boolean
     requestBody: InvoiceInput!
-  ): UnifiedId
+  ): InvoiceResponse
   """
   Create Ledger Account
   """
@@ -1184,8 +1195,7 @@ input PhoneNumberInput {
 }
 
 input LinkedTaxRateInput {
-  code: String
-  id: String
+  id: String!
 }
 
 input InvoiceItemInput {
@@ -1195,6 +1205,7 @@ input InvoiceItemInput {
   """
   code: String
   description: String
+  id: String
   ledgerAccount: LinkedLedgerAccountInput
   name: String
   quantity: Int
@@ -1209,6 +1220,7 @@ input InvoiceItemInput {
 }
 
 input LinkedLedgerAccountInput {
+  id: String!
   name: String
 }
 
@@ -1220,6 +1232,14 @@ input SalesDetailsInput {
   taxRate: LinkedTaxRateInput
   unitOfMeasure: String
   unitPrice: Float
+}
+
+type InvoiceResponse {
+  """
+  The third-party API ID of original entity
+  """
+  downstreamId: String
+  id: String
 }
 
 input InvoiceInput {
@@ -1262,17 +1282,14 @@ input InvoiceInput {
   taxInclusive: Boolean
   total: Float
   totalTax: Float
-  """
-
-  """
-  type: String
+  type: InvoiceType
 }
 
 """
 The customer this invoice is linked to.
 """
 input LinkedCustomerInput {
-  companyName: String
+  id: String!
 }
 
 input LineItemsListItemInput {
@@ -1292,6 +1309,7 @@ input LineItemsListItemInput {
   taxRate: LinkedTaxRateInput
   totalAmount: Float
   type: InvoiceLineItemType
+  unitOfMeasure: String
   unitPrice: Float
 }
 
