@@ -3237,6 +3237,7 @@ type Message {
   Status of the delivery of the message.
   """
   status: Status
+  subject: String
   """
   The phone number that received the message.
   """
@@ -3247,6 +3248,10 @@ type Message {
   type: Type
   updatedAt: String
   updatedBy: String
+  """
+  Define a webhook to receive delivery notifications.
+  """
+  webhookUrl: String
 }
 
 enum Direction {
@@ -3347,6 +3352,7 @@ input MessageInput {
   The ID of the Messaging Service used with the message. In case of Plivo this links to the Powerpack ID.
   """
   messagingServiceId: String
+  subject: String
   """
   The phone number that received the message.
   """
@@ -3355,6 +3361,10 @@ input MessageInput {
   Set to sms for SMS messages and mms for MMS messages.
   """
   type: Type
+  """
+  Define a webhook to receive delivery notifications.
+  """
+  webhookUrl: String
 }
 
 type Vault {
