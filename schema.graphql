@@ -1,5 +1,6 @@
 type Query {
   accounting: Accounting
+  ats: Ats
   crm: Crm
   customerSupport: CustomerSupport
   fileStorage: FileStorage
@@ -1395,6 +1396,73 @@ input ComponentsListItemInput {
   compound: Boolean
   name: String
   rate: Float
+}
+
+type Ats {
+  """
+  Get job
+  """
+  job(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Job
+  """
+  List jobs
+  """
+  jobs(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): JobList
+}
+
+type Job {
+  """
+  The code of the job.
+  """
+  code: String
+  createdAt: String
+  description: String
+  id: String
+  """
+  The status of the job.
+  """
+  status: JobStatus
+  title: String
+  """
+  The url pointing to the job.
+  """
+  url: String
+}
+
+enum JobStatus {
+  draft
+  internal
+  published
+  completed
+}
+
+type JobList {
+  data: [Job]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
 }
 
 type Crm {
