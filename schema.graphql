@@ -21,6 +21,23 @@ type Mutation {
 
 type Accounting {
   """
+  List Payments
+  """
+  Payments(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): PaymentList
+  """
   Get company info
   """
   companyInfo(
@@ -150,6 +167,19 @@ type Accounting {
     raw: Boolean
   ): LedgerAccountList
   """
+  Get Payment
+  """
+  payment(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Payment
+  """
   Get Tax Rate
   """
   taxRate(
@@ -181,70 +211,88 @@ type Accounting {
   ): TaxRateList
 }
 
-type CompanyInfo {
-  addresses: [Address]
-  companyName: String
-  createdAt: String
-  createdBy: String
+type PaymentList {
+  data: [Payment]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+type Payment {
+  """
+  Unique identifier for the account to allocate payment to.
+  """
+  accountsReceivableAccountId: String!
+  """
+  Type of accounts receivable account.
+  """
+  accountsReceivableAccountType: String
+  allocations: [AllocationsListItem]
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
-  emails: [Email]
+  """
+  Exchange rate when payment is received
+  """
+  currencyRate: Float
+  """
+  The customer this payment is linked to.
+  """
+  customer: LinkedPayment
+  """
+  Unique identifier representing the entity
+  """
   id: String
-  phoneNumbers: [PhoneNumber]
-  salesTaxNumber: String
-  updatedAt: String
-  updatedBy: String
+  """
+  Optional payment reference message ie: Debit remittance detail.
+  """
+  reference: String
+  """
+  Amount of payment
+  """
+  totalAmount: Float!
+  """
+  Date transction was entered - YYYY:MM::DDThh:mm:ss.sTZD
+  """
+  transactionDate: String!
 }
 
-type Address {
+type AllocationsListItem {
   """
-  Name of city.
+  Amount of payment that should be attributted to this allocation
   """
-  city: String
-  contactName: String
+  amount: Float
   """
-  country code according to ISO 3166-1 alpha-2.
+  Unique identifier of entity this payment should be attributed to.
   """
-  country: String
-  email: String
-  fax: String
   id: String
-  latitude: String
-  """
-  Line 1 of the address e.g. number, street, suite, apt #, etc.
-  """
-  line1: String
-  """
-  Line 2 of the address
-  """
-  line2: String
-  longitude: String
-  name: String
-  phoneNumber: String
-  """
-  Zip code or equivalent.
-  """
-  postalCode: String
-  salutation: String
-  """
-  Name of state
-  """
-  state: String
-  string: String
-  type: AddressType
-  website: String
+  type: Type
 }
 
-enum AddressType {
-  primary
-  secondary
-  home
-  office
-  shipping
-  billing
-  other
+enum Type {
+  text
+  checkbox
+  tel
+  email
+  url
+  textarea
+  select
+  filteredselect
+  multiselect
+  datetime
+  date
+  time
+  number
+  sms
+  mms
+  customer
+  supplier
+  employee
+  personal
+  invoice
+  order
 }
 
 enum Currency {
@@ -393,6 +441,7 @@ enum Currency {
   TMT
   TND
   TOP
+  TRC
   TRY
   TTD
   TWD
@@ -429,6 +478,113 @@ enum Currency {
   ZMK
   ZMW
   BTC
+}
+
+"""
+The customer this payment is linked to.
+"""
+type LinkedPayment {
+  companyName: String
+  displayId: String
+  id: String!
+}
+
+"""
+Reponse metadata
+"""
+type Meta {
+  """
+  Cursors to navigate to previous or next pages through the API
+  """
+  cursors: Cursors
+  """
+  Number of items returned in the data property of the response
+  """
+  itemsOnPage: Int
+}
+
+"""
+Cursors to navigate to previous or next pages through the API
+"""
+type Cursors {
+  """
+  Cursor to navigate to the current page of results through the API
+  """
+  current: String
+  """
+  Cursor to navigate to the next page of results through the API
+  """
+  next: String
+  """
+  Cursor to navigate to the previous page of results through the API
+  """
+  previous: String
+}
+
+type CompanyInfo {
+  addresses: [Address]
+  companyName: String
+  createdAt: String
+  createdBy: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  emails: [Email]
+  id: String
+  phoneNumbers: [PhoneNumber]
+  salesTaxNumber: String
+  updatedAt: String
+  updatedBy: String
+}
+
+type Address {
+  """
+  Name of city.
+  """
+  city: String
+  contactName: String
+  """
+  country code according to ISO 3166-1 alpha-2.
+  """
+  country: String
+  email: String
+  fax: String
+  id: String
+  latitude: String
+  """
+  Line 1 of the address e.g. number, street, suite, apt #, etc.
+  """
+  line1: String
+  """
+  Line 2 of the address
+  """
+  line2: String
+  longitude: String
+  name: String
+  phoneNumber: String
+  """
+  Zip code or equivalent.
+  """
+  postalCode: String
+  salutation: String
+  """
+  Name of state
+  """
+  state: String
+  string: String
+  type: AddressType
+  website: String
+}
+
+enum AddressType {
+  primary
+  secondary
+  home
+  office
+  shipping
+  billing
+  other
 }
 
 type Email {
@@ -484,6 +640,7 @@ type Customer {
   lastName: String
   notes: String
   phoneNumbers: [PhoneNumber]
+  rowVersion: String
   """
   Customer status
   """
@@ -533,38 +690,6 @@ type CustomerList {
   Reponse metadata
   """
   meta: Meta
-}
-
-"""
-Reponse metadata
-"""
-type Meta {
-  """
-  Cursors to navigate to previous or next pages through the API
-  """
-  cursors: Cursors
-  """
-  Number of items returned in the data property of the response
-  """
-  itemsOnPage: Int
-}
-
-"""
-Cursors to navigate to previous or next pages through the API
-"""
-type Cursors {
-  """
-  Cursor to navigate to the current page of results through the API
-  """
-  current: String
-  """
-  Cursor to navigate to the next page of results through the API
-  """
-  next: String
-  """
-  Cursor to navigate to the previous page of results through the API
-  """
-  previous: String
 }
 
 type Invoice {
@@ -1056,6 +1181,43 @@ type MutationAccounting {
     requestBody: LedgerAccountInput!
   ): UnifiedId
   """
+  Create Payment
+  """
+  paymentsAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: PaymentInput!
+  ): UnifiedId
+  """
+  Delete Payment
+  """
+  paymentsDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Payment
+  """
+  paymentsUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: PaymentInput!
+  ): UnifiedId
+  """
   Create Tax Rate
   """
   taxRatesAdd(
@@ -1113,6 +1275,7 @@ input CustomerInput {
   lastName: String
   notes: String
   phoneNumbers: [PhoneNumberInput]
+  rowVersion: String
   """
   Customer status
   """
@@ -1222,7 +1385,6 @@ input InvoiceItemInput {
 
 input LinkedLedgerAccountInput {
   id: String!
-  name: String
 }
 
 input SalesDetailsInput {
@@ -1316,14 +1478,9 @@ input LineItemsListItemInput {
 
 input LinkedInvoiceItemInput {
   """
-  User defined item code
-  """
-  code: String
-  """
   ID of the linked item
   """
   id: String
-  name: String
 }
 
 input LedgerAccountInput {
@@ -1360,6 +1517,61 @@ input ParentAccountInput {
   displayId: String
   id: String
   name: String
+}
+
+input PaymentInput {
+  """
+  Unique identifier for the account to allocate payment to.
+  """
+  accountsReceivableAccountId: String!
+  """
+  Type of accounts receivable account.
+  """
+  accountsReceivableAccountType: String
+  allocations: [AllocationsListItemInput]
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  Exchange rate when payment is received
+  """
+  currencyRate: Float
+  """
+  The customer this payment is linked to.
+  """
+  customer: LinkedPaymentInput
+  """
+  Optional payment reference message ie: Debit remittance detail.
+  """
+  reference: String
+  """
+  Amount of payment
+  """
+  totalAmount: Float!
+  """
+  Date transction was entered - YYYY:MM::DDThh:mm:ss.sTZD
+  """
+  transactionDate: String!
+}
+
+input AllocationsListItemInput {
+  """
+  Amount of payment that should be attributted to this allocation
+  """
+  amount: Float
+  """
+  Unique identifier of entity this payment should be attributed to.
+  """
+  id: String
+  type: Type
+}
+
+"""
+The customer this payment is linked to.
+"""
+input LinkedPaymentInput {
+  id: String!
 }
 
 input TaxRateInput {
@@ -1988,28 +2200,6 @@ enum Gender {
   male
   female
   unisex
-}
-
-enum Type {
-  text
-  checkbox
-  tel
-  email
-  url
-  textarea
-  select
-  filteredselect
-  multiselect
-  datetime
-  date
-  time
-  number
-  sms
-  mms
-  customer
-  supplier
-  employee
-  personal
 }
 
 type ContactList {
@@ -3316,6 +3506,14 @@ type Message {
   """
   price: Price
   """
+  A client reference.
+  """
+  reference: String
+  """
+  The scheduled date and time of the message.
+  """
+  scheduledAt: String
+  """
   The date and time that the message was sent
   """
   sentAt: String
@@ -3438,6 +3636,14 @@ input MessageInput {
   The ID of the Messaging Service used with the message. In case of Plivo this links to the Powerpack ID.
   """
   messagingServiceId: String
+  """
+  A client reference.
+  """
+  reference: String
+  """
+  The scheduled date and time of the message.
+  """
+  scheduledAt: String
   subject: String
   """
   The phone number that received the message.
