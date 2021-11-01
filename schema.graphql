@@ -4,6 +4,7 @@ type Query {
   crm: Crm
   customerSupport: CustomerSupport
   fileStorage: FileStorage
+  hris: Hris
   lead: Lead
   sms: Sms
   vault: Vault
@@ -14,6 +15,7 @@ type Mutation {
   crm: MutationCrm
   customerSupport: MutationCustomerSupport
   fileStorage: MutationFileStorage
+  hris: MutationHris
   lead: MutationLead
   sms: MutationSms
   vault: MutationVault
@@ -619,6 +621,7 @@ enum PhoneType {
   assistant
   fax
   directdialin
+  personal
   other
 }
 
@@ -2006,7 +2009,15 @@ type Activity {
 }
 
 type CustomField {
+  """
+  More information about the custom field
+  """
+  description: String
   id: String!
+  """
+  Name of the custom field.
+  """
+  name: String
   value: JSON
 }
 
@@ -2200,6 +2211,7 @@ enum Gender {
   male
   female
   unisex
+  other
 }
 
 type ContactList {
@@ -2532,6 +2544,9 @@ type User {
   firstName: String
   id: String
   image: String
+  """
+  language code according to ISO 639-1. For the United States - EN
+  """
   language: String
   lastName: String
   parentId: String
@@ -2889,7 +2904,15 @@ input ActivityInput {
 }
 
 input CustomFieldInput {
+  """
+  More information about the custom field
+  """
+  description: String
   id: String!
+  """
+  Name of the custom field.
+  """
+  name: String
   value: JSON
 }
 
@@ -3101,6 +3124,9 @@ input UserInput {
   employeeNumber: String
   firstName: String
   image: String
+  """
+  language code according to ISO 639-1. For the United States - EN
+  """
   language: String
   lastName: String
   parentId: String
@@ -3394,6 +3420,250 @@ input FilesSearchInput {
   The query to search for. May match across multiple fields.
   """
   query: String!
+}
+
+type Hris {
+  """
+  Get Employee
+  """
+  employee(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Employee
+  """
+  List Employees
+  """
+  employees(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): EmployeeList
+}
+
+type Employee {
+  addresses: [Address]
+  birthday: String
+  companyId: String
+  companyName: String
+  createdAt: String
+  createdBy: String
+  customFields: [CustomField]
+  """
+  The department the user is currently in.
+  """
+  department: String
+  description: String
+  """
+  The division the user is currently in.
+  """
+  division: String
+  emails: [Email]
+  """
+  An Employee Number, Employee ID or Employee Code, is a unique number that has been assigned to each individual staff member within a company.
+  """
+  employeeNumber: String
+  employmentStatus: EmploymentStatus
+  firstName: String
+  gender: Gender
+  id: String
+  jobs: [JobsListItem]
+  """
+  language code according to ISO 639-1. For the United States - EN
+  """
+  language: String
+  lastName: String
+  managerId: String
+  middleName: String
+  phoneNumbers: [PhoneNumber]
+  socialSecurityNumber: String
+  title: String
+  updatedAt: String
+  updatedBy: String
+}
+
+enum EmploymentStatus {
+  active
+  inactive
+  other
+}
+
+type JobsListItem {
+  compensationRate: String
+  compensations: [CompensationsListItem]
+  employeeId: String
+  hiredAt: String
+  id: String
+  """
+  Indicates whether this the employee's primary job
+  """
+  isPrimary: Boolean
+  location: Address
+  paymentUnit: PaymentUnit
+  title: String
+}
+
+type CompensationsListItem {
+  """
+  The effective date for this compensation.
+  """
+  effectiveDate: String
+  """
+  The FLSA status for this compensation.
+  """
+  flsaStatus: FlsaStatus
+  id: String
+  """
+  The ID of the job to which the compensation belongs.
+  """
+  jobId: Int
+  paymentUnit: PaymentUnit
+  """
+  The amount paid per payment unit.
+  """
+  rate: String
+}
+
+enum FlsaStatus {
+  exempt
+  salariednonexempt
+  nonexempt
+  owner
+}
+
+enum PaymentUnit {
+  hour
+  week
+  month
+  year
+  paycheck
+}
+
+type EmployeeList {
+  data: [Employee]!
+  """
+  Reponse metadata
+  """
+  meta: Meta
+}
+
+type MutationHris {
+  """
+  Create Employee
+  """
+  employeesAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: EmployeeInput!
+  ): UnifiedId
+  """
+  Delete Employee
+  """
+  employeesDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Employee
+  """
+  employeesUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: EmployeeInput!
+  ): UnifiedId
+}
+
+input EmployeeInput {
+  addresses: [AddressInput]
+  birthday: String
+  companyId: String
+  companyName: String
+  customFields: [CustomFieldInput]
+  """
+  The department the user is currently in.
+  """
+  department: String
+  description: String
+  """
+  The division the user is currently in.
+  """
+  division: String
+  emails: [EmailInput]
+  """
+  An Employee Number, Employee ID or Employee Code, is a unique number that has been assigned to each individual staff member within a company.
+  """
+  employeeNumber: String
+  employmentStatus: EmploymentStatus
+  firstName: String
+  gender: Gender
+  jobs: [JobsListItemInput]
+  """
+  language code according to ISO 639-1. For the United States - EN
+  """
+  language: String
+  lastName: String
+  managerId: String
+  middleName: String
+  phoneNumbers: [PhoneNumberInput]
+  socialSecurityNumber: String
+  title: String
+}
+
+input JobsListItemInput {
+  compensationRate: String
+  compensations: [CompensationsListItemInput]
+  hiredAt: String
+  """
+  Indicates whether this the employee's primary job
+  """
+  isPrimary: Boolean
+  location: AddressInput
+  paymentUnit: PaymentUnit
+  title: String
+}
+
+input CompensationsListItemInput {
+  """
+  The effective date for this compensation.
+  """
+  effectiveDate: String
+  """
+  The FLSA status for this compensation.
+  """
+  flsaStatus: FlsaStatus
+  paymentUnit: PaymentUnit
+  """
+  The amount paid per payment unit.
+  """
+  rate: String
 }
 
 type MutationLead {
