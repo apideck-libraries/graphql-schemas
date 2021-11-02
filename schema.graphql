@@ -4468,6 +4468,33 @@ input SessionSettingsInput {
   Configure [Vault](/apis/vault/reference#section/Get-Started) to show the suggestions page. Defaults to \`true\`.
   """
   showSuggestions: Boolean
+  """
+  Provide the IDs of the Unified APIs you want to be visible. Leaving it empty or omiting this field will show all Unified APIs.
+  """
+  unifiedApis: [UnifiedApiId]
+}
+
+enum UnifiedApiId {
+  vault
+  lead
+  crm
+  accounting
+  spreadsheet
+  email
+  script
+  sms
+  teammessaging
+  ecommerce
+  payroll
+  customersupport
+  timeregistration
+  transactionalemail
+  hcm
+  form
+  csp
+  emailmarketing
+  ats
+  hris
 }
 
 input ThemeInput {
