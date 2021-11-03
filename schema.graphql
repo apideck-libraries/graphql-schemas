@@ -1612,6 +1612,40 @@ input ComponentsListItemInput {
 
 type Ats {
   """
+  Get applicant
+  """
+  applicant(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Applicant
+  """
+  List applicants
+  """
+  applicants(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Apply filters (beta)
+    """
+    filter: JobsFilterInput
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): ApplicantList
+  """
   Get job
   """
   job(
@@ -1641,6 +1675,34 @@ type Ats {
     """
     raw: Boolean
   ): JobList
+}
+
+type Applicant {
+  createdAt: String
+  emails: [Email]
+  firstName: String
+  id: String
+  lastName: String
+  """
+  The name of an applicant.
+  """
+  name: String
+  phoneNumbers: [PhoneNumber]
+}
+
+type ApplicantList {
+  data: [Applicant]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+input JobsFilterInput {
+  """
+  Id of the job to filter on
+  """
+  jobId: String
 }
 
 type Job {
@@ -1675,6 +1737,30 @@ type JobList {
   Response metadata
   """
   meta: Meta
+}
+
+type MutationAts {
+  """
+  Create applicant
+  """
+  applicantsAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: ApplicantInput!
+  ): UnifiedId
+}
+
+input ApplicantInput {
+  emails: [EmailInput]
+  firstName: String
+  lastName: String
+  """
+  The name of an applicant.
+  """
+  name: String
+  phoneNumbers: [PhoneNumberInput]
 }
 
 type Crm {
