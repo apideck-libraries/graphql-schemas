@@ -765,6 +765,9 @@ type InvoiceLineItem {
   taxRate: LinkedTaxRate
   totalAmount: Float
   type: InvoiceLineItemType
+  """
+  Description of the unit type the item is sold as, ie: kg, hour.
+  """
   unitOfMeasure: String
   unitPrice: Float
 }
@@ -832,8 +835,9 @@ type InvoiceItem {
   createdAt: String
   createdBy: String
   description: String
+  expenseAccount: LinkedLedgerAccount
   id: String
-  ledgerAccount: LinkedLedgerAccount
+  incomeAccount: LinkedLedgerAccount
   name: String
   quantity: Int
   rowVersion: String
@@ -854,6 +858,9 @@ type SalesDetails {
   """
   taxInclusive: Boolean
   taxRate: LinkedTaxRate
+  """
+  Description of the unit type the item is sold as, ie: kg, hour.
+  """
   unitOfMeasure: String
   unitPrice: Float
 }
@@ -1363,8 +1370,8 @@ input InvoiceItemInput {
   """
   code: String
   description: String
-  id: String
-  ledgerAccount: LinkedLedgerAccountInput
+  expenseAccount: LinkedLedgerAccountInput
+  incomeAccount: LinkedLedgerAccountInput
   name: String
   quantity: Int
   rowVersion: String
@@ -1387,6 +1394,9 @@ input SalesDetailsInput {
   """
   taxInclusive: Boolean
   taxRate: LinkedTaxRateInput
+  """
+  Description of the unit type the item is sold as, ie: kg, hour.
+  """
   unitOfMeasure: String
   unitPrice: Float
 }
@@ -1466,6 +1476,9 @@ input InvoiceLineItemInput {
   taxRate: LinkedTaxRateInput
   totalAmount: Float
   type: InvoiceLineItemType
+  """
+  Description of the unit type the item is sold as, ie: kg, hour.
+  """
   unitOfMeasure: String
   unitPrice: Float
 }
