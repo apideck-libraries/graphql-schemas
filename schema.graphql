@@ -256,14 +256,14 @@ type Payment {
   """
   totalAmount: Float!
   """
-  Date transction was entered - YYYY:MM::DDThh:mm:ss.sTZD
+  Date transaction was entered - YYYY:MM::DDThh:mm:ss.sTZD
   """
   transactionDate: String!
 }
 
 type AllocationsListItem {
   """
-  Amount of payment that should be attributted to this allocation
+  Amount of payment that should be attributed to this allocation
   """
   amount: Float
   """
@@ -1557,14 +1557,14 @@ input PaymentInput {
   """
   totalAmount: Float!
   """
-  Date transction was entered - YYYY:MM::DDThh:mm:ss.sTZD
+  Date transaction was entered - YYYY:MM::DDThh:mm:ss.sTZD
   """
   transactionDate: String!
 }
 
 input AllocationsListItemInput {
   """
-  Amount of payment that should be attributted to this allocation
+  Amount of payment that should be attributed to this allocation
   """
   amount: Float
   """
