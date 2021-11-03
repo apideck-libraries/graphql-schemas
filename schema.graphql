@@ -216,7 +216,7 @@ type Accounting {
 type PaymentList {
   data: [Payment]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -240,9 +240,9 @@ type Payment {
   """
   currencyRate: Float
   """
-  The customer this payment is linked to.
+  The customer this entity is linked to.
   """
-  customer: LinkedPayment
+  customer: AccountingLinkedCustomer
   """
   Unique identifier representing the entity
   """
@@ -483,16 +483,16 @@ enum Currency {
 }
 
 """
-The customer this payment is linked to.
+The customer this entity is linked to.
 """
-type LinkedPayment {
+type AccountingLinkedCustomer {
   companyName: String
   displayId: String
   id: String!
 }
 
 """
-Reponse metadata
+Response metadata
 """
 type Meta {
   """
@@ -690,7 +690,7 @@ type LinkedTaxRate {
 type CustomerList {
   data: [Customer]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -705,9 +705,9 @@ type Invoice {
   """
   currency: Currency
   """
-  The customer this invoice is linked to.
+  The customer this entity is linked to.
   """
-  customer: LinkedCustomer
+  customer: AccountingLinkedCustomer
   customerMemo: String
   deposit: Float
   """
@@ -723,7 +723,7 @@ type Invoice {
   Date invoice was issued - YYYY-MM-DD
   """
   invoiceDate: String
-  lineItems: [LineItemsListItem]
+  lineItems: [InvoiceLineItem]
   number: String
   """
   A PO Number uniquely identifies a purchase order and is generally defined by the buyer. The buyer will match the PO number in the invoice to the Purchase Order.
@@ -747,16 +747,7 @@ type Invoice {
   updatedBy: String
 }
 
-"""
-The customer this invoice is linked to.
-"""
-type LinkedCustomer {
-  companyName: String
-  displayId: String
-  id: String!
-}
-
-type LineItemsListItem {
+type InvoiceLineItem {
   """
   User defined item code
   """
@@ -875,7 +866,7 @@ enum InvoiceItemType {
 type InvoiceItemList {
   data: [InvoiceItem]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -883,7 +874,7 @@ type InvoiceItemList {
 type InvoiceList {
   data: [Invoice]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -967,7 +958,7 @@ enum LedgerAccountType {
 type LedgerAccountList {
   data: [LedgerAccount]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -1029,7 +1020,7 @@ enum TaxType {
 type TaxRateList {
   data: [TaxRate]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -1416,9 +1407,9 @@ input InvoiceInput {
   """
   currency: Currency
   """
-  The customer this invoice is linked to.
+  The customer this entity is linked to.
   """
-  customer: LinkedCustomerInput
+  customer: AccountingLinkedCustomerInput
   customerMemo: String
   deposit: Float
   """
@@ -1429,7 +1420,7 @@ input InvoiceInput {
   Date invoice was issued - YYYY-MM-DD
   """
   invoiceDate: String
-  lineItems: [LineItemsListItemInput]
+  lineItems: [InvoiceLineItemInput]
   number: String
   """
   A PO Number uniquely identifies a purchase order and is generally defined by the buyer. The buyer will match the PO number in the invoice to the Purchase Order.
@@ -1452,13 +1443,13 @@ input InvoiceInput {
 }
 
 """
-The customer this invoice is linked to.
+The customer this entity is linked to.
 """
-input LinkedCustomerInput {
+input AccountingLinkedCustomerInput {
   id: String!
 }
 
-input LineItemsListItemInput {
+input InvoiceLineItemInput {
   """
   User defined item code
   """
@@ -1541,9 +1532,9 @@ input PaymentInput {
   """
   currencyRate: Float
   """
-  The customer this payment is linked to.
+  The customer this entity is linked to.
   """
-  customer: LinkedPaymentInput
+  customer: AccountingLinkedCustomerInput
   """
   Optional payment reference message ie: Debit remittance detail.
   """
@@ -1568,13 +1559,6 @@ input AllocationsListItemInput {
   """
   id: String
   type: Type
-}
-
-"""
-The customer this payment is linked to.
-"""
-input LinkedPaymentInput {
-  id: String!
 }
 
 input TaxRateInput {
@@ -1675,7 +1659,7 @@ enum JobStatus {
 type JobList {
   data: [Job]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -1958,7 +1942,7 @@ type Crm {
 type ActivityList {
   data: [Activity]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -2046,7 +2030,7 @@ enum ActivityType {
 type CompanyList {
   data: [Company]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -2217,7 +2201,7 @@ enum Gender {
 type ContactList {
   data: [Contact]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -2334,7 +2318,7 @@ type Lead {
 type LeadList {
   data: [Lead]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -2397,7 +2381,7 @@ type Note {
 type NoteList {
   data: [Note]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -2405,7 +2389,7 @@ type NoteList {
 type OpportunityList {
   data: [Opportunity]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -2518,7 +2502,7 @@ type StagesListItem {
 type PipelinesList {
   data: [Pipeline]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -2560,7 +2544,7 @@ type User {
 type UserList {
   data: [User]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -3199,7 +3183,7 @@ type CustomerSupportCustomer {
 type CustomerSupportCustomerList {
   data: [CustomerSupportCustomer]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -3379,7 +3363,7 @@ enum FileType {
 type FileList {
   data: [File]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -3556,7 +3540,7 @@ enum PaymentUnit {
 type EmployeeList {
   data: [Employee]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -3848,7 +3832,7 @@ type Price {
 type MessageList {
   data: [Message]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -4198,7 +4182,7 @@ type ConsumerRequestCountsInDateRangeResponse {
 type LogList {
   data: [Log]!
   """
-  Reponse metadata
+  Response metadata
   """
   meta: Meta
 }
@@ -4225,7 +4209,7 @@ type Log {
   """
   duration: Float!
   """
-  If error occured, this is brief explanation
+  If error occurred, this is brief explanation
   """
   errorMessage: String
   """
