@@ -4479,6 +4479,7 @@ enum UnifiedApiId {
   lead
   crm
   accounting
+  filestorage
   spreadsheet
   email
   script
