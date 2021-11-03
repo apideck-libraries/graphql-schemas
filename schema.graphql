@@ -4104,6 +4104,9 @@ type Vault {
 }
 
 type Connection {
+  """
+  Type of authorization used by the connector
+  """
   authType: AuthType
   authorizeUrl: String
   configurableResources: [String]
@@ -4212,6 +4215,9 @@ type Consumer {
 }
 
 type ConsumerConnection {
+  """
+  Type of authorization used by the connector
+  """
   authType: AuthType
   consumerId: String
   createdAt: String
@@ -4471,6 +4477,9 @@ type MutationVault {
 }
 
 input ConnectionInput {
+  """
+  Type of authorization used by the connector
+  """
   authType: AuthType
   configuration: [ConfigurationListItemInput]
   enabled: Boolean
