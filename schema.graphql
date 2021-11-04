@@ -737,7 +737,7 @@ type Invoice {
   status: Status
   subTotal: Float
   """
-  Amounts include tax
+  Amounts are including tax
   """
   taxInclusive: Boolean
   total: Float
@@ -854,7 +854,7 @@ type InvoiceItem {
 
 type SalesDetails {
   """
-  Indicates the unit price includes tax.
+  Amounts are including tax
   """
   taxInclusive: Boolean
   taxRate: LinkedTaxRate
@@ -1390,7 +1390,7 @@ input LinkedLedgerAccountInput {
 
 input SalesDetailsInput {
   """
-  Indicates the unit price includes tax.
+  Amounts are including tax
   """
   taxInclusive: Boolean
   taxRate: LinkedTaxRateInput
@@ -1444,7 +1444,7 @@ input InvoiceInput {
   status: Status
   subTotal: Float
   """
-  Amounts include tax
+  Amounts are including tax
   """
   taxInclusive: Boolean
   total: Float
