@@ -753,7 +753,7 @@ type InvoiceLineItem {
   """
   code: String
   description: String
-  discountPercentage: Int
+  discountPercentage: Float
   id: String
   item: LinkedInvoiceItem
   ledgerAccount: LinkedLedgerAccount
@@ -1465,7 +1465,7 @@ input InvoiceLineItemInput {
   """
   code: String
   description: String
-  discountPercentage: Int
+  discountPercentage: Float
   item: LinkedInvoiceItemInput
   ledgerAccount: LinkedLedgerAccountInput
   lineNumber: Int
