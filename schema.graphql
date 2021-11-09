@@ -3395,6 +3395,19 @@ type FileStorage {
     """
     sort: FilesSortInput
   ): FileList
+  """
+  Get Folder
+  """
+  folder(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Folder
 }
 
 type File {
@@ -3421,7 +3434,7 @@ type File {
   """
   The parent folders of the file, starting from the root
   """
-  parentFolders: [ParentFoldersListItem]
+  parentFolders: [LinkedFolder]
   """
   Whether the list of parent folder is complete. Some connectors only return the direct parent of a file
   """
@@ -3444,21 +3457,21 @@ type File {
 
 type Owner {
   """
-  Email of the owner of the file
+  Email of the owner
   """
   email: String
   """
-  ID of the owner of the file
+  ID of the owner
   """
   id: String
   """
-  Name of the owner of the file
+  Name of the owner
   """
   name: String
 }
 
-type ParentFoldersListItem {
-  id: String
+type LinkedFolder {
+  id: String!
   """
   The name of the folder
   """
@@ -3506,6 +3519,39 @@ enum FilesSortBy {
   name
 }
 
+type Folder {
+  createdAt: String
+  createdBy: String
+  """
+  Optional description of the folder
+  """
+  description: String
+  id: String
+  """
+  The name of the folder
+  """
+  name: String!
+  owner: Owner
+  """
+  The parent folders of the file, starting from the root
+  """
+  parentFolders: [LinkedFolder]!
+  """
+  Whether the list of parent folder is complete. Some connectors only return the direct parent of a folder
+  """
+  parentFoldersComplete: Boolean
+  """
+  The full path of the folder (includes the folder name)
+  """
+  path: String
+  """
+  The size of the folder in bytes
+  """
+  size: Int
+  updatedAt: String
+  updatedBy: String
+}
+
 type MutationFileStorage {
   """
   Delete File
@@ -3524,6 +3570,43 @@ type MutationFileStorage {
   Search Files
   """
   filesSearch(requestBody: FilesSearchInput!): FileList
+  """
+  Create Folder
+  """
+  foldersAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: CreateFolderRequestInput!
+  ): UnifiedId
+  """
+  Delete Folder
+  """
+  foldersDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Rename or move Folder
+  """
+  foldersUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: UpdateFolderRequestInput!
+  ): UnifiedId
 }
 
 input FilesSearchInput {
@@ -3531,6 +3614,36 @@ input FilesSearchInput {
   The query to search for. May match across multiple fields.
   """
   query: String!
+}
+
+input CreateFolderRequestInput {
+  """
+  Optional description of the folder.
+  """
+  description: String
+  """
+  The name of the folder.
+  """
+  name: String!
+  """
+  The parent folder to create the new folder within.
+  """
+  parentFolderId: String!
+}
+
+input UpdateFolderRequestInput {
+  """
+  Optional description of the folder.
+  """
+  description: String
+  """
+  The name of the folder.
+  """
+  name: String
+  """
+  The parent folder to create the new folder within.
+  """
+  parentFolderId: String
 }
 
 type Hris {
