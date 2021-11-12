@@ -550,6 +550,10 @@ type Address {
   country code according to ISO 3166-1 alpha-2.
   """
   country: String
+  """
+  Address field that holds a sublocality, such as a county
+  """
+  county: String
   email: String
   fax: String
   id: String
@@ -574,6 +578,10 @@ type Address {
   Name of state
   """
   state: String
+  """
+  Street number
+  """
+  streetNumber: String
   string: String
   type: AddressType
   website: String
@@ -810,6 +818,8 @@ enum Status {
   receiving
   received
   read
+  tentative
+  declined
   draft
   submitted
   partially_paid
@@ -1299,6 +1309,10 @@ input AddressInput {
   country code according to ISO 3166-1 alpha-2.
   """
   country: String
+  """
+  Address field that holds a sublocality, such as a county
+  """
+  county: String
   email: String
   fax: String
   id: String
@@ -1323,6 +1337,10 @@ input AddressInput {
   Name of state
   """
   state: String
+  """
+  Street number
+  """
+  streetNumber: String
   string: String
   type: AddressType
   website: String
@@ -2069,6 +2087,7 @@ type Activity {
   allDayEvent: Boolean
   archived: Boolean
   assetId: String
+  attendees: [ActivityAttendee]
   campaignId: String
   caseId: String
   child: Boolean
@@ -2081,6 +2100,10 @@ type Activity {
   customObjectId: String
   deleted: Boolean
   description: String
+  """
+  Whether the Activity is done or not
+  """
+  done: Boolean
   durationMinutes: Int
   durationSeconds: Int
   endDate: String
@@ -2091,6 +2114,8 @@ type Activity {
   id: String
   leadId: String
   location: String
+  locationAddress: Address
+  note: String
   opportunityId: String
   ownerId: String
   private: Boolean
@@ -2105,6 +2130,26 @@ type Activity {
   type: ActivityType!
   updatedAt: String
   updatedBy: String
+  userId: String
+  videoConferenceId: String
+  videoConferenceUrl: String
+}
+
+type ActivityAttendee {
+  contactId: String
+  createdAt: String
+  emailAddress: String
+  firstName: String
+  id: String
+  isOrganizer: Boolean
+  lastName: String
+  middleName: String
+  name: String
+  prefix: String
+  status: Status
+  suffix: String
+  updatedAt: String
+  userId: String
 }
 
 type CustomField {
@@ -2137,6 +2182,7 @@ enum ActivityType {
   email
   note
   task
+  deadline
   sendletter
   sendquote
   other
@@ -2970,6 +3016,7 @@ input ActivityInput {
   allDayEvent: Boolean
   archived: Boolean
   assetId: String
+  attendees: [ActivityAttendeeInput]
   campaignId: String
   caseId: String
   child: Boolean
@@ -2980,6 +3027,10 @@ input ActivityInput {
   customObjectId: String
   deleted: Boolean
   description: String
+  """
+  Whether the Activity is done or not
+  """
+  done: Boolean
   durationSeconds: Int
   endDate: String
   endDatetime: String
@@ -2988,6 +3039,8 @@ input ActivityInput {
   groupEventType: String
   leadId: String
   location: String
+  locationAddress: AddressInput
+  note: String
   opportunityId: String
   ownerId: String
   private: Boolean
@@ -3000,6 +3053,21 @@ input ActivityInput {
   startDatetime: String
   title: String
   type: ActivityType!
+  userId: String
+  videoConferenceId: String
+  videoConferenceUrl: String
+}
+
+input ActivityAttendeeInput {
+  emailAddress: String
+  firstName: String
+  isOrganizer: Boolean
+  lastName: String
+  middleName: String
+  name: String
+  prefix: String
+  status: Status
+  suffix: String
 }
 
 input CustomFieldInput {
