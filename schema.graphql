@@ -3829,6 +3829,36 @@ type Hris {
     """
     raw: Boolean
   ): EmployeeList
+  """
+  List Companies
+  """
+  hrisCompanies(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): HrisCompanyList
+  """
+  Get Company
+  """
+  hrisCompany(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): HrisCompany
 }
 
 type Employee {
@@ -3836,6 +3866,10 @@ type Employee {
   birthday: String
   companyId: String
   companyName: String
+  """
+  country code according to ISO 3166-1 alpha-2.
+  """
+  countryOfBirth: String
   createdAt: String
   createdBy: String
   customFields: [CustomField]
@@ -3844,6 +3878,7 @@ type Employee {
   """
   department: String
   description: String
+  displayName: String
   """
   The division the user is currently in.
   """
@@ -3854,6 +3889,10 @@ type Employee {
   """
   employeeNumber: String
   """
+  A Start Date is the date that the employee ended working at the company
+  """
+  employmentEndDate: String
+  """
   A Start Date is the date that the employee started working at the company
   """
   employmentStartDate: String
@@ -3861,19 +3900,25 @@ type Employee {
   firstName: String
   gender: Gender
   id: String
+  initials: String
   jobs: [JobsListItem]
-  """
-  language code according to ISO 639-1. For the United States - EN
-  """
-  language: String
+  languages: [String]
   lastName: String
   managerId: String
+  maritalStatus: String
   middleName: String
+  nationalities: [String]
   phoneNumbers: [PhoneNumber]
   """
   The URL pointing to a picture.
   """
   pictureUrl: String
+  """
+  language code according to ISO 639-1. For the United States - EN
+  """
+  preferedLanguage: String
+  prefferedName: String
+  salutation: String
   socialSecurityNumber: String
   """
   The team the user is currently in.
@@ -3957,7 +4002,64 @@ type EmployeeList {
   meta: Meta
 }
 
+type HrisCompanyList {
+  data: [HrisCompany]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+type HrisCompany {
+  createdAt: String
+  createdBy: String
+  debtorId: String
+  deleted: Boolean
+  displayName: String
+  id: String
+  legalName: String
+  updatedAt: String
+  updatedBy: String
+}
+
 type MutationHris {
+  """
+  Create Company
+  """
+  companiesAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: HrisCompanyInput!
+  ): UnifiedId
+  """
+  Delete Company
+  """
+  companiesDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Company
+  """
+  companiesUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: HrisCompanyInput!
+  ): UnifiedId
   """
   Create Employee
   """
@@ -3997,17 +4099,28 @@ type MutationHris {
   ): UnifiedId
 }
 
+input HrisCompanyInput {
+  debtorId: String
+  displayName: String
+  legalName: String
+}
+
 input EmployeeInput {
   addresses: [AddressInput]
   birthday: String
   companyId: String
   companyName: String
+  """
+  country code according to ISO 3166-1 alpha-2.
+  """
+  countryOfBirth: String
   customFields: [CustomFieldInput]
   """
   The department the user is currently in.
   """
   department: String
   description: String
+  displayName: String
   """
   The division the user is currently in.
   """
@@ -4018,25 +4131,35 @@ input EmployeeInput {
   """
   employeeNumber: String
   """
+  A Start Date is the date that the employee ended working at the company
+  """
+  employmentEndDate: String
+  """
   A Start Date is the date that the employee started working at the company
   """
   employmentStartDate: String
   employmentStatus: EmploymentStatus
   firstName: String
   gender: Gender
+  initials: String
   jobs: [JobsListItemInput]
-  """
-  language code according to ISO 639-1. For the United States - EN
-  """
-  language: String
+  languages: [String]
   lastName: String
   managerId: String
+  maritalStatus: String
   middleName: String
+  nationalities: [String]
   phoneNumbers: [PhoneNumberInput]
   """
   The URL pointing to a picture.
   """
   pictureUrl: String
+  """
+  language code according to ISO 639-1. For the United States - EN
+  """
+  preferedLanguage: String
+  prefferedName: String
+  salutation: String
   socialSecurityNumber: String
   """
   The team the user is currently in.
