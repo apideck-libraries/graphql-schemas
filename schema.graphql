@@ -3710,6 +3710,19 @@ type MutationFileStorage {
   """
   filesSearch(requestBody: FilesSearchInput!): FileList
   """
+  Upload file
+  """
+  filesUpload(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    """
+    String represents payload of content type '*/*'
+    """
+    requestBody: String
+  ): UnifiedId
+  """
   Create Folder
   """
   foldersAdd(
