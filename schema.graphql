@@ -852,6 +852,7 @@ enum InvoiceType {
 
 type InvoiceItem {
   active: Boolean
+  assetAccount: LinkedLedgerAccount
   """
   User defined item code
   """
@@ -863,17 +864,39 @@ type InvoiceItem {
   id: String
   incomeAccount: LinkedLedgerAccount
   name: String
+  purchaseDetails: PurchaseDetails
+  """
+  Item is available for purchase transactions
+  """
+  purchased: Boolean
   quantity: Int
   rowVersion: String
   salesDetails: SalesDetails
   """
-  Item can be sold
+  Item will be available on sales transactions
   """
   sold: Boolean
+  """
+  Item is inventoried
+  """
+  tracked: Boolean
   type: InvoiceItemType
   unitPrice: Float
   updatedAt: String
   updatedBy: String
+}
+
+type PurchaseDetails {
+  """
+  Amounts are including tax
+  """
+  taxInclusive: Boolean
+  taxRate: LinkedTaxRate
+  """
+  Description of the unit type the item is sold as, ie: kg, hour.
+  """
+  unitOfMeasure: String
+  unitPrice: Float
 }
 
 type SalesDetails {
@@ -1424,6 +1447,7 @@ input LinkedTaxRateInput {
 
 input InvoiceItemInput {
   active: Boolean
+  assetAccount: LinkedLedgerAccountInput
   """
   User defined item code
   """
@@ -1432,19 +1456,41 @@ input InvoiceItemInput {
   expenseAccount: LinkedLedgerAccountInput
   incomeAccount: LinkedLedgerAccountInput
   name: String
+  purchaseDetails: PurchaseDetailsInput
+  """
+  Item is available for purchase transactions
+  """
+  purchased: Boolean
   quantity: Int
   rowVersion: String
   salesDetails: SalesDetailsInput
   """
-  Item can be sold
+  Item will be available on sales transactions
   """
   sold: Boolean
+  """
+  Item is inventoried
+  """
+  tracked: Boolean
   type: InvoiceItemType
   unitPrice: Float
 }
 
 input LinkedLedgerAccountInput {
   id: String!
+}
+
+input PurchaseDetailsInput {
+  """
+  Amounts are including tax
+  """
+  taxInclusive: Boolean
+  taxRate: LinkedTaxRateInput
+  """
+  Description of the unit type the item is sold as, ie: kg, hour.
+  """
+  unitOfMeasure: String
+  unitPrice: Float
 }
 
 input SalesDetailsInput {
