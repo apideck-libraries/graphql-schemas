@@ -672,6 +672,10 @@ type BankAccount {
   """
   accountNumber: String
   """
+  The type of bank account.
+  """
+  accountType: AccountType
+  """
   A bank code is a code assigned by a central bank, a bank supervisory body or a Bankers Association in a country to all its licensed member banks or financial institutions.
   """
   bankCode: String
@@ -680,7 +684,17 @@ type BankAccount {
   A BSB is a 6 digit numeric code used for identifying the branch of an Australian or New Zealand bank or financial institution.
   """
   bsbNumber: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
   iban: String
+}
+
+enum AccountType {
+  bank_account
+  credit_card
+  other
 }
 
 enum CustomerStatus {
@@ -922,6 +936,7 @@ type LedgerAccount {
   openingBalance: Float
   parentAccount: ParentAccount
   rowVersion: String
+  status: LedgerAccountStatus
   subAccount: Boolean
   subAccounts: [SubAccountsListItem]
   subType: String
@@ -950,6 +965,12 @@ type ParentAccount {
   name: String
 }
 
+enum LedgerAccountStatus {
+  active
+  inactive
+  archived
+}
+
 type SubAccountsListItem {
   accountSubName: String
   id: String
@@ -957,8 +978,10 @@ type SubAccountsListItem {
 
 enum LedgerAccountType {
   accounts_receivable
+  revenue
   bank
   current_asset
+  fixed_asset
   non_current_asset
   other_asset
   equity
@@ -981,7 +1004,6 @@ type LedgerAccountList {
 }
 
 type TaxRate {
-  active: Boolean
   code: String
   components: [ComponentsListItem]
   createdAt: String
@@ -995,6 +1017,7 @@ type TaxRate {
   """
   originalTaxRateId: String
   rowVersion: String
+  status: TaxRateStatus
   """
   Unique identifier for the account for tax collected.
   """
@@ -1023,6 +1046,12 @@ type ComponentsListItem {
   compound: Boolean
   name: String
   rate: Float
+}
+
+enum TaxRateStatus {
+  active
+  inactive
+  archived
 }
 
 enum TaxType {
@@ -1356,6 +1385,10 @@ input BankAccountInput {
   """
   accountNumber: String
   """
+  The type of bank account.
+  """
+  accountType: AccountType
+  """
   A bank code is a code assigned by a central bank, a bank supervisory body or a Bankers Association in a country to all its licensed member banks or financial institutions.
   """
   bankCode: String
@@ -1364,6 +1397,10 @@ input BankAccountInput {
   A BSB is a 6 digit numeric code used for identifying the branch of an Australian or New Zealand bank or financial institution.
   """
   bsbNumber: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
   iban: String
 }
 
@@ -1535,6 +1572,7 @@ input LedgerAccountInput {
   openingBalance: Float
   parentAccount: ParentAccountInput
   rowVersion: String
+  status: LedgerAccountStatus
   subAccount: Boolean
   subType: String
   taxRate: LinkedTaxRateInput
@@ -1597,17 +1635,18 @@ input AllocationsListItemInput {
 }
 
 input TaxRateInput {
-  active: Boolean
   code: String
   components: [ComponentsListItemInput]
   description: String
   effectiveTaxRate: Float
+  id: String
   name: String
   """
   ID of the original tax rate from which the new tax rate is derived. Helps to understand the relationship between corresponding tax rate entities.
   """
   originalTaxRateId: String
   rowVersion: String
+  status: TaxRateStatus
   """
   Unique identifier for the account for tax collected.
   """
@@ -2217,7 +2256,10 @@ type Company {
   bankAccounts: [BankAccount]
   createdAt: String
   createdBy: String
-  currency: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
   customFields: [CustomField]
   deleted: Boolean
   description: String
@@ -2412,7 +2454,10 @@ type Lead {
   companyName: String!
   contactId: String
   createdAt: String
-  currency: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
   customFields: [CustomField]
   description: String
   emails: [Email]
@@ -2562,7 +2607,10 @@ type Opportunity {
   contactId: String
   createdAt: String
   createdBy: String
-  currency: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
   customFields: [CustomField]
   dateLastContacted: String
   dateLeadCreated: String
@@ -2645,7 +2693,10 @@ enum OpportunitiesSortBy {
 type Pipeline {
   archived: Boolean
   createdAt: String
-  currency: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
   displayOrder: Int
   id: String
   name: String!
@@ -3102,7 +3153,10 @@ input CompanyInput {
   """
   annualRevenue: String
   bankAccounts: [BankAccountInput]
-  currency: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
   customFields: [CustomFieldInput]
   description: String
   emails: [EmailInput]
@@ -3189,7 +3243,10 @@ input LeadInput {
   companyId: String
   companyName: String!
   contactId: String
-  currency: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
   customFields: [CustomFieldInput]
   description: String
   emails: [EmailInput]
@@ -3229,7 +3286,10 @@ input OpportunityInput {
   companyId: String
   companyName: String
   contactId: String
-  currency: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
   customFields: [CustomFieldInput]
   description: String
   leadId: String
@@ -3259,7 +3319,10 @@ input OpportunityInput {
 
 input PipelineInput {
   archived: Boolean
-  currency: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
   displayOrder: Int
   id: String
   name: String!
