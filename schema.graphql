@@ -3628,6 +3628,36 @@ type FileStorage {
     """
     raw: Boolean
   ): Folder
+  """
+  Get Shared Link
+  """
+  sharedLink(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): SharedLink
+  """
+  List SharedLinks
+  """
+  sharedLinks(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): SharedLinkList
 }
 
 type File {
@@ -3772,6 +3802,57 @@ type Folder {
   updatedBy: String
 }
 
+type SharedLink {
+  createdAt: String
+  """
+  The URL that can be used to download the file.
+  """
+  downloadUrl: String
+  """
+  Optional datetime when the shared link expires.
+  """
+  expiresAt: String
+  """
+  Indicated if the shared link is password protected.
+  """
+  passwordProtected: Boolean
+  """
+  The scope of the shared link.
+  """
+  scope: Scope
+  target: SharedLinkTarget
+  updatedAt: String
+  """
+  The URL that can be used to view the file.
+  """
+  url: String
+}
+
+enum Scope {
+  public
+  company
+}
+
+type SharedLinkTarget {
+  id: String!
+  """
+  The name of the file
+  """
+  name: String
+  """
+  The type of resource. Could be file, folder or url
+  """
+  type: FileType
+}
+
+type SharedLinkList {
+  data: [SharedLink]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
 type MutationFileStorage {
   """
   Delete File
@@ -3840,6 +3921,43 @@ type MutationFileStorage {
     raw: Boolean
     requestBody: UpdateFolderRequestInput!
   ): UnifiedId
+  """
+  Create Shared Link
+  """
+  sharedLinksAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: SharedLinkInput!
+  ): UnifiedId
+  """
+  Delete Shared Link
+  """
+  sharedLinksDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Shared Link
+  """
+  sharedLinksUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: SharedLinkInput!
+  ): UnifiedId
 }
 
 input FilesSearchInput {
@@ -3877,6 +3995,29 @@ input UpdateFolderRequestInput {
   The parent folder to create the new folder within.
   """
   parentFolderId: String
+}
+
+input SharedLinkInput {
+  """
+  The URL that can be used to download the file.
+  """
+  downloadUrl: String
+  """
+  Optional datetime when the shared link expires.
+  """
+  expiresAt: String
+  """
+  Optional password for the shared link.
+  """
+  password: String
+  """
+  The scope of the shared link.
+  """
+  scope: Scope
+  """
+  The ID of the file or folder to link.
+  """
+  targetId: String!
 }
 
 type Hris {
