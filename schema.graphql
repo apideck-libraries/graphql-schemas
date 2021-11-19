@@ -774,6 +774,10 @@ type Invoice {
   Amounts are including tax
   """
   taxInclusive: Boolean
+  """
+  Optional invoice template
+  """
+  templateId: String
   total: Float
   totalTax: Float
   type: InvoiceType
@@ -853,6 +857,7 @@ enum Status {
   paid
   void
   credit
+  deleted
 }
 
 enum InvoiceType {
@@ -1578,6 +1583,10 @@ input InvoiceInput {
   Amounts are including tax
   """
   taxInclusive: Boolean
+  """
+  Optional invoice template
+  """
+  templateId: String
   total: Float
   totalTax: Float
   type: InvoiceType
