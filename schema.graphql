@@ -4139,7 +4139,7 @@ type Employee {
   language code according to ISO 639-1. For the United States - EN
   """
   preferedLanguage: String
-  prefferedName: String
+  preferredName: String
   salutation: String
   socialSecurityNumber: String
   """
@@ -4380,7 +4380,7 @@ input EmployeeInput {
   language code according to ISO 639-1. For the United States - EN
   """
   preferedLanguage: String
-  prefferedName: String
+  preferredName: String
   salutation: String
   socialSecurityNumber: String
   """
