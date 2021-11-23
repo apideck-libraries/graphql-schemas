@@ -2224,6 +2224,10 @@ type Activity {
   Whether the Activity is done or not
   """
   done: Boolean
+  """
+  The third-party API ID of original entity
+  """
+  downstreamId: String
   durationMinutes: Int
   durationSeconds: Int
   endDate: String
