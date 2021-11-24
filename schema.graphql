@@ -222,10 +222,11 @@ type PaymentList {
 }
 
 type Payment {
+  account: LinkedLedgerAccount
   """
   Unique identifier for the account to allocate payment to.
   """
-  accountsReceivableAccountId: String!
+  accountsReceivableAccountId: String
   """
   Type of accounts receivable account.
   """
@@ -248,9 +249,17 @@ type Payment {
   """
   id: String
   """
+  Payment has been reconciled
+  """
+  reconciled: Boolean
+  """
   Optional payment reference message ie: Debit remittance detail.
   """
   reference: String
+  """
+  Status of payment
+  """
+  status: PaymentStatus
   """
   Amount of payment
   """
@@ -259,42 +268,38 @@ type Payment {
   Date transaction was entered - YYYY:MM::DDThh:mm:ss.sTZD
   """
   transactionDate: String!
+  """
+  Type of payment
+  """
+  type: PaymentType
+  updatedAt: String
+}
+
+type LinkedLedgerAccount {
+  id: String!
+  name: String
+  nominalCode: String
 }
 
 type AllocationsListItem {
   """
-  Amount of payment that should be attributed to this allocation
+  Amount of payment that should be attributed to this allocation. If null, the total_amount will be used.
   """
   amount: Float
+  code: String
   """
   Unique identifier of entity this payment should be attributed to.
   """
   id: String
-  type: Type
+  type: AllocationType
 }
 
-enum Type {
-  text
-  checkbox
-  tel
-  email
-  url
-  textarea
-  select
-  filteredselect
-  multiselect
-  datetime
-  date
-  time
-  number
-  sms
-  mms
-  customer
-  supplier
-  employee
-  personal
+enum AllocationType {
   invoice
   order
+  credit_note
+  over_payment
+  pre_payment
 }
 
 enum Currency {
@@ -489,6 +494,24 @@ type AccountingLinkedCustomer {
   companyName: String
   displayId: String
   id: String!
+}
+
+enum PaymentStatus {
+  authorised
+  paid
+  voided
+  deleted
+}
+
+enum PaymentType {
+  accounts_receivable
+  accounts_payable
+  accounts_receivable_credit
+  accounts_payable_credit
+  accounts_receivable_overpayment
+  accounts_payable_overpayment
+  accounts_receivable_prepayment
+  accounts_payable_prepayment
 }
 
 """
@@ -822,11 +845,6 @@ type LinkedInvoiceItem {
   name: String
 }
 
-type LinkedLedgerAccount {
-  id: String!
-  name: String
-}
-
 enum InvoiceLineItemType {
   inventory
   service
@@ -1035,6 +1053,7 @@ enum LedgerAccountType {
   current_liability
   non_current_liability
   other_liability
+  sales
 }
 
 type LedgerAccountList {
@@ -1069,10 +1088,6 @@ type TaxRate {
   """
   taxRemittedAccountId: String
   """
-  Tax type used to define the source of tax collected or paid
-  """
-  taxType: TaxType
-  """
   Not compounded sum of the components of a tax rate
   """
   totalTaxRate: Float
@@ -1094,19 +1109,6 @@ enum TaxRateStatus {
   active
   inactive
   archived
-}
-
-enum TaxType {
-  output
-  input
-  withholdings
-  import_gst
-  output_gst
-  input_exempt
-  output_exempt
-  consolidated
-  luxury_car_tax
-  none
 }
 
 type TaxRateList {
@@ -1497,6 +1499,7 @@ input InvoiceItemInput {
 
 input LinkedLedgerAccountInput {
   id: String!
+  nominalCode: String
 }
 
 input PurchaseDetailsInput {
@@ -1668,10 +1671,11 @@ input ParentAccountInput {
 }
 
 input PaymentInput {
+  account: LinkedLedgerAccountInput
   """
   Unique identifier for the account to allocate payment to.
   """
-  accountsReceivableAccountId: String!
+  accountsReceivableAccountId: String
   """
   Type of accounts receivable account.
   """
@@ -1690,9 +1694,17 @@ input PaymentInput {
   """
   customer: AccountingLinkedCustomerInput
   """
+  Payment has been reconciled
+  """
+  reconciled: Boolean
+  """
   Optional payment reference message ie: Debit remittance detail.
   """
   reference: String
+  """
+  Status of payment
+  """
+  status: PaymentStatus
   """
   Amount of payment
   """
@@ -1701,18 +1713,22 @@ input PaymentInput {
   Date transaction was entered - YYYY:MM::DDThh:mm:ss.sTZD
   """
   transactionDate: String!
+  """
+  Type of payment
+  """
+  type: PaymentType
 }
 
 input AllocationsListItemInput {
   """
-  Amount of payment that should be attributed to this allocation
+  Amount of payment that should be attributed to this allocation. If null, the total_amount will be used.
   """
   amount: Float
   """
   Unique identifier of entity this payment should be attributed to.
   """
   id: String
-  type: Type
+  type: AllocationType
 }
 
 input TaxRateInput {
@@ -1736,10 +1752,6 @@ input TaxRateInput {
   Unique identifier for the account for tax remitted.
   """
   taxRemittedAccountId: String
-  """
-  Tax type used to define the source of tax collected or paid
-  """
-  taxType: TaxType
   """
   Not compounded sum of the components of a tax rate
   """
@@ -2484,6 +2496,28 @@ enum Gender {
   female
   unisex
   other
+}
+
+enum Type {
+  text
+  checkbox
+  tel
+  email
+  url
+  textarea
+  select
+  filteredselect
+  multiselect
+  datetime
+  date
+  time
+  number
+  sms
+  mms
+  customer
+  supplier
+  employee
+  personal
 }
 
 type ContactList {
