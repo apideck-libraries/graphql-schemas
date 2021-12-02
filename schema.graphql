@@ -4730,6 +4730,19 @@ input MessageInput {
 
 type Vault {
   """
+  Get a connection
+  """
+  connection(
+    """
+    Service ID of the resource to return
+    """
+    serviceId: String!
+    """
+    Unified API
+    """
+    unifiedApi: String!
+  ): Connection
+  """
   This endpoint returns custom settings and their defaults required by connection for a given resource.
   """
   connectionSettings(
