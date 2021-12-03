@@ -1836,20 +1836,39 @@ type Ats {
 }
 
 type Applicant {
+  addresses: [Address]
+  anonymized: Boolean
+  applications: [String]
+  archived: Boolean
+  confidential: Boolean
   createdAt: String
+  deletedAt: String
+  deletedBy: String
   emails: [Email]
   firstName: String
+  followers: [String]
+  """
+  Typically a list of previous companies where the contact has worked or schools that the contact has attended
+  """
+  headline: String
   id: String
+  lastInteractionAt: String
   lastName: String
   """
   The name of an applicant.
   """
   name: String
+  ownerId: String
   phoneNumbers: [PhoneNumber]
   """
   The PositionId the applicant applied for.
   """
   positionId: String
+  sourcedBy: String
+  sources: [String]
+  stageId: String
+  tags: [String]
+  updatedAt: String
 }
 
 type ApplicantList {
@@ -1868,22 +1887,57 @@ input JobsFilterInput {
 }
 
 type Job {
+  blocks: [BlocksListItem]
+  closing: String
+  """
+  The closing section of the job description in HTML format
+  """
+  closingHtml: String
   """
   The code of the job.
   """
   code: String
+  confidential: Boolean
   createdAt: String
+  createdBy: String
   description: String
+  """
+  The job description in HTML format
+  """
+  descriptionHtml: String
+  hiringManagers: [HiringManagersListItem]
   id: String
+  """
+  URL of the job portal
+  """
+  jobPortalUrl: String
+  ownerId: String
+  """
+  A job's Requisition ID (Req ID) allows your organization to identify and track a job based on alphanumeric naming conventions unique to your company's internal processes.
+  """
+  requisitionId: String
   """
   The status of the job.
   """
   status: JobStatus
+  tags: [String]
   title: String
+  updatedAt: String
+  updatedBy: String
   """
-  The url pointing to the job.
+  URL of the job description
   """
   url: String
+  visibility: [VisibilityListItem]
+}
+
+type BlocksListItem {
+  content: String
+  title: String
+}
+
+type HiringManagersListItem {
+  id: String
 }
 
 enum JobStatus {
@@ -1891,6 +1945,11 @@ enum JobStatus {
   internal
   published
   completed
+}
+
+enum VisibilityListItem {
+  public
+  internal
 }
 
 type JobList {
@@ -1915,18 +1974,31 @@ type MutationAts {
 }
 
 input ApplicantInput {
+  addresses: [AddressInput]
+  anonymized: Boolean
+  applications: [String]
+  archived: Boolean
+  confidential: Boolean
   emails: [EmailInput]
   firstName: String
+  followers: [String]
+  """
+  Typically a list of previous companies where the contact has worked or schools that the contact has attended
+  """
+  headline: String
   lastName: String
   """
   The name of an applicant.
   """
   name: String
+  ownerId: String
   phoneNumbers: [PhoneNumberInput]
   """
   The PositionId the applicant applied for.
   """
   positionId: String
+  sources: [String]
+  tags: [String]
 }
 
 type Crm {
