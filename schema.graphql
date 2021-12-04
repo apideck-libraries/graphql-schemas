@@ -6,6 +6,7 @@ type Query {
   fileStorage: FileStorage
   hris: Hris
   lead: Lead
+  pos: Pos
   sms: Sms
   vault: Vault
 }
@@ -17,6 +18,7 @@ type Mutation {
   fileStorage: MutationFileStorage
   hris: MutationHris
   lead: MutationLead
+  pos: MutationPos
   sms: MutationSms
   vault: MutationVault
 }
@@ -4577,6 +4579,108 @@ type MutationLead {
   ): UnifiedId
 }
 
+type Pos {
+  """
+  Get Order
+  """
+  order(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Order
+  """
+  List Orders
+  """
+  orders(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): OrderList
+}
+
+type Order {
+  createdAt: String
+  createdBy: String
+  id: String
+  merchant: Merchant
+  updatedAt: String
+  updatedBy: String
+}
+
+type Merchant {
+  id: String
+}
+
+type OrderList {
+  data: [Order]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+type MutationPos {
+  """
+  Create Order
+  """
+  ordersAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: OrderInput!
+  ): UnifiedId
+  """
+  Delete Order
+  """
+  ordersDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Order
+  """
+  ordersUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: OrderInput!
+  ): UnifiedId
+}
+
+input OrderInput {
+  merchant: MerchantInput
+}
+
+input MerchantInput {
+  id: String
+}
+
 type Sms {
   """
   Get Message
@@ -5389,6 +5493,7 @@ enum UnifiedApiId {
   emailmarketing
   ats
   hris
+  pos
 }
 
 input ThemeInput {
