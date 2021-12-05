@@ -3773,6 +3773,19 @@ type FileStorage {
     """
     raw: Boolean
   ): SharedLinkList
+  """
+  Get Upload Session
+  """
+  uploadSession(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UploadSession
 }
 
 type File {
@@ -3923,9 +3936,6 @@ type SharedLink {
   The URL that can be used to download the file.
   """
   downloadUrl: String
-  """
-  Optional datetime when the shared link expires.
-  """
   expiresAt: String
   """
   Indicated if the shared link is password protected.
@@ -3968,6 +3978,27 @@ type SharedLinkList {
   meta: Meta
 }
 
+type UploadSession {
+  expiresAt: String
+  id: String
+  """
+  Indicates if parts of the file can uploaded in parallel.
+  """
+  parallelUploadSupported: Boolean
+  """
+  Size in bytes of each part of the file that you will upload. Uploaded parts need to be this size for the upload to be successful.
+  """
+  partSize: Float
+  """
+  Indicates if the upload session was completed successfully.
+  """
+  success: Boolean
+  """
+  The range of bytes that was successfully uploaded.
+  """
+  uploadedByteRange: String
+}
+
 type MutationFileStorage {
   """
   Delete File
@@ -3987,7 +4018,7 @@ type MutationFileStorage {
   """
   filesSearch(requestBody: FilesSearchInput!): FileList
   """
-  Upload file
+  Upload file (max 4MB). Please use the Upload Session API to upload bigger files.
   """
   filesUpload(
     """
@@ -4073,6 +4104,64 @@ type MutationFileStorage {
     raw: Boolean
     requestBody: SharedLinkInput!
   ): UnifiedId
+  """
+  Start Upload Session
+  """
+  uploadSessionsAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: CreateUploadSessionRequestInput!
+  ): UnifiedId
+  """
+  Abort Upload Session
+  """
+  uploadSessionsDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Finish Upload Session
+  """
+  uploadSessionsFinish(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: JSON!
+  ): File
+  """
+  Upload part of file to Upload Session
+  """
+  uploadSessionsUpload(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Part number of the file part being uploaded.
+    """
+    partNumber: Float!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    """
+    String represents payload of content type '*/*'
+    """
+    requestBody: String!
+  ): UnifiedId
 }
 
 input FilesSearchInput {
@@ -4092,7 +4181,7 @@ input CreateFolderRequestInput {
   """
   name: String!
   """
-  The parent folder to create the new folder within.
+  The parent folder to create the new file within.
   """
   parentFolderId: String!
 }
@@ -4107,7 +4196,7 @@ input UpdateFolderRequestInput {
   """
   name: String
   """
-  The parent folder to create the new folder within.
+  The parent folder to create the new file within.
   """
   parentFolderId: String
 }
@@ -4117,10 +4206,6 @@ input SharedLinkInput {
   The URL that can be used to download the file.
   """
   downloadUrl: String
-  """
-  Optional datetime when the shared link expires.
-  """
-  expiresAt: String
   """
   Optional password for the shared link.
   """
@@ -4133,6 +4218,21 @@ input SharedLinkInput {
   The ID of the file or folder to link.
   """
   targetId: String!
+}
+
+input CreateUploadSessionRequestInput {
+  """
+  The name of the file.
+  """
+  name: String!
+  """
+  The parent folder to create the new file within.
+  """
+  parentFolderId: String!
+  """
+  The size of the file in bytes
+  """
+  size: Int!
 }
 
 type Hris {
