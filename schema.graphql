@@ -640,6 +640,7 @@ enum EmailType {
 type PhoneNumber {
   areaCode: String
   countryCode: String
+  extension: String
   id: String
   number: String!
   type: PhoneType
@@ -649,6 +650,7 @@ enum PhoneType {
   primary
   secondary
   home
+  work
   office
   mobile
   assistant
@@ -1459,6 +1461,7 @@ input EmailInput {
 input PhoneNumberInput {
   areaCode: String
   countryCode: String
+  extension: String
   id: String
   number: String!
   type: PhoneType
@@ -4238,11 +4241,12 @@ type Employee {
   jobs: [JobsListItem]
   languages: [String]
   lastName: String
-  managerId: String
+  manager: Manager
   maritalStatus: String
   middleName: String
   nationalities: [String]
   phoneNumbers: [PhoneNumber]
+  photoUrl: String
   """
   The URL pointing to a picture.
   """
@@ -4252,7 +4256,9 @@ type Employee {
   """
   preferedLanguage: String
   preferredName: String
+  pronouns: String
   salutation: String
+  socialLinks: [SocialLinksListItem]
   socialSecurityNumber: String
   """
   The team the user is currently in.
@@ -4318,6 +4324,19 @@ enum PaymentUnit {
   month
   year
   paycheck
+}
+
+type Manager {
+  firstName: String
+  id: String
+  lastName: String
+  name: String
+}
+
+type SocialLinksListItem {
+  id: String
+  type: String
+  url: String!
 }
 
 """
@@ -4479,11 +4498,12 @@ input EmployeeInput {
   jobs: [JobsListItemInput]
   languages: [String]
   lastName: String
-  managerId: String
+  manager: ManagerInput
   maritalStatus: String
   middleName: String
   nationalities: [String]
   phoneNumbers: [PhoneNumberInput]
+  photoUrl: String
   """
   The URL pointing to a picture.
   """
@@ -4493,7 +4513,9 @@ input EmployeeInput {
   """
   preferedLanguage: String
   preferredName: String
+  pronouns: String
   salutation: String
+  socialLinks: [SocialLinksListItemInput]
   socialSecurityNumber: String
   """
   The team the user is currently in.
@@ -4529,6 +4551,18 @@ input CompensationsListItemInput {
   The amount paid per payment unit.
   """
   rate: String
+}
+
+input ManagerInput {
+  firstName: String
+  lastName: String
+  name: String
+}
+
+input SocialLinksListItemInput {
+  id: String
+  type: String
+  url: String!
 }
 
 """
