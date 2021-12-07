@@ -1043,6 +1043,8 @@ type SubAccountsListItem {
 enum LedgerAccountType {
   accounts_receivable
   revenue
+  sales
+  other_income
   bank
   current_asset
   fixed_asset
@@ -1057,7 +1059,6 @@ enum LedgerAccountType {
   current_liability
   non_current_liability
   other_liability
-  sales
 }
 
 type LedgerAccountList {
