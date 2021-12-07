@@ -5556,6 +5556,7 @@ input SimpleFormFieldOptionInput {
 }
 
 type CreateSessionResponse {
+  sessionToken: String!
   sessionUri: String!
 }
 
@@ -5578,6 +5579,10 @@ input ConsumerMetadataInput {
 }
 
 input SessionSettingsInput {
+  """
+  Automatically redirect to redirect uri after the connection has been configured as callable. Defaults to \`false\`.
+  """
+  autoRedirect: Boolean
   hideResourceSettings: Boolean
   """
   Configure [Vault](/apis/vault/reference#section/Get-Started) to run in isolation mode, meaning it only shows the connection settings and hides the navigation items.
