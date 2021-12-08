@@ -671,11 +671,13 @@ type Customer {
   """
   currency: Currency
   displayId: String
+  displayName: String
   emails: [Email]
   firstName: String
   id: String
   individual: Boolean
   lastName: String
+  middleName: String
   notes: String
   phoneNumbers: [PhoneNumber]
   rowVersion: String
@@ -683,10 +685,13 @@ type Customer {
   Customer status
   """
   status: CustomerStatus
+  suffix: String
   taxNumber: String
   taxRate: LinkedTaxRate
+  title: String
   updatedAt: String
   updatedBy: String
+  websites: [Website]
 }
 
 type BankAccount {
@@ -734,6 +739,20 @@ enum CustomerStatus {
 type LinkedTaxRate {
   code: String
   id: String
+}
+
+type Website {
+  id: String
+  type: WebsiteType
+  url: String!
+}
+
+enum WebsiteType {
+  primary
+  secondary
+  work
+  personal
+  other
 }
 
 type CustomerList {
@@ -1362,10 +1381,12 @@ input CustomerInput {
   """
   currency: Currency
   displayId: String
+  displayName: String
   emails: [EmailInput]
   firstName: String
   individual: Boolean
   lastName: String
+  middleName: String
   notes: String
   phoneNumbers: [PhoneNumberInput]
   rowVersion: String
@@ -1373,8 +1394,11 @@ input CustomerInput {
   Customer status
   """
   status: CustomerStatus
+  suffix: String
   taxNumber: String
   taxRate: LinkedTaxRateInput
+  title: String
+  websites: [WebsiteInput]
 }
 
 input AddressInput {
@@ -1470,6 +1494,12 @@ input PhoneNumberInput {
 
 input LinkedTaxRateInput {
   id: String
+}
+
+input WebsiteInput {
+  id: String
+  type: WebsiteType
+  url: String!
 }
 
 input InvoiceItemInput {
@@ -2484,20 +2514,6 @@ type SocialLink {
   url: String!
 }
 
-type Website {
-  id: String
-  type: WebsiteType
-  url: String!
-}
-
-enum WebsiteType {
-  primary
-  secondary
-  work
-  personal
-  other
-}
-
 input CompaniesFilterInput {
   """
   Name of the company to filter on
@@ -3390,12 +3406,6 @@ input CompanyInput {
 input SocialLinkInput {
   id: String
   type: String
-  url: String!
-}
-
-input WebsiteInput {
-  id: String
-  type: WebsiteType
   url: String!
 }
 
