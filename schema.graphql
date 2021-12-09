@@ -739,6 +739,7 @@ enum CustomerStatus {
 type LinkedTaxRate {
   code: String
   id: String
+  name: String
 }
 
 type Website {
@@ -975,6 +976,7 @@ type SalesDetails {
 enum InvoiceItemType {
   inventory
   service
+  other
 }
 
 type InvoiceItemList {
