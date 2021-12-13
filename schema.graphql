@@ -495,6 +495,7 @@ The customer this entity is linked to.
 type AccountingLinkedCustomer {
   companyName: String
   displayId: String
+  displayName: String
   id: String!
 }
 
@@ -591,6 +592,14 @@ type Address {
   Line 2 of the address
   """
   line2: String
+  """
+  Line 3 of the address
+  """
+  line3: String
+  """
+  Line 4 of the address
+  """
+  line4: String
   longitude: String
   name: String
   phoneNumber: String
@@ -825,6 +834,10 @@ type Invoice {
   Optional invoice template
   """
   templateId: String
+  """
+  Terms of payment
+  """
+  terms: String
   total: Float
   totalTax: Float
   type: InvoiceType
@@ -870,8 +883,10 @@ type LinkedInvoiceItem {
 }
 
 enum InvoiceLineItemType {
-  inventory
-  service
+  sales_item
+  discount
+  info
+  sub_total
 }
 
 enum Status {
@@ -1429,6 +1444,14 @@ input AddressInput {
   Line 2 of the address
   """
   line2: String
+  """
+  Line 3 of the address
+  """
+  line3: String
+  """
+  Line 4 of the address
+  """
+  line4: String
   longitude: String
   name: String
   phoneNumber: String
@@ -1628,6 +1651,10 @@ input InvoiceInput {
   Optional invoice template
   """
   templateId: String
+  """
+  Terms of payment
+  """
+  terms: String
   total: Float
   totalTax: Float
   type: InvoiceType
@@ -1637,6 +1664,7 @@ input InvoiceInput {
 The customer this entity is linked to.
 """
 input AccountingLinkedCustomerInput {
+  displayName: String
   id: String!
 }
 
