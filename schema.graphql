@@ -234,6 +234,7 @@ type Payment {
   """
   accountsReceivableAccountType: String
   allocations: [AllocationsListItem]
+  createdAt: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
@@ -250,6 +251,11 @@ type Payment {
   Unique identifier representing the entity
   """
   id: String
+  note: String
+  """
+  Optional reference message returned by payment method on processing
+  """
+  paymentMethodReference: String
   """
   Payment has been reconciled
   """
@@ -258,6 +264,7 @@ type Payment {
   Optional payment reference message ie: Debit remittance detail.
   """
   reference: String
+  rowVersion: String
   """
   Status of payment
   """
@@ -299,7 +306,8 @@ type AllocationsListItem {
 enum AllocationType {
   invoice
   order
-  credit_note
+  expense
+  credit_memo
   over_payment
   pre_payment
 }
@@ -1759,6 +1767,11 @@ input PaymentInput {
   The customer this entity is linked to.
   """
   customer: AccountingLinkedCustomerInput
+  note: String
+  """
+  Optional reference message returned by payment method on processing
+  """
+  paymentMethodReference: String
   """
   Payment has been reconciled
   """
@@ -1767,6 +1780,7 @@ input PaymentInput {
   Optional payment reference message ie: Debit remittance detail.
   """
   reference: String
+  rowVersion: String
   """
   Status of payment
   """
