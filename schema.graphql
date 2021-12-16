@@ -4484,6 +4484,7 @@ enum PaymentUnit {
 }
 
 type Manager {
+  email: String
   firstName: String
   id: String
   lastName: String
@@ -4711,6 +4712,7 @@ input CompensationsListItemInput {
 }
 
 input ManagerInput {
+  email: String
   firstName: String
   lastName: String
   name: String
@@ -5287,6 +5289,7 @@ type FormField {
   options: [FormFieldOption]
   placeholder: String
   required: Boolean
+  sensitive: Boolean
   type: Type
 }
 
