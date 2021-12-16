@@ -4196,7 +4196,7 @@ type MutationFileStorage {
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
-    requestBody: JSON!
+    requestBody: JSON
   ): File
   """
   Upload part of file to Upload Session
