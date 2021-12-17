@@ -2654,9 +2654,12 @@ enum Type {
   number
   sms
   mms
+  contractor
+  employee
+  freelance
+  temp
   customer
   supplier
-  employee
   personal
 }
 
@@ -4386,6 +4389,7 @@ type Employee {
   A Start Date is the date that the employee ended working at the company
   """
   employmentEndDate: String
+  employmentRole: EmploymentRole
   """
   A Start Date is the date that the employee started working at the company
   """
@@ -4426,9 +4430,21 @@ type Employee {
   updatedBy: String
 }
 
+type EmploymentRole {
+  subType: SubType
+  type: Type
+}
+
+enum SubType {
+  full_time
+  part_time
+  hourly
+}
+
 enum EmploymentStatus {
   active
   inactive
+  terminated
   other
 }
 
@@ -4645,6 +4661,7 @@ input EmployeeInput {
   A Start Date is the date that the employee ended working at the company
   """
   employmentEndDate: String
+  employmentRole: EmploymentRoleInput
   """
   A Start Date is the date that the employee started working at the company
   """
@@ -4680,6 +4697,11 @@ input EmployeeInput {
   """
   team: TeamInput
   title: String
+}
+
+input EmploymentRoleInput {
+  subType: SubType
+  type: Type
 }
 
 input JobsListItemInput {
