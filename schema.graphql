@@ -246,7 +246,7 @@ type Payment {
   """
   The customer this entity is linked to.
   """
-  customer: AccountingLinkedCustomer
+  customer: LinkedCustomer
   """
   Unique identifier representing the entity
   """
@@ -500,7 +500,7 @@ enum Currency {
 """
 The customer this entity is linked to.
 """
-type AccountingLinkedCustomer {
+type LinkedCustomer {
   companyName: String
   displayId: String
   displayName: String
@@ -797,7 +797,7 @@ type Invoice {
   """
   The customer this entity is linked to.
   """
-  customer: AccountingLinkedCustomer
+  customer: LinkedCustomer
   customerMemo: String
   deposit: Float
   """
@@ -1620,7 +1620,7 @@ input InvoiceInput {
   """
   The customer this entity is linked to.
   """
-  customer: AccountingLinkedCustomerInput
+  customer: LinkedCustomerInput
   customerMemo: String
   deposit: Float
   """
@@ -1672,7 +1672,7 @@ input InvoiceInput {
 """
 The customer this entity is linked to.
 """
-input AccountingLinkedCustomerInput {
+input LinkedCustomerInput {
   displayName: String
   id: String!
 }
@@ -1767,7 +1767,7 @@ input PaymentInput {
   """
   The customer this entity is linked to.
   """
-  customer: AccountingLinkedCustomerInput
+  customer: LinkedCustomerInput
   note: String
   """
   Optional reference message returned by payment method on processing
@@ -5598,10 +5598,6 @@ type MutationVault {
 }
 
 input ConnectionInput {
-  """
-  Type of authorization used by the connector
-  """
-  authType: AuthType
   configuration: [ConfigurationListItemInput]
   enabled: Boolean
   """
