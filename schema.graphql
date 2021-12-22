@@ -615,6 +615,7 @@ type Address {
   Zip code or equivalent.
   """
   postalCode: String
+  rowVersion: String
   salutation: String
   """
   Name of state
@@ -1468,6 +1469,7 @@ input AddressInput {
   Zip code or equivalent.
   """
   postalCode: String
+  rowVersion: String
   salutation: String
   """
   Name of state
@@ -4418,6 +4420,7 @@ type Employee {
   preferredLanguage: String
   preferredName: String
   pronouns: String
+  rowVersion: String
   salutation: String
   socialLinks: [SocialLinksListItem]
   socialSecurityNumber: String
@@ -4689,6 +4692,7 @@ input EmployeeInput {
   preferredLanguage: String
   preferredName: String
   pronouns: String
+  rowVersion: String
   salutation: String
   socialLinks: [SocialLinksListItemInput]
   socialSecurityNumber: String
