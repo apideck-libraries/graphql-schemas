@@ -865,7 +865,7 @@ type InvoiceLineItem {
   item: LinkedInvoiceItem
   ledgerAccount: LinkedLedgerAccount
   lineNumber: Int
-  quantity: Int
+  quantity: Float
   rowId: String
   rowVersion: String
   taxAmount: Float
@@ -954,7 +954,7 @@ type InvoiceItem {
   Item is available for purchase transactions
   """
   purchased: Boolean
-  quantity: Int
+  quantity: Float
   rowVersion: String
   salesDetails: SalesDetails
   """
@@ -1554,7 +1554,7 @@ input InvoiceItemInput {
   Item is available for purchase transactions
   """
   purchased: Boolean
-  quantity: Int
+  quantity: Float
   rowVersion: String
   salesDetails: SalesDetailsInput
   """
@@ -1689,7 +1689,7 @@ input InvoiceLineItemInput {
   item: LinkedInvoiceItemInput
   ledgerAccount: LinkedLedgerAccountInput
   lineNumber: Int
-  quantity: Int
+  quantity: Float
   rowId: String
   rowVersion: String
   taxAmount: Float
