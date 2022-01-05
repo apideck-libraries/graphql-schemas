@@ -3755,19 +3755,6 @@ input CustomerSupportCustomerInput {
 
 type FileStorage {
   """
-  Get File
-  """
-  file(
-    """
-    ID of the record you are acting upon.
-    """
-    id: String!
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-  ): File
-  """
   List Files
   """
   files(
@@ -3836,6 +3823,19 @@ type FileStorage {
     raw: Boolean
   ): SharedLinkList
   """
+  Get File
+  """
+  unifiedFile(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedFile
+  """
   Get Upload Session
   """
   uploadSession(
@@ -3850,7 +3850,15 @@ type FileStorage {
   ): UploadSession
 }
 
-type File {
+type FileList {
+  data: [UnifiedFile]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+type UnifiedFile {
   createdAt: String
   createdBy: String
   """
@@ -3922,14 +3930,6 @@ enum FileType {
   file
   folder
   url
-}
-
-type FileList {
-  data: [File]!
-  """
-  Response metadata
-  """
-  meta: Meta
 }
 
 input FilesFilterInput {
@@ -4080,19 +4080,6 @@ type MutationFileStorage {
   """
   filesSearch(requestBody: FilesSearchInput!): FileList
   """
-  Upload file (max 4MB). Please use the Upload Session API to upload bigger files.
-  """
-  filesUpload(
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-    """
-    String represents payload of content type '*/*'
-    """
-    requestBody: String
-  ): UnifiedId
-  """
   Create Folder
   """
   foldersAdd(
@@ -4202,28 +4189,7 @@ type MutationFileStorage {
     """
     raw: Boolean
     requestBody: JSON
-  ): File
-  """
-  Upload part of file to Upload Session
-  """
-  uploadSessionsUpload(
-    """
-    ID of the record you are acting upon.
-    """
-    id: String!
-    """
-    Part number of the file part being uploaded.
-    """
-    partNumber: Float!
-    """
-    Include raw response. Mostly used for debugging purposes
-    """
-    raw: Boolean
-    """
-    String represents payload of content type '*/*'
-    """
-    requestBody: String!
-  ): UnifiedId
+  ): UnifiedFile
 }
 
 input FilesSearchInput {
