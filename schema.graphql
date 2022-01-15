@@ -4331,6 +4331,7 @@ type Employee {
   birthday: String
   companyId: String
   companyName: String
+  compensations: [CompensationsListItem]
   """
   country code according to ISO 3166-1 alpha-2.
   """
@@ -4399,40 +4400,11 @@ type Employee {
   updatedBy: String
 }
 
-type EmploymentRole {
-  subType: SubType
-  type: Type
-}
-
-enum SubType {
-  full_time
-  part_time
-  hourly
-}
-
-enum EmploymentStatus {
-  active
-  inactive
-  terminated
-  other
-}
-
-type JobsListItem {
-  compensationRate: String
-  compensations: [CompensationsListItem]
-  employeeId: String
-  hiredAt: String
-  id: String
-  """
-  Indicates whether this the employee's primary job
-  """
-  isPrimary: Boolean
-  location: Address
-  paymentUnit: PaymentUnit
-  title: String
-}
-
 type CompensationsListItem {
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
   """
   The effective date for this compensation.
   """
@@ -4466,6 +4438,38 @@ enum PaymentUnit {
   month
   year
   paycheck
+}
+
+type EmploymentRole {
+  subType: SubType
+  type: Type
+}
+
+enum SubType {
+  full_time
+  part_time
+  hourly
+}
+
+enum EmploymentStatus {
+  active
+  inactive
+  terminated
+  other
+}
+
+type JobsListItem {
+  compensationRate: String
+  employeeId: String
+  hiredAt: String
+  id: String
+  """
+  Indicates whether this the employee's primary job
+  """
+  isPrimary: Boolean
+  location: Address
+  paymentUnit: PaymentUnit
+  title: String
 }
 
 type Manager {
@@ -4606,6 +4610,7 @@ input EmployeeInput {
   birthday: String
   companyId: String
   companyName: String
+  compensations: [CompensationsListItemInput]
   """
   country code according to ISO 3166-1 alpha-2.
   """
@@ -4669,25 +4674,11 @@ input EmployeeInput {
   title: String
 }
 
-input EmploymentRoleInput {
-  subType: SubType
-  type: Type
-}
-
-input JobsListItemInput {
-  compensationRate: String
-  compensations: [CompensationsListItemInput]
-  hiredAt: String
-  """
-  Indicates whether this the employee's primary job
-  """
-  isPrimary: Boolean
-  location: AddressInput
-  paymentUnit: PaymentUnit
-  title: String
-}
-
 input CompensationsListItemInput {
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
   """
   The effective date for this compensation.
   """
@@ -4701,6 +4692,23 @@ input CompensationsListItemInput {
   The amount paid per payment unit.
   """
   rate: String
+}
+
+input EmploymentRoleInput {
+  subType: SubType
+  type: Type
+}
+
+input JobsListItemInput {
+  compensationRate: String
+  hiredAt: String
+  """
+  Indicates whether this the employee's primary job
+  """
+  isPrimary: Boolean
+  location: AddressInput
+  paymentUnit: PaymentUnit
+  title: String
 }
 
 input ManagerInput {
