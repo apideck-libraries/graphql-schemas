@@ -4339,6 +4339,7 @@ type Employee {
   createdAt: String
   createdBy: String
   customFields: [CustomField]
+  deleted: Boolean
   """
   The department the user is currently in.
   """
@@ -4377,10 +4378,6 @@ type Employee {
   nationalities: [String]
   phoneNumbers: [PhoneNumber]
   photoUrl: String
-  """
-  The URL pointing to a picture.
-  """
-  pictureUrl: String
   """
   language code according to ISO 639-1. For the United States - EN
   """
@@ -4616,6 +4613,7 @@ input EmployeeInput {
   """
   countryOfBirth: String
   customFields: [CustomFieldInput]
+  deleted: Boolean
   """
   The department the user is currently in.
   """
@@ -4653,10 +4651,6 @@ input EmployeeInput {
   nationalities: [String]
   phoneNumbers: [PhoneNumberInput]
   photoUrl: String
-  """
-  The URL pointing to a picture.
-  """
-  pictureUrl: String
   """
   language code according to ISO 639-1. For the United States - EN
   """
