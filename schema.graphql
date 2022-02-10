@@ -1127,6 +1127,10 @@ type TaxRate {
   ID of the original tax rate from which the new tax rate is derived. Helps to understand the relationship between corresponding tax rate entities.
   """
   originalTaxRateId: String
+  """
+  Report Tax type to aggregate tax collected or paid for reporting purposes
+  """
+  reportTaxType: String
   rowVersion: String
   status: TaxRateStatus
   """
@@ -1825,6 +1829,10 @@ input TaxRateInput {
   ID of the original tax rate from which the new tax rate is derived. Helps to understand the relationship between corresponding tax rate entities.
   """
   originalTaxRateId: String
+  """
+  Report Tax type to aggregate tax collected or paid for reporting purposes
+  """
+  reportTaxType: String
   rowVersion: String
   status: TaxRateStatus
   """
