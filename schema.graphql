@@ -203,6 +203,10 @@ type Accounting {
     """
     cursor: String
     """
+    Apply filters (beta)
+    """
+    filter: TaxRatesFilterInput
+    """
     Number of records to return
     """
     limit: Int
@@ -1170,6 +1174,29 @@ type TaxRateList {
   Response metadata
   """
   meta: Meta
+}
+
+input TaxRatesFilterInput {
+  """
+  Boolean to describe if tax rate can be used for asset accounts
+  """
+  assets: Boolean
+  """
+  Boolean to describe if tax rate can be used for equity accounts
+  """
+  equity: Boolean
+  """
+  Boolean to describe if tax rate can be used for expense accounts
+  """
+  expenses: Boolean
+  """
+  Boolean to describe if tax rate can be used for liability accounts
+  """
+  liabilities: Boolean
+  """
+  Boolean to describe if tax rate can be used for revenue accounts
+  """
+  revenue: Boolean
 }
 
 type MutationAccounting {
@@ -5118,6 +5145,10 @@ type Connection {
   """
   metadata: JSON
   name: String
+  """
+  OAuth grant type used by the connector. More info: https://oauth.net/2/grant-types
+  """
+  oauthGrantType: OAuthGrantType
   resourceSchemaSupport: [String]
   resourceSettingsSupport: [String]
   revokeUrl: String
@@ -5189,6 +5220,11 @@ type FormField {
   required: Boolean
   sensitive: Boolean
   type: Type
+}
+
+enum OAuthGrantType {
+  authorization_code
+  client_credentials
 }
 
 enum ConnectionState {
