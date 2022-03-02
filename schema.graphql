@@ -4541,15 +4541,23 @@ type HrisCompanyList {
 }
 
 type HrisCompany {
+  addresses: [Address]
+  """
+  An Company Number, Company ID or Company Code, is a unique number that has been assigned to each company.
+  """
+  companyNumber: String
   createdAt: String
   createdBy: String
   debtorId: String
   deleted: Boolean
   displayName: String
+  emails: [Email]
   id: String
   legalName: String
+  phoneNumbers: [PhoneNumber]
   updatedAt: String
   updatedBy: String
+  websites: [Website]
 }
 
 type MutationHris {
@@ -4630,9 +4638,17 @@ type MutationHris {
 }
 
 input HrisCompanyInput {
+  addresses: [AddressInput]
+  """
+  An Company Number, Company ID or Company Code, is a unique number that has been assigned to each company.
+  """
+  companyNumber: String
   debtorId: String
   displayName: String
+  emails: [EmailInput]
   legalName: String
+  phoneNumbers: [PhoneNumberInput]
+  websites: [WebsiteInput]
 }
 
 input EmployeeInput {
