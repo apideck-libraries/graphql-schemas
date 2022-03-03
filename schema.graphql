@@ -4319,6 +4319,10 @@ type Hris {
     """
     cursor: String
     """
+    Apply filters (beta)
+    """
+    filter: EmployeesFilterInput
+    """
     Number of records to return
     """
     limit: Int
@@ -4530,6 +4534,13 @@ type EmployeeList {
   Response metadata
   """
   meta: Meta
+}
+
+input EmployeesFilterInput {
+  """
+  Company ID to filter on
+  """
+  companyId: String
 }
 
 type HrisCompanyList {
