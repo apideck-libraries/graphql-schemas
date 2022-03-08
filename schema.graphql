@@ -4566,6 +4566,7 @@ type HrisCompany {
   id: String
   legalName: String
   phoneNumbers: [PhoneNumber]
+  subdomain: String
   updatedAt: String
   updatedBy: String
   websites: [Website]
@@ -4659,6 +4660,7 @@ input HrisCompanyInput {
   emails: [EmailInput]
   legalName: String
   phoneNumbers: [PhoneNumberInput]
+  subdomain: String
   websites: [WebsiteInput]
 }
 
