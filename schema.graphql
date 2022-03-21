@@ -255,6 +255,10 @@ type Payment {
   id: String
   note: String
   """
+  Payment method
+  """
+  paymentMethod: String
+  """
   Optional reference message returned by payment method on processing
   """
   paymentMethodReference: String
@@ -754,6 +758,7 @@ enum CustomerStatus {
   archived
   gdprerasurerequest
   unknown
+  inactive
 }
 
 type LinkedTaxRate {
@@ -1024,6 +1029,7 @@ type InvoiceList {
 type LedgerAccount {
   active: Boolean
   bankAccount: BankAccount
+  categories: [CategoriesListItem]
   classification: Classification
   createdAt: String
   createdBy: String
@@ -1056,6 +1062,11 @@ type LedgerAccount {
   type: LedgerAccountType
   updatedAt: String
   updatedBy: String
+}
+
+type CategoriesListItem {
+  id: String
+  name: String
 }
 
 enum Classification {
@@ -1097,6 +1108,7 @@ enum LedgerAccountType {
   fixed_asset
   non_current_asset
   other_asset
+  balancesheet
   equity
   expense
   other_expense
@@ -1800,6 +1812,10 @@ input PaymentInput {
   """
   customer: LinkedCustomerInput
   note: String
+  """
+  Payment method
+  """
+  paymentMethod: String
   """
   Optional reference message returned by payment method on processing
   """
@@ -5202,6 +5218,7 @@ enum AuthType {
   oauth2
   apiKey
   basic
+  custom
   none
 }
 
