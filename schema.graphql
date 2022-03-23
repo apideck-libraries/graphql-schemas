@@ -1974,6 +1974,7 @@ type Applicant {
   applications: [String]
   archived: Boolean
   confidential: Boolean
+  coordinatorId: String
   createdAt: String
   deletedAt: String
   deletedBy: String
@@ -1997,11 +1998,20 @@ type Applicant {
   The PositionId the applicant applied for.
   """
   positionId: String
+  recruiterId: String
   sourcedBy: String
   sources: [String]
   stageId: String
   tags: [String]
+  title: String
   updatedAt: String
+  websites: [WebsitesListItem]
+}
+
+type WebsitesListItem {
+  id: String
+  type: WebsiteType
+  url: String!
 }
 
 type ApplicantList {
@@ -2132,6 +2142,14 @@ input ApplicantInput {
   positionId: String
   sources: [String]
   tags: [String]
+  title: String
+  websites: [WebsitesListItemInput]
+}
+
+input WebsitesListItemInput {
+  id: String
+  type: WebsiteType
+  url: String!
 }
 
 type Crm {
@@ -2671,6 +2689,7 @@ type Contact {
   name: String!
   ownerId: String
   phoneNumbers: [PhoneNumber]
+  photoUrl: String
   prefix: String
   socialLinks: [SocialLink]
   status: String
@@ -3535,6 +3554,7 @@ input ContactInput {
   name: String!
   ownerId: String
   phoneNumbers: [PhoneNumberInput]
+  photoUrl: String
   prefix: String
   socialLinks: [SocialLinkInput]
   status: String
