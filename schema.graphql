@@ -4334,6 +4334,36 @@ input CreateUploadSessionRequestInput {
 
 type Hris {
   """
+  Get Department
+  """
+  department(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Department
+  """
+  List Departments
+  """
+  departments(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): DepartmentList
+  """
   Get Employee
   """
   employee(
@@ -4397,6 +4427,28 @@ type Hris {
     """
     raw: Boolean
   ): HrisCompany
+}
+
+type Department {
+  code: String
+  createdAt: String
+  createdBy: String
+  description: String
+  id: String
+  """
+  Department name
+  """
+  name: String
+  updatedAt: String
+  updatedBy: String
+}
+
+type DepartmentList {
+  data: [Department]!
+  """
+  Response metadata
+  """
+  meta: Meta
 }
 
 type Employee {
@@ -4647,6 +4699,43 @@ type MutationHris {
     requestBody: HrisCompanyInput!
   ): UnifiedId
   """
+  Create Department
+  """
+  departmentsAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: DepartmentInput!
+  ): UnifiedId
+  """
+  Delete Department
+  """
+  departmentsDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Department
+  """
+  departmentsUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: DepartmentInput!
+  ): UnifiedId
+  """
   Create Employee
   """
   employeesAdd(
@@ -4698,6 +4787,15 @@ input HrisCompanyInput {
   phoneNumbers: [PhoneNumberInput]
   subdomain: String
   websites: [WebsiteInput]
+}
+
+input DepartmentInput {
+  code: String
+  description: String
+  """
+  Department name
+  """
+  name: String
 }
 
 input EmployeeInput {
