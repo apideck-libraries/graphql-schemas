@@ -5300,6 +5300,7 @@ type Connection {
   createdAt: Float
   enabled: Boolean
   formFields: [FormField]
+  hasGuide: Boolean
   icon: String
   id: String
   logo: String
