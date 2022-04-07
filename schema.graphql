@@ -4544,7 +4544,7 @@ type CompensationsListItem {
   """
   The amount paid per payment unit.
   """
-  rate: String
+  rate: Float
 }
 
 enum FlsaStatus {
@@ -4581,7 +4581,11 @@ enum EmploymentStatus {
 }
 
 type JobsListItem {
-  compensationRate: String
+  compensationRate: Float
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
   employeeId: String
   hiredAt: String
   id: String
@@ -4881,7 +4885,7 @@ input CompensationsListItemInput {
   """
   The amount paid per payment unit.
   """
-  rate: String
+  rate: Float
 }
 
 input EmploymentRoleInput {
@@ -4890,7 +4894,11 @@ input EmploymentRoleInput {
 }
 
 input JobsListItemInput {
-  compensationRate: String
+  compensationRate: Float
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
   hiredAt: String
   """
   Indicates whether this the employee's primary job
