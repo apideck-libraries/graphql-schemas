@@ -566,6 +566,7 @@ type Cursors {
 type CompanyInfo {
   addresses: [Address]
   companyName: String
+  companyStartDate: String
   createdAt: String
   createdBy: String
   """
@@ -573,8 +574,15 @@ type CompanyInfo {
   """
   currency: Currency
   emails: [Email]
+  fiscalYearStartMonth: FiscalYearStartMonth
   id: String
+  """
+  language code according to ISO 639-1. For the United States - EN
+  """
+  language: String
+  legalName: String
   phoneNumbers: [PhoneNumber]
+  rowVersion: String
   salesTaxNumber: String
   updatedAt: String
   updatedBy: String
@@ -659,6 +667,21 @@ enum EmailType {
   personal
   billing
   other
+}
+
+enum FiscalYearStartMonth {
+  January
+  February
+  March
+  April
+  May
+  June
+  July
+  August
+  September
+  October
+  November
+  December
 }
 
 type PhoneNumber {
