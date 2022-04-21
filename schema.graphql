@@ -1192,7 +1192,7 @@ type TaxRate {
 
 type ComponentsListItem {
   compound: Boolean
-  id: Float
+  id: String
   name: String
   rate: Float
 }
@@ -1919,7 +1919,7 @@ input TaxRateInput {
 
 input ComponentsListItemInput {
   compound: Boolean
-  id: Float
+  id: String
   name: String
   rate: Float
 }
