@@ -4400,6 +4400,40 @@ type Hris {
     raw: Boolean
   ): Employee
   """
+  Get payroll for employee
+  """
+  employeePayroll(
+    """
+    ID of the employee you are acting upon.
+    """
+    employeeId: String!
+    """
+    ID of the payroll you are acting upon.
+    """
+    payrollId: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): EmployeePayroll
+  """
+  List payrolls for employee
+  """
+  employeePayrolls(
+    """
+    ID of the employee you are acting upon.
+    """
+    employeeId: String!
+    """
+    Apply filters (beta)
+    """
+    filter: PayrollsFilterInput
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): EmployeePayrolls
+  """
   List Employees
   """
   employees(
@@ -4450,6 +4484,32 @@ type Hris {
     """
     raw: Boolean
   ): HrisCompany
+  """
+  Get Payroll
+  """
+  payroll(
+    """
+    ID of the payroll you are acting upon.
+    """
+    payrollId: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Payroll
+  """
+  List Payroll
+  """
+  payrolls(
+    """
+    Apply filters (beta)
+    """
+    filter: PayrollsFilterInput
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): [Payroll]
 }
 
 type Department {
@@ -4643,6 +4703,161 @@ type Team {
   name: String
 }
 
+type EmployeePayroll {
+  employee: Employee
+  payroll: Payroll
+}
+
+type Payroll {
+  """
+  The date on which employees will be paid for the payroll.
+  """
+  checkDate: String!
+  companyId: String
+  """
+  An array of compensations for the payroll.
+  """
+  compensations: [Compensation]
+  """
+  The end date, inclusive, of the pay period.
+  """
+  endDate: String!
+  id: String!
+  """
+  Whether or not the payroll has been successfully processed. Note that processed payrolls cannot be updated.
+  """
+  processed: Boolean!
+  """
+  The date the payroll was processed.
+  """
+  processedDate: String
+  """
+  The start date, inclusive, of the pay period.
+  """
+  startDate: String!
+  totals: PayrollTotals
+}
+
+type Compensation {
+  """
+  An array of employee benefits for the pay period.
+  """
+  benefits: [Benefit]
+  """
+  An array of employee deductions for the pay period.
+  """
+  deductions: [Deduction]
+  employeeId: String!
+  """
+  The employee's gross pay. Only available when payroll has been processed
+  """
+  grossPay: Float
+  """
+  The employee's net pay. Only available when payroll has been processed
+  """
+  netPay: Float
+  """
+  An array of employer and employee taxes for the pay period.
+  """
+  taxes: [Tax]
+}
+
+type Benefit {
+  """
+  The amount deducted for benefit.
+  """
+  employeeDeduction: Float
+  """
+  The amount of employer contribution.
+  """
+  employerContribution: Float
+  """
+  The name of the benefit.
+  """
+  name: String
+}
+
+type Deduction {
+  """
+  The amount deducted.
+  """
+  amount: Float
+  """
+  The name of the deduction.
+  """
+  name: String
+}
+
+type Tax {
+  """
+  The amount of the tax.
+  """
+  amount: Float
+  """
+  Paid by employer.
+  """
+  employer: Boolean
+  """
+  The name of the tax.
+  """
+  name: String
+}
+
+type PayrollTotals {
+  """
+  The total check amount for the payroll.
+  """
+  checkAmount: Float
+  """
+  The total company debit for the payroll.
+  """
+  companyDebit: Float
+  """
+  The total amount of employee deducted benefits for the payroll.
+  """
+  employeeBenefitDeductions: Float
+  """
+  The total amount of employee paid taxes for the payroll.
+  """
+  employeeTaxes: Float
+  """
+  The total amount of company contributed benefits for the payroll.
+  """
+  employerBenefitContributions: Float
+  """
+  The total amount of employer paid taxes for the payroll.
+  """
+  employerTaxes: Float
+  """
+  The gross pay amount for the payroll.
+  """
+  grossPay: Float
+  """
+  The net pay amount for the payroll.
+  """
+  netPay: Float
+  """
+  The total tax debit for the payroll.
+  """
+  taxDebit: Float
+}
+
+type EmployeePayrolls {
+  employee: Employee
+  payrolls: Payroll
+}
+
+input PayrollsFilterInput {
+  """
+  Return payrolls whose pay period is before the end date
+  """
+  endDate: String
+  """
+  Return payrolls whose pay period is after the start date
+  """
+  startDate: String
+}
+
 type EmployeeList {
   data: [Employee]!
   """
@@ -4679,7 +4894,7 @@ type HrisCompany {
   displayName: String
   emails: [Email]
   id: String
-  legalName: String
+  legalName: String!
   phoneNumbers: [PhoneNumber]
   subdomain: String
   updatedAt: String
@@ -4810,7 +5025,7 @@ input HrisCompanyInput {
   debtorId: String
   displayName: String
   emails: [EmailInput]
-  legalName: String
+  legalName: String!
   phoneNumbers: [PhoneNumberInput]
   subdomain: String
   websites: [WebsiteInput]
