@@ -4844,7 +4844,7 @@ type PayrollTotals {
 
 type EmployeePayrolls {
   employee: Employee
-  payrolls: Payroll
+  payrolls: [Payroll]
 }
 
 input PayrollsFilterInput {
