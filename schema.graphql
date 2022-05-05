@@ -40,6 +40,23 @@ type Accounting {
     raw: Boolean
   ): PaymentList
   """
+  List Suppliers
+  """
+  Suppliers(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): SupplierList
+  """
   Get company info
   """
   companyInfo(
@@ -182,6 +199,19 @@ type Accounting {
     raw: Boolean
   ): Payment
   """
+  Get Supplier
+  """
+  supplier(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Supplier
+  """
   Get Tax Rate. Note: Not all connectors return the actual rate/percentage value. In this case, only the tax code or reference is returned. Support will soon be added to return the actual rate/percentage by doing additional calls in the background to provide the full view of a given tax rate. Connectors Affected: Quickbooks
   """
   taxRate(
@@ -253,6 +283,9 @@ type Payment {
   Unique identifier representing the entity
   """
   id: String
+  """
+  Optional note to be associated with the payment.
+  """
   note: String
   """
   Payment method
@@ -291,8 +324,17 @@ type Payment {
 }
 
 type LinkedLedgerAccount {
+  """
+  The unique identifier for the account.
+  """
   id: String!
+  """
+  The name of the account.
+  """
   name: String
+  """
+  The nominal code of the account.
+  """
   nominalCode: String
 }
 
@@ -306,6 +348,9 @@ type AllocationsListItem {
   Unique identifier of entity this payment should be attributed to.
   """
   id: String
+  """
+  Type of entity this payment should be attributed to.
+  """
   type: AllocationType
 }
 
@@ -507,9 +552,21 @@ enum Currency {
 The customer this entity is linked to.
 """
 type LinkedCustomer {
+  """
+  The company name of the customer.
+  """
   companyName: String
+  """
+  The display ID of the customer.
+  """
   displayId: String
+  """
+  The display name of the customer.
+  """
   displayName: String
+  """
+  The ID of the customer this entity is linked to.
+  """
   id: String!
 }
 
@@ -563,29 +620,48 @@ type Cursors {
   previous: String
 }
 
-type CompanyInfo {
+type SupplierList {
+  data: [Supplier]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+type Supplier {
+  account: LinkedLedgerAccount
   addresses: [Address]
+  bankAccounts: BankAccount
   companyName: String
-  companyStartDate: String
   createdAt: String
   createdBy: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
+  """
+  Display name of supplier.
+  """
+  displayName: String
   emails: [Email]
-  fiscalYearStartMonth: FiscalYearStartMonth
+  firstName: String
   id: String
-  """
-  language code according to ISO 639-1. For the United States - EN
-  """
-  language: String
-  legalName: String
+  lastName: String
+  middleName: String
+  notes: String
   phoneNumbers: [PhoneNumber]
   rowVersion: String
-  salesTaxNumber: String
+  """
+  Customer status
+  """
+  status: CustomerStatus
+  suffix: String
+  taxNumber: String
+  taxRate: LinkedTaxRate
+  title: String
   updatedAt: String
   updatedBy: String
+  websites: [Website]
 }
 
 type Address {
@@ -654,93 +730,6 @@ enum AddressType {
   other
 }
 
-type Email {
-  email: String!
-  id: String
-  type: EmailType
-}
-
-enum EmailType {
-  primary
-  secondary
-  work
-  personal
-  billing
-  other
-}
-
-enum FiscalYearStartMonth {
-  January
-  February
-  March
-  April
-  May
-  June
-  July
-  August
-  September
-  October
-  November
-  December
-}
-
-type PhoneNumber {
-  areaCode: String
-  countryCode: String
-  extension: String
-  id: String
-  number: String!
-  type: PhoneType
-}
-
-enum PhoneType {
-  primary
-  secondary
-  home
-  work
-  office
-  mobile
-  assistant
-  fax
-  directdialin
-  personal
-  other
-}
-
-type Customer {
-  addresses: [Address]
-  bankAccounts: BankAccount
-  companyName: String
-  createdAt: String
-  createdBy: String
-  """
-  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
-  """
-  currency: Currency
-  displayId: String
-  displayName: String
-  emails: [Email]
-  firstName: String
-  id: String
-  individual: Boolean
-  lastName: String
-  middleName: String
-  notes: String
-  phoneNumbers: [PhoneNumber]
-  rowVersion: String
-  """
-  Customer status
-  """
-  status: CustomerStatus
-  suffix: String
-  taxNumber: String
-  taxRate: LinkedTaxRate
-  title: String
-  updatedAt: String
-  updatedBy: String
-  websites: [Website]
-}
-
 type BankAccount {
   """
   The name which you used in opening your bank account.
@@ -776,6 +765,44 @@ enum AccountType {
   other
 }
 
+type Email {
+  email: String!
+  id: String
+  type: EmailType
+}
+
+enum EmailType {
+  primary
+  secondary
+  work
+  personal
+  billing
+  other
+}
+
+type PhoneNumber {
+  areaCode: String
+  countryCode: String
+  extension: String
+  id: String
+  number: String!
+  type: PhoneType
+}
+
+enum PhoneType {
+  primary
+  secondary
+  home
+  work
+  office
+  mobile
+  assistant
+  fax
+  directdialin
+  personal
+  other
+}
+
 enum CustomerStatus {
   active
   archived
@@ -785,8 +812,17 @@ enum CustomerStatus {
 }
 
 type LinkedTaxRate {
+  """
+  Tax rate code
+  """
   code: String
+  """
+  The ID of the object.
+  """
   id: String
+  """
+  Name of the tax rate
+  """
   name: String
 }
 
@@ -804,6 +840,101 @@ enum WebsiteType {
   other
 }
 
+type CompanyInfo {
+  addresses: [Address]
+  companyName: String
+  """
+  Date when company file was created
+  """
+  companyStartDate: String
+  createdAt: String
+  createdBy: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  emails: [Email]
+  """
+  The start month of fiscal year.
+  """
+  fiscalYearStartMonth: FiscalYearStartMonth
+  id: String
+  """
+  language code according to ISO 639-1. For the United States - EN
+  """
+  language: String
+  """
+  The legal name of the company
+  """
+  legalName: String
+  phoneNumbers: [PhoneNumber]
+  rowVersion: String
+  salesTaxNumber: String
+  updatedAt: String
+  updatedBy: String
+}
+
+enum FiscalYearStartMonth {
+  January
+  February
+  March
+  April
+  May
+  June
+  July
+  August
+  September
+  October
+  November
+  December
+}
+
+type Customer {
+  addresses: [Address]
+  bankAccounts: BankAccount
+  companyName: String
+  createdAt: String
+  createdBy: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  Display ID
+  """
+  displayId: String
+  """
+  Display Name
+  """
+  displayName: String
+  emails: [Email]
+  firstName: String
+  id: String
+  """
+  Is this an individual or business customer
+  """
+  individual: Boolean
+  lastName: String
+  middleName: String
+  """
+  Some notes about this customer
+  """
+  notes: String
+  phoneNumbers: [PhoneNumber]
+  rowVersion: String
+  """
+  Customer status
+  """
+  status: CustomerStatus
+  suffix: String
+  taxNumber: String
+  taxRate: LinkedTaxRate
+  title: String
+  updatedAt: String
+  updatedBy: String
+  websites: [Website]
+}
+
 type CustomerList {
   data: [Customer]!
   """
@@ -813,6 +944,9 @@ type CustomerList {
 }
 
 type Invoice {
+  """
+  Balance of invoice due.
+  """
   balance: Float
   billingAddress: Address
   createdAt: String
@@ -829,26 +963,35 @@ type Invoice {
   The customer this entity is linked to.
   """
   customer: LinkedCustomer
+  """
+  Customer memo
+  """
   customerMemo: String
+  """
+  Amount of deposit made to this invoice.
+  """
   deposit: Float
   """
   The third-party API ID of original entity
   """
   downstreamId: String
   """
-  The invoice due date is the date on which a payment or invoice is scheduled to be received by the seller - YYYY-MM-DD
+  The invoice due date is the date on which a payment or invoice is scheduled to be received by the seller - YYYY-MM-DD.
   """
   dueDate: String
   id: String
   """
-  Date invoice was issued - YYYY-MM-DD
+  Date invoice was issued - YYYY-MM-DD.
   """
   invoiceDate: String
   """
-  Invoice sent to contact/customer
+  Invoice sent to contact/customer.
   """
   invoiceSent: Boolean
   lineItems: [InvoiceLineItem]
+  """
+  Invoice number.
+  """
   number: String
   """
   A PO Number uniquely identifies a purchase order and is generally defined by the buyer. The buyer will match the PO number in the invoice to the Purchase Order.
@@ -864,7 +1007,13 @@ type Invoice {
   Invoice status
   """
   status: Status
+  """
+  Sub-total amount, normally before tax.
+  """
   subTotal: Float
+  """
+  Applicable tax id/code override if tax is not supplied on a line item basis.
+  """
   taxCode: String
   """
   Amounts are including tax
@@ -875,11 +1024,20 @@ type Invoice {
   """
   templateId: String
   """
-  Terms of payment
+  Terms of payment.
   """
   terms: String
+  """
+  Total amount of invoice, including tax.
+  """
   total: Float
+  """
+  Total tax amount applied to this invoice.
+  """
   totalTax: Float
+  """
+  Invoice type
+  """
   type: InvoiceType
   updatedAt: String
   updatedBy: String
@@ -890,18 +1048,39 @@ type InvoiceLineItem {
   User defined item code
   """
   code: String
+  """
+  User defined description
+  """
   description: String
+  """
+  Discount percentage
+  """
   discountPercentage: Float
   id: String
   item: LinkedInvoiceItem
   ledgerAccount: LinkedLedgerAccount
+  """
+  Line number in the invoice
+  """
   lineNumber: Int
   quantity: Float
+  """
+  Row ID
+  """
   rowId: String
   rowVersion: String
+  """
+  Tax amount
+  """
   taxAmount: Float
   taxRate: LinkedTaxRate
+  """
+  Total amount of the line item
+  """
   totalAmount: Float
+  """
+  Item type
+  """
   type: InvoiceLineItemType
   """
   Description of the unit type the item is sold as, ie: kg, hour.
@@ -919,6 +1098,9 @@ type LinkedInvoiceItem {
   ID of the linked item. A reference to the [invoice item](https://developers.apideck.com/apis/accounting/reference#tag/Invoice-Items) that was used to create this line item
   """
   id: String
+  """
+  User defined item name
+  """
   name: String
 }
 
@@ -975,10 +1157,19 @@ type InvoiceItem {
   code: String
   createdAt: String
   createdBy: String
+  """
+  A short description of the item
+  """
   description: String
   expenseAccount: LinkedLedgerAccount
+  """
+  The ID of the item.
+  """
   id: String
   incomeAccount: LinkedLedgerAccount
+  """
+  Item name
+  """
   name: String
   purchaseDetails: PurchaseDetails
   """
@@ -996,6 +1187,9 @@ type InvoiceItem {
   Item is inventoried
   """
   tracked: Boolean
+  """
+  Item type
+  """
   type: InvoiceItemType
   unitPrice: Float
   updatedAt: String
@@ -1051,9 +1245,18 @@ type InvoiceList {
 }
 
 type LedgerAccount {
+  """
+  Whether the account is active or not.
+  """
   active: Boolean
   bankAccount: BankAccount
+  """
+  The categories of the account.
+  """
   categories: [CategoriesListItem]
+  """
+  The classification of account.
+  """
   classification: Classification
   createdAt: String
   createdBy: String
@@ -1061,10 +1264,25 @@ type LedgerAccount {
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
+  """
+  The current balance of the account.
+  """
   currentBalance: Float
+  """
+  The description of the account.
+  """
   description: String
+  """
+  The human readable display ID used when displaying the account
+  """
   displayId: String
+  """
+  The fully qualified name of the account.
+  """
   fullyQualifiedName: String
+  """
+  Whether the account is a header or not.
+  """
   header: Boolean
   id: String
   """
@@ -1072,17 +1290,44 @@ type LedgerAccount {
   """
   lastReconciliationDate: String
   level: Float
+  """
+  The name of the account.
+  """
   name: String
+  """
+  The nominal code of the ledger account.
+  """
   nominalCode: String
+  """
+  The opening balance of the account.
+  """
   openingBalance: Float
   parentAccount: ParentAccount
   rowVersion: String
+  """
+  The status of the account.
+  """
   status: LedgerAccountStatus
+  """
+  Whether the account is a sub account or not.
+  """
   subAccount: Boolean
+  """
+  The sub accounts of the account.
+  """
   subAccounts: [SubAccountsListItem]
+  """
+  The sub type of account.
+  """
   subType: String
   taxRate: LinkedTaxRate
+  """
+  The tax type of the account.
+  """
   taxType: String
+  """
+  The type of account.
+  """
   type: LedgerAccountType
   updatedAt: String
   updatedBy: String
@@ -1090,6 +1335,9 @@ type LedgerAccount {
 
 type CategoriesListItem {
   id: String
+  """
+  The name of the category.
+  """
   name: String
 }
 
@@ -1106,8 +1354,17 @@ enum Classification {
 }
 
 type ParentAccount {
+  """
+  The human readable display ID used when displaying the parent account
+  """
   displayId: String
+  """
+  The ID of the parent account.
+  """
   id: String
+  """
+  The name of the parent account.
+  """
   name: String
 }
 
@@ -1118,7 +1375,13 @@ enum LedgerAccountStatus {
 }
 
 type SubAccountsListItem {
+  """
+  The name of the sub account.
+  """
   accountSubName: String
+  """
+  The ID of the sub account.
+  """
   id: String
 }
 
@@ -1153,13 +1416,28 @@ type LedgerAccountList {
 }
 
 type TaxRate {
+  """
+  Tax code assigned to identify this tax rate.
+  """
   code: String
   components: [ComponentsListItem]
   createdAt: String
   createdBy: String
+  """
+  Description of tax rate
+  """
   description: String
+  """
+  Effective tax rate
+  """
   effectiveTaxRate: Float
+  """
+  ID assigned to identify this tax rate.
+  """
   id: String
+  """
+  Name assigned to identify this tax rate.
+  """
   name: String
   """
   ID of the original tax rate from which the new tax rate is derived. Helps to understand the relationship between corresponding tax rate entities.
@@ -1170,6 +1448,9 @@ type TaxRate {
   """
   reportTaxType: String
   rowVersion: String
+  """
+  Tax rate status
+  """
   status: TaxRateStatus
   """
   Unique identifier for the account for tax collected.
@@ -1422,6 +1703,43 @@ type MutationAccounting {
     requestBody: PaymentInput!
   ): UnifiedId
   """
+  Create Supplier
+  """
+  suppliersAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: SupplierInput!
+  ): UnifiedId
+  """
+  Delete Supplier
+  """
+  suppliersDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Supplier
+  """
+  suppliersUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: SupplierInput!
+  ): UnifiedId
+  """
   Create Tax Rate
   """
   taxRatesAdd(
@@ -1472,13 +1790,25 @@ input CustomerInput {
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
+  """
+  Display ID
+  """
   displayId: String
+  """
+  Display Name
+  """
   displayName: String
   emails: [EmailInput]
   firstName: String
+  """
+  Is this an individual or business customer
+  """
   individual: Boolean
   lastName: String
   middleName: String
+  """
+  Some notes about this customer
+  """
   notes: String
   phoneNumbers: [PhoneNumberInput]
   rowVersion: String
@@ -1594,6 +1924,9 @@ input PhoneNumberInput {
 }
 
 input LinkedTaxRateInput {
+  """
+  The ID of the object.
+  """
   id: String
 }
 
@@ -1610,9 +1943,15 @@ input InvoiceItemInput {
   User defined item code
   """
   code: String
+  """
+  A short description of the item
+  """
   description: String
   expenseAccount: LinkedLedgerAccountInput
   incomeAccount: LinkedLedgerAccountInput
+  """
+  Item name
+  """
   name: String
   purchaseDetails: PurchaseDetailsInput
   """
@@ -1630,12 +1969,21 @@ input InvoiceItemInput {
   Item is inventoried
   """
   tracked: Boolean
+  """
+  Item type
+  """
   type: InvoiceItemType
   unitPrice: Float
 }
 
 input LinkedLedgerAccountInput {
+  """
+  The unique identifier for the account.
+  """
   id: String!
+  """
+  The nominal code of the account.
+  """
   nominalCode: String
 }
 
@@ -1674,6 +2022,9 @@ type InvoiceResponse {
 }
 
 input InvoiceInput {
+  """
+  Balance of invoice due.
+  """
   balance: Float
   billingAddress: AddressInput
   """
@@ -1688,21 +2039,30 @@ input InvoiceInput {
   The customer this entity is linked to.
   """
   customer: LinkedCustomerInput
+  """
+  Customer memo
+  """
   customerMemo: String
+  """
+  Amount of deposit made to this invoice.
+  """
   deposit: Float
   """
-  The invoice due date is the date on which a payment or invoice is scheduled to be received by the seller - YYYY-MM-DD
+  The invoice due date is the date on which a payment or invoice is scheduled to be received by the seller - YYYY-MM-DD.
   """
   dueDate: String
   """
-  Date invoice was issued - YYYY-MM-DD
+  Date invoice was issued - YYYY-MM-DD.
   """
   invoiceDate: String
   """
-  Invoice sent to contact/customer
+  Invoice sent to contact/customer.
   """
   invoiceSent: Boolean
   lineItems: [InvoiceLineItemInput]
+  """
+  Invoice number.
+  """
   number: String
   """
   A PO Number uniquely identifies a purchase order and is generally defined by the buyer. The buyer will match the PO number in the invoice to the Purchase Order.
@@ -1718,7 +2078,13 @@ input InvoiceInput {
   Invoice status
   """
   status: Status
+  """
+  Sub-total amount, normally before tax.
+  """
   subTotal: Float
+  """
+  Applicable tax id/code override if tax is not supplied on a line item basis.
+  """
   taxCode: String
   """
   Amounts are including tax
@@ -1729,11 +2095,20 @@ input InvoiceInput {
   """
   templateId: String
   """
-  Terms of payment
+  Terms of payment.
   """
   terms: String
+  """
+  Total amount of invoice, including tax.
+  """
   total: Float
+  """
+  Total tax amount applied to this invoice.
+  """
   totalTax: Float
+  """
+  Invoice type
+  """
   type: InvoiceType
 }
 
@@ -1741,7 +2116,13 @@ input InvoiceInput {
 The customer this entity is linked to.
 """
 input LinkedCustomerInput {
+  """
+  The display name of the customer.
+  """
   displayName: String
+  """
+  The ID of the customer this entity is linked to.
+  """
   id: String!
 }
 
@@ -1750,17 +2131,38 @@ input InvoiceLineItemInput {
   User defined item code
   """
   code: String
+  """
+  User defined description
+  """
   description: String
+  """
+  Discount percentage
+  """
   discountPercentage: Float
   item: LinkedInvoiceItemInput
   ledgerAccount: LinkedLedgerAccountInput
+  """
+  Line number in the invoice
+  """
   lineNumber: Int
   quantity: Float
+  """
+  Row ID
+  """
   rowId: String
   rowVersion: String
+  """
+  Tax amount
+  """
   taxAmount: Float
   taxRate: LinkedTaxRateInput
+  """
+  Total amount of the line item
+  """
   totalAmount: Float
+  """
+  Item type
+  """
   type: InvoiceLineItemType
   """
   Description of the unit type the item is sold as, ie: kg, hour.
@@ -1777,39 +2179,93 @@ input LinkedInvoiceItemInput {
 }
 
 input LedgerAccountInput {
+  """
+  Whether the account is active or not.
+  """
   active: Boolean
   bankAccount: BankAccountInput
+  """
+  The classification of account.
+  """
   classification: Classification
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
+  """
+  The current balance of the account.
+  """
   currentBalance: Float
+  """
+  The description of the account.
+  """
   description: String
+  """
+  The human readable display ID used when displaying the account
+  """
   displayId: String
+  """
+  The fully qualified name of the account.
+  """
   fullyQualifiedName: String
+  """
+  Whether the account is a header or not.
+  """
   header: Boolean
   """
   Reconciliation Date means the last calendar day of each Reconciliation Period.
   """
   lastReconciliationDate: String
   level: Float
+  """
+  The name of the account.
+  """
   name: String
+  """
+  The nominal code of the ledger account.
+  """
   nominalCode: String
+  """
+  The opening balance of the account.
+  """
   openingBalance: Float
   parentAccount: ParentAccountInput
   rowVersion: String
+  """
+  The status of the account.
+  """
   status: LedgerAccountStatus
+  """
+  Whether the account is a sub account or not.
+  """
   subAccount: Boolean
+  """
+  The sub type of account.
+  """
   subType: String
   taxRate: LinkedTaxRateInput
+  """
+  The tax type of the account.
+  """
   taxType: String
+  """
+  The type of account.
+  """
   type: LedgerAccountType
 }
 
 input ParentAccountInput {
+  """
+  The human readable display ID used when displaying the parent account
+  """
   displayId: String
+  """
+  The ID of the parent account.
+  """
   id: String
+  """
+  The name of the parent account.
+  """
   name: String
 }
 
@@ -1836,6 +2292,9 @@ input PaymentInput {
   The customer this entity is linked to.
   """
   customer: LinkedCustomerInput
+  """
+  Optional note to be associated with the payment.
+  """
   note: String
   """
   Payment method
@@ -1881,15 +2340,64 @@ input AllocationsListItemInput {
   Unique identifier of entity this payment should be attributed to.
   """
   id: String
+  """
+  Type of entity this payment should be attributed to.
+  """
   type: AllocationType
 }
 
+input SupplierInput {
+  account: LinkedLedgerAccountInput
+  addresses: [AddressInput]
+  bankAccounts: BankAccountInput
+  companyName: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  Display name of supplier.
+  """
+  displayName: String
+  emails: [EmailInput]
+  firstName: String
+  lastName: String
+  middleName: String
+  notes: String
+  phoneNumbers: [PhoneNumberInput]
+  rowVersion: String
+  """
+  Customer status
+  """
+  status: CustomerStatus
+  suffix: String
+  taxNumber: String
+  taxRate: LinkedTaxRateInput
+  title: String
+  websites: [WebsiteInput]
+}
+
 input TaxRateInput {
+  """
+  Tax code assigned to identify this tax rate.
+  """
   code: String
   components: [ComponentsListItemInput]
+  """
+  Description of tax rate
+  """
   description: String
+  """
+  Effective tax rate
+  """
   effectiveTaxRate: Float
+  """
+  ID assigned to identify this tax rate.
+  """
   id: String
+  """
+  Name assigned to identify this tax rate.
+  """
   name: String
   """
   ID of the original tax rate from which the new tax rate is derived. Helps to understand the relationship between corresponding tax rate entities.
@@ -1900,6 +2408,9 @@ input TaxRateInput {
   """
   reportTaxType: String
   rowVersion: String
+  """
+  Tax rate status
+  """
   status: TaxRateStatus
   """
   Unique identifier for the account for tax collected.
