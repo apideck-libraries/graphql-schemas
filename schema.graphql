@@ -865,6 +865,7 @@ type Invoice {
   """
   status: Status
   subTotal: Float
+  taxCode: String
   """
   Amounts are including tax
   """
@@ -1718,6 +1719,7 @@ input InvoiceInput {
   """
   status: Status
   subTotal: Float
+  taxCode: String
   """
   Amounts are including tax
   """
