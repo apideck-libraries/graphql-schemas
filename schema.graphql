@@ -57,6 +57,36 @@ type Accounting {
     raw: Boolean
   ): SupplierList
   """
+  Get Bill
+  """
+  bill(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Bill
+  """
+  List Bills
+  """
+  bills(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): BillList
+  """
   Get company info
   """
   companyInfo(
@@ -642,6 +672,10 @@ type Supplier {
   Display name of supplier.
   """
   displayName: String
+  """
+  The third-party API ID of original entity
+  """
+  downstreamId: String
   emails: [Email]
   firstName: String
   id: String
@@ -802,6 +836,192 @@ enum WebsiteType {
   work
   personal
   other
+}
+
+type Bill {
+  """
+  Balance of bill due.
+  """
+  balance: Float
+  """
+  Date bill was issued - YYYY-MM-DD.
+  """
+  billDate: String
+  createdAt: String
+  createdBy: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  Currency Exchange Rate at the time entity was recorded/generated.
+  """
+  currencyRate: Float
+  """
+  The third-party API ID of original entity
+  """
+  downstreamId: String
+  """
+  The due date is the date on which a payment is scheduled to be received by the supplier - YYYY-MM-DD.
+  """
+  dueDate: String
+  id: String
+  ledgerAccount: LinkedLedgerAccount
+  lineItems: [InvoiceLineItem]
+  notes: String
+  """
+  A PO Number uniquely identifies a purchase order and is generally defined by the buyer. The buyer will match the PO number in the invoice to the Purchase Order.
+  """
+  poNumber: String
+  rowVersion: String
+  """
+  Invoice status
+  """
+  status: Status
+  """
+  The supplier this entity is linked to.
+  """
+  supplier: LinkedSupplier
+  """
+  Applicable tax id/code override if tax is not supplied on a line item basis.
+  """
+  taxCode: String
+  """
+  Amounts are including tax
+  """
+  taxInclusive: Boolean
+  """
+  Terms of payment.
+  """
+  terms: String
+  """
+  Total amount of bill, including tax.
+  """
+  total: Float
+  updatedAt: String
+  updatedBy: String
+}
+
+type InvoiceLineItem {
+  """
+  User defined item code
+  """
+  code: String
+  """
+  User defined description
+  """
+  description: String
+  """
+  Discount percentage
+  """
+  discountPercentage: Float
+  id: String
+  item: LinkedInvoiceItem
+  ledgerAccount: LinkedLedgerAccount
+  """
+  Line number in the invoice
+  """
+  lineNumber: Int
+  quantity: Float
+  """
+  Row ID
+  """
+  rowId: String
+  rowVersion: String
+  """
+  Tax amount
+  """
+  taxAmount: Float
+  taxRate: LinkedTaxRate
+  """
+  Total amount of the line item
+  """
+  totalAmount: Float
+  """
+  Item type
+  """
+  type: InvoiceLineItemType
+  """
+  Description of the unit type the item is sold as, ie: kg, hour.
+  """
+  unitOfMeasure: String
+  unitPrice: Float
+}
+
+type LinkedInvoiceItem {
+  """
+  User defined item code
+  """
+  code: String
+  """
+  ID of the linked item. A reference to the [invoice item](https://developers.apideck.com/apis/accounting/reference#tag/Invoice-Items) that was used to create this line item
+  """
+  id: String
+  """
+  User defined item name
+  """
+  name: String
+}
+
+enum InvoiceLineItemType {
+  sales_item
+  discount
+  info
+  sub_total
+}
+
+enum Status {
+  live
+  upcoming
+  requested
+  accepted
+  scheduled
+  canceled
+  queued
+  sending
+  sent
+  failed
+  delivered
+  undelivered
+  receiving
+  received
+  read
+  tentative
+  declined
+  draft
+  submitted
+  authorised
+  partially_paid
+  paid
+  void
+  credit
+  deleted
+}
+
+"""
+The supplier this entity is linked to.
+"""
+type LinkedSupplier {
+  """
+  The company name of the supplier.
+  """
+  companyName: String
+  """
+  The display name of the supplier.
+  """
+  displayName: String
+  """
+  The ID of the supplier this entity is linked to.
+  """
+  id: String!
+}
+
+type BillList {
+  data: [Bill]!
+  """
+  Response metadata
+  """
+  meta: Meta
 }
 
 type CompanyInfo {
@@ -1040,102 +1260,6 @@ type Invoice {
   type: InvoiceType
   updatedAt: String
   updatedBy: String
-}
-
-type InvoiceLineItem {
-  """
-  User defined item code
-  """
-  code: String
-  """
-  User defined description
-  """
-  description: String
-  """
-  Discount percentage
-  """
-  discountPercentage: Float
-  id: String
-  item: LinkedInvoiceItem
-  ledgerAccount: LinkedLedgerAccount
-  """
-  Line number in the invoice
-  """
-  lineNumber: Int
-  quantity: Float
-  """
-  Row ID
-  """
-  rowId: String
-  rowVersion: String
-  """
-  Tax amount
-  """
-  taxAmount: Float
-  taxRate: LinkedTaxRate
-  """
-  Total amount of the line item
-  """
-  totalAmount: Float
-  """
-  Item type
-  """
-  type: InvoiceLineItemType
-  """
-  Description of the unit type the item is sold as, ie: kg, hour.
-  """
-  unitOfMeasure: String
-  unitPrice: Float
-}
-
-type LinkedInvoiceItem {
-  """
-  User defined item code
-  """
-  code: String
-  """
-  ID of the linked item. A reference to the [invoice item](https://developers.apideck.com/apis/accounting/reference#tag/Invoice-Items) that was used to create this line item
-  """
-  id: String
-  """
-  User defined item name
-  """
-  name: String
-}
-
-enum InvoiceLineItemType {
-  sales_item
-  discount
-  info
-  sub_total
-}
-
-enum Status {
-  live
-  upcoming
-  requested
-  accepted
-  scheduled
-  canceled
-  queued
-  sending
-  sent
-  failed
-  delivered
-  undelivered
-  receiving
-  received
-  read
-  tentative
-  declined
-  draft
-  submitted
-  authorised
-  partially_paid
-  paid
-  void
-  credit
-  deleted
 }
 
 enum InvoiceType {
@@ -1517,6 +1641,43 @@ input TaxRatesFilterInput {
 
 type MutationAccounting {
   """
+  Create Bill
+  """
+  billsAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: BillInput!
+  ): UnifiedId
+  """
+  Delete Bill
+  """
+  billsDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Bill
+  """
+  billsUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: BillInput!
+  ): UnifiedId
+  """
   Create Customer
   """
   customersAdd(
@@ -1781,6 +1942,145 @@ type UnifiedId {
   id: String!
 }
 
+input BillInput {
+  """
+  Balance of bill due.
+  """
+  balance: Float
+  """
+  Date bill was issued - YYYY-MM-DD.
+  """
+  billDate: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  Currency Exchange Rate at the time entity was recorded/generated.
+  """
+  currencyRate: Float
+  """
+  The due date is the date on which a payment is scheduled to be received by the supplier - YYYY-MM-DD.
+  """
+  dueDate: String
+  ledgerAccount: LinkedLedgerAccountInput
+  lineItems: [InvoiceLineItemInput]
+  notes: String
+  """
+  A PO Number uniquely identifies a purchase order and is generally defined by the buyer. The buyer will match the PO number in the invoice to the Purchase Order.
+  """
+  poNumber: String
+  rowVersion: String
+  """
+  Invoice status
+  """
+  status: Status
+  """
+  The supplier this entity is linked to.
+  """
+  supplier: LinkedSupplierInput
+  """
+  Applicable tax id/code override if tax is not supplied on a line item basis.
+  """
+  taxCode: String
+  """
+  Amounts are including tax
+  """
+  taxInclusive: Boolean
+  """
+  Terms of payment.
+  """
+  terms: String
+  """
+  Total amount of bill, including tax.
+  """
+  total: Float
+}
+
+input LinkedLedgerAccountInput {
+  """
+  The unique identifier for the account.
+  """
+  id: String!
+  """
+  The nominal code of the account.
+  """
+  nominalCode: String
+}
+
+input InvoiceLineItemInput {
+  """
+  User defined item code
+  """
+  code: String
+  """
+  User defined description
+  """
+  description: String
+  """
+  Discount percentage
+  """
+  discountPercentage: Float
+  item: LinkedInvoiceItemInput
+  ledgerAccount: LinkedLedgerAccountInput
+  """
+  Line number in the invoice
+  """
+  lineNumber: Int
+  quantity: Float
+  """
+  Row ID
+  """
+  rowId: String
+  rowVersion: String
+  """
+  Tax amount
+  """
+  taxAmount: Float
+  taxRate: LinkedTaxRateInput
+  """
+  Total amount of the line item
+  """
+  totalAmount: Float
+  """
+  Item type
+  """
+  type: InvoiceLineItemType
+  """
+  Description of the unit type the item is sold as, ie: kg, hour.
+  """
+  unitOfMeasure: String
+  unitPrice: Float
+}
+
+input LinkedInvoiceItemInput {
+  """
+  ID of the linked item. A reference to the [invoice item](https://developers.apideck.com/apis/accounting/reference#tag/Invoice-Items) that was used to create this line item
+  """
+  id: String
+}
+
+input LinkedTaxRateInput {
+  """
+  The ID of the object.
+  """
+  id: String
+}
+
+"""
+The supplier this entity is linked to.
+"""
+input LinkedSupplierInput {
+  """
+  The display name of the supplier.
+  """
+  displayName: String
+  """
+  The ID of the supplier this entity is linked to.
+  """
+  id: String!
+}
+
 input CustomerInput {
   addresses: [AddressInput]
   bankAccounts: BankAccountInput
@@ -1922,13 +2222,6 @@ input PhoneNumberInput {
   type: PhoneType
 }
 
-input LinkedTaxRateInput {
-  """
-  The ID of the object.
-  """
-  id: String
-}
-
 input WebsiteInput {
   id: String
   type: WebsiteType
@@ -1973,17 +2266,6 @@ input InvoiceItemInput {
   """
   type: InvoiceItemType
   unitPrice: Float
-}
-
-input LinkedLedgerAccountInput {
-  """
-  The unique identifier for the account.
-  """
-  id: String!
-  """
-  The nominal code of the account.
-  """
-  nominalCode: String
 }
 
 input PurchaseDetailsInput {
@@ -2123,58 +2405,6 @@ input LinkedCustomerInput {
   The ID of the customer this entity is linked to.
   """
   id: String!
-}
-
-input InvoiceLineItemInput {
-  """
-  User defined item code
-  """
-  code: String
-  """
-  User defined description
-  """
-  description: String
-  """
-  Discount percentage
-  """
-  discountPercentage: Float
-  item: LinkedInvoiceItemInput
-  ledgerAccount: LinkedLedgerAccountInput
-  """
-  Line number in the invoice
-  """
-  lineNumber: Int
-  quantity: Float
-  """
-  Row ID
-  """
-  rowId: String
-  rowVersion: String
-  """
-  Tax amount
-  """
-  taxAmount: Float
-  taxRate: LinkedTaxRateInput
-  """
-  Total amount of the line item
-  """
-  totalAmount: Float
-  """
-  Item type
-  """
-  type: InvoiceLineItemType
-  """
-  Description of the unit type the item is sold as, ie: kg, hour.
-  """
-  unitOfMeasure: String
-  unitPrice: Float
-}
-
-input LinkedInvoiceItemInput {
-  """
-  ID of the linked item. A reference to the [invoice item](https://developers.apideck.com/apis/accounting/reference#tag/Invoice-Items) that was used to create this line item
-  """
-  id: String
 }
 
 input LedgerAccountInput {
