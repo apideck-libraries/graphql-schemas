@@ -867,7 +867,7 @@ type Bill {
   dueDate: String
   id: String
   ledgerAccount: LinkedLedgerAccount
-  lineItems: [InvoiceLineItem]
+  lineItems: [BillLineItem]
   notes: String
   """
   A PO Number uniquely identifies a purchase order and is generally defined by the buyer. The buyer will match the PO number in the invoice to the Purchase Order.
@@ -902,7 +902,7 @@ type Bill {
   updatedBy: String
 }
 
-type InvoiceLineItem {
+type BillLineItem {
   """
   User defined item code
   """
@@ -938,9 +938,9 @@ type InvoiceLineItem {
   """
   totalAmount: Float
   """
-  Item type
+  Bill Line Item type
   """
-  type: InvoiceLineItemType
+  type: BillLineItemType
   """
   Description of the unit type the item is sold as, ie: kg, hour.
   """
@@ -963,11 +963,9 @@ type LinkedInvoiceItem {
   name: String
 }
 
-enum InvoiceLineItemType {
-  sales_item
-  discount
-  info
-  sub_total
+enum BillLineItemType {
+  expense_item
+  expense_account
 }
 
 enum Status {
@@ -1002,6 +1000,7 @@ enum Status {
 The supplier this entity is linked to.
 """
 type LinkedSupplier {
+  address: Address
   """
   The company name of the supplier.
   """
@@ -1260,6 +1259,59 @@ type Invoice {
   type: InvoiceType
   updatedAt: String
   updatedBy: String
+}
+
+type InvoiceLineItem {
+  """
+  User defined item code
+  """
+  code: String
+  """
+  User defined description
+  """
+  description: String
+  """
+  Discount percentage
+  """
+  discountPercentage: Float
+  id: String
+  item: LinkedInvoiceItem
+  ledgerAccount: LinkedLedgerAccount
+  """
+  Line number in the invoice
+  """
+  lineNumber: Int
+  quantity: Float
+  """
+  Row ID
+  """
+  rowId: String
+  rowVersion: String
+  """
+  Tax amount
+  """
+  taxAmount: Float
+  taxRate: LinkedTaxRate
+  """
+  Total amount of the line item
+  """
+  totalAmount: Float
+  """
+  Item type
+  """
+  type: InvoiceLineItemType
+  """
+  Description of the unit type the item is sold as, ie: kg, hour.
+  """
+  unitOfMeasure: String
+  unitPrice: Float
+}
+
+enum InvoiceLineItemType {
+  sales_item
+  discount
+  info
+  sub_total
 }
 
 enum InvoiceType {
@@ -1964,7 +2016,7 @@ input BillInput {
   """
   dueDate: String
   ledgerAccount: LinkedLedgerAccountInput
-  lineItems: [InvoiceLineItemInput]
+  lineItems: [BillLineItemInput]
   notes: String
   """
   A PO Number uniquely identifies a purchase order and is generally defined by the buyer. The buyer will match the PO number in the invoice to the Purchase Order.
@@ -2008,7 +2060,7 @@ input LinkedLedgerAccountInput {
   nominalCode: String
 }
 
-input InvoiceLineItemInput {
+input BillLineItemInput {
   """
   User defined item code
   """
@@ -2043,9 +2095,9 @@ input InvoiceLineItemInput {
   """
   totalAmount: Float
   """
-  Item type
+  Bill Line Item type
   """
-  type: InvoiceLineItemType
+  type: BillLineItemType
   """
   Description of the unit type the item is sold as, ie: kg, hour.
   """
@@ -2071,6 +2123,7 @@ input LinkedTaxRateInput {
 The supplier this entity is linked to.
 """
 input LinkedSupplierInput {
+  address: AddressInput
   """
   The display name of the supplier.
   """
@@ -2079,47 +2132,6 @@ input LinkedSupplierInput {
   The ID of the supplier this entity is linked to.
   """
   id: String!
-}
-
-input CustomerInput {
-  addresses: [AddressInput]
-  bankAccounts: BankAccountInput
-  companyName: String
-  """
-  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
-  """
-  currency: Currency
-  """
-  Display ID
-  """
-  displayId: String
-  """
-  Display Name
-  """
-  displayName: String
-  emails: [EmailInput]
-  firstName: String
-  """
-  Is this an individual or business customer
-  """
-  individual: Boolean
-  lastName: String
-  middleName: String
-  """
-  Some notes about this customer
-  """
-  notes: String
-  phoneNumbers: [PhoneNumberInput]
-  rowVersion: String
-  """
-  Customer status
-  """
-  status: CustomerStatus
-  suffix: String
-  taxNumber: String
-  taxRate: LinkedTaxRateInput
-  title: String
-  websites: [WebsiteInput]
 }
 
 input AddressInput {
@@ -2176,6 +2188,47 @@ input AddressInput {
   string: String
   type: AddressType
   website: String
+}
+
+input CustomerInput {
+  addresses: [AddressInput]
+  bankAccounts: BankAccountInput
+  companyName: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  Display ID
+  """
+  displayId: String
+  """
+  Display Name
+  """
+  displayName: String
+  emails: [EmailInput]
+  firstName: String
+  """
+  Is this an individual or business customer
+  """
+  individual: Boolean
+  lastName: String
+  middleName: String
+  """
+  Some notes about this customer
+  """
+  notes: String
+  phoneNumbers: [PhoneNumberInput]
+  rowVersion: String
+  """
+  Customer status
+  """
+  status: CustomerStatus
+  suffix: String
+  taxNumber: String
+  taxRate: LinkedTaxRateInput
+  title: String
+  websites: [WebsiteInput]
 }
 
 input BankAccountInput {
@@ -2405,6 +2458,51 @@ input LinkedCustomerInput {
   The ID of the customer this entity is linked to.
   """
   id: String!
+}
+
+input InvoiceLineItemInput {
+  """
+  User defined item code
+  """
+  code: String
+  """
+  User defined description
+  """
+  description: String
+  """
+  Discount percentage
+  """
+  discountPercentage: Float
+  item: LinkedInvoiceItemInput
+  ledgerAccount: LinkedLedgerAccountInput
+  """
+  Line number in the invoice
+  """
+  lineNumber: Int
+  quantity: Float
+  """
+  Row ID
+  """
+  rowId: String
+  rowVersion: String
+  """
+  Tax amount
+  """
+  taxAmount: Float
+  taxRate: LinkedTaxRateInput
+  """
+  Total amount of the line item
+  """
+  totalAmount: Float
+  """
+  Item type
+  """
+  type: InvoiceLineItemType
+  """
+  Description of the unit type the item is sold as, ie: kg, hour.
+  """
+  unitOfMeasure: String
+  unitPrice: Float
 }
 
 input LedgerAccountInput {
