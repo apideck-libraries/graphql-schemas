@@ -858,6 +858,10 @@ type Bill {
   """
   currencyRate: Float
   """
+  Amount of deposit made to this bill.
+  """
+  deposit: Float
+  """
   The third-party API ID of original entity
   """
   downstreamId: String
@@ -870,6 +874,10 @@ type Bill {
   lineItems: [BillLineItem]
   notes: String
   """
+  The paid date is the date on which a payment was sent to the supplier - YYYY-MM-DD.
+  """
+  paidDate: String
+  """
   A PO Number uniquely identifies a purchase order and is generally defined by the buyer. The buyer will match the PO number in the invoice to the Purchase Order.
   """
   poNumber: String
@@ -878,6 +886,10 @@ type Bill {
   Invoice status
   """
   status: Status
+  """
+  Sub-total amount, normally before tax.
+  """
+  subTotal: Float
   """
   The supplier this entity is linked to.
   """
@@ -898,6 +910,10 @@ type Bill {
   Total amount of bill, including tax.
   """
   total: Float
+  """
+  Total tax amount applied to this bill.
+  """
+  totalTax: Float
   updatedAt: String
   updatedBy: String
 }
@@ -2016,12 +2032,20 @@ input BillInput {
   """
   currencyRate: Float
   """
+  Amount of deposit made to this bill.
+  """
+  deposit: Float
+  """
   The due date is the date on which a payment is scheduled to be received by the supplier - YYYY-MM-DD.
   """
   dueDate: String
   ledgerAccount: LinkedLedgerAccountInput
   lineItems: [BillLineItemInput]
   notes: String
+  """
+  The paid date is the date on which a payment was sent to the supplier - YYYY-MM-DD.
+  """
+  paidDate: String
   """
   A PO Number uniquely identifies a purchase order and is generally defined by the buyer. The buyer will match the PO number in the invoice to the Purchase Order.
   """
@@ -2031,6 +2055,10 @@ input BillInput {
   Invoice status
   """
   status: Status
+  """
+  Sub-total amount, normally before tax.
+  """
+  subTotal: Float
   """
   The supplier this entity is linked to.
   """
@@ -2051,6 +2079,10 @@ input BillInput {
   Total amount of bill, including tax.
   """
   total: Float
+  """
+  Total tax amount applied to this bill.
+  """
+  totalTax: Float
 }
 
 input LinkedLedgerAccountInput {
