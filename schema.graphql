@@ -1343,6 +1343,10 @@ type InvoiceItem {
   id: String
   incomeAccount: LinkedLedgerAccount
   """
+  The date of opening balance if inventory item is tracked - YYYY-MM-DD.
+  """
+  inventoryDate: String
+  """
   Item name
   """
   name: String
@@ -2294,6 +2298,10 @@ input InvoiceItemInput {
   description: String
   expenseAccount: LinkedLedgerAccountInput
   incomeAccount: LinkedLedgerAccountInput
+  """
+  The date of opening balance if inventory item is tracked - YYYY-MM-DD.
+  """
+  inventoryDate: String
   """
   Item name
   """
