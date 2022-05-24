@@ -674,6 +674,7 @@ type SupplierList {
 type Supplier {
   account: LinkedLedgerAccount
   addresses: [Address]
+  bankAccounts: [BankAccount]
   companyName: String
   createdAt: String
   createdBy: String
@@ -773,6 +774,45 @@ enum AddressType {
   office
   shipping
   billing
+  other
+}
+
+type BankAccount {
+  """
+  The name which you used in opening your bank account.
+  """
+  accountName: String
+  """
+  A bank account number is a number that is tied to your bank account. If you have several bank accounts, such as personal, joint, business (and so on), each account will have a different account number.
+  """
+  accountNumber: String
+  """
+  The type of bank account.
+  """
+  accountType: AccountType
+  """
+  A bank code is a code assigned by a central bank, a bank supervisory body or a Bankers Association in a country to all its licensed member banks or financial institutions.
+  """
+  bankCode: String
+  bic: String
+  """
+  A branch identifier is a unique identifier for a branch of a bank or financial institution.
+  """
+  branchIdentifier: String
+  """
+  A BSB is a 6 digit numeric code used for identifying the branch of an Australian or New Zealand bank or financial institution.
+  """
+  bsbNumber: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  iban: String
+}
+
+enum AccountType {
+  bank_account
+  credit_card
   other
 }
 
@@ -1217,7 +1257,7 @@ enum FiscalYearStartMonth {
 
 type Customer {
   addresses: [Address]
-  bankAccounts: BankAccount
+  bankAccounts: [BankAccount]
   companyName: String
   createdAt: String
   createdBy: String
@@ -1259,41 +1299,6 @@ type Customer {
   updatedAt: String
   updatedBy: String
   websites: [Website]
-}
-
-type BankAccount {
-  """
-  The name which you used in opening your bank account.
-  """
-  accountName: String
-  """
-  A bank account number is a number that is tied to your bank account. If you have several bank accounts, such as personal, joint, business (and so on), each account will have a different account number.
-  """
-  accountNumber: String
-  """
-  The type of bank account.
-  """
-  accountType: AccountType
-  """
-  A bank code is a code assigned by a central bank, a bank supervisory body or a Bankers Association in a country to all its licensed member banks or financial institutions.
-  """
-  bankCode: String
-  bic: String
-  """
-  A BSB is a 6 digit numeric code used for identifying the branch of an Australian or New Zealand bank or financial institution.
-  """
-  bsbNumber: String
-  """
-  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
-  """
-  currency: Currency
-  iban: String
-}
-
-enum AccountType {
-  bank_account
-  credit_card
-  other
 }
 
 type CustomerList {
@@ -2355,7 +2360,7 @@ input AddressInput {
 
 input CustomerInput {
   addresses: [AddressInput]
-  bankAccounts: BankAccountInput
+  bankAccounts: [BankAccountInput]
   companyName: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
@@ -2412,6 +2417,10 @@ input BankAccountInput {
   """
   bankCode: String
   bic: String
+  """
+  A branch identifier is a unique identifier for a branch of a bank or financial institution.
+  """
+  branchIdentifier: String
   """
   A BSB is a 6 digit numeric code used for identifying the branch of an Australian or New Zealand bank or financial institution.
   """
@@ -2843,6 +2852,7 @@ input AllocationsListItemInput {
 input SupplierInput {
   account: LinkedLedgerAccountInput
   addresses: [AddressInput]
+  bankAccounts: [BankAccountInput]
   companyName: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
