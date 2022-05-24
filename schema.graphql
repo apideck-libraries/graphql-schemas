@@ -3002,9 +3002,12 @@ type Applicant {
   anonymized: Boolean
   applications: [String]
   archived: Boolean
+  birthday: String
   confidential: Boolean
   coordinatorId: String
   createdAt: String
+  cvUrl: String
+  deleted: Boolean
   deletedAt: String
   deletedBy: String
   emails: [Email]
@@ -3015,19 +3018,26 @@ type Applicant {
   """
   headline: String
   id: String
+  initials: String
+  jobUrl: String
   lastInteractionAt: String
   lastName: String
+  middleName: String
   """
   The name of an applicant.
   """
   name: String
   ownerId: String
   phoneNumbers: [PhoneNumber]
+  photoUrl: String
   """
   The PositionId the applicant applied for.
   """
   positionId: String
+  recordUrl: String
   recruiterId: String
+  rejectedAt: String
+  sourceId: String
   sourcedBy: String
   sources: [String]
   stageId: String
@@ -3059,8 +3069,18 @@ input JobsFilterInput {
 }
 
 type Job {
+  addresses: [Address]
+  """
+  Specifies whether an employee of the organization can apply for the job.
+  """
+  availableToEmployees: Boolean
   blocks: [BlocksListItem]
+  """
+  Details of the branch for which the job is created.
+  """
+  branch: Branch
   closing: String
+  closingDate: String
   """
   The closing section of the job description in HTML format
   """
@@ -3072,22 +3092,53 @@ type Job {
   confidential: Boolean
   createdAt: String
   createdBy: String
+  deleted: Boolean
+  """
+  Details of the department for which the organization is hiring.
+  """
+  department: Department
   description: String
   """
   The job description in HTML format
   """
   descriptionHtml: String
+  employmentTerms: EmploymentTerms
+  """
+  Level of experience required for the job role.
+  """
+  experience: String
+  followers: [String]
   hiringManagers: [HiringManagersListItem]
   id: String
   """
   URL of the job portal
   """
   jobPortalUrl: String
+  """
+  language code according to ISO 639-1. For the United States - EN
+  """
+  language: String
   ownerId: String
+  publishedAt: String
+  recordUrl: String
+  """
+  The recruiter is generally someone who is tasked to help the hiring manager find and screen qualified applicant
+  """
+  recruiters: [String]
+  """
+  Specifies whether the posting is for a remote job.
+  """
+  remote: Boolean
   """
   A job's Requisition ID (Req ID) allows your organization to identify and track a job based on alphanumeric naming conventions unique to your company's internal processes.
   """
   requisitionId: String
+  salary: Salary
+  """
+  Sequence in relation to other jobs.
+  """
+  sequence: Int
+  slug: String
   """
   The status of the job.
   """
@@ -3108,8 +3159,64 @@ type BlocksListItem {
   title: String
 }
 
+"""
+Details of the branch for which the job is created.
+"""
+type Branch {
+  id: String
+  """
+  Name of the branch.
+  """
+  name: String
+}
+
+"""
+Details of the department for which the organization is hiring.
+"""
+type Department {
+  id: String
+  """
+  Department name
+  """
+  name: String
+  code: String
+  createdAt: String
+  createdBy: String
+  description: String
+  updatedAt: String
+  updatedBy: String
+}
+
+enum EmploymentTerms {
+  fulltime
+  parttime
+  intership
+  contractor
+  employee
+  freelance
+  temp
+  seasonal
+  volunteer
+  other
+}
+
 type HiringManagersListItem {
   id: String
+}
+
+type Salary {
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  Maximum salary payable for the job role.
+  """
+  max: Int
+  """
+  Minimum salary payable for the job role.
+  """
+  min: Int
 }
 
 enum JobStatus {
@@ -3117,6 +3224,8 @@ enum JobStatus {
   internal
   published
   completed
+  onhold
+  private
 }
 
 enum VisibilityListItem {
@@ -3150,7 +3259,9 @@ input ApplicantInput {
   anonymized: Boolean
   applications: [String]
   archived: Boolean
+  birthday: String
   confidential: Boolean
+  deleted: Boolean
   emails: [EmailInput]
   firstName: String
   followers: [String]
@@ -3158,17 +3269,21 @@ input ApplicantInput {
   Typically a list of previous companies where the contact has worked or schools that the contact has attended
   """
   headline: String
+  initials: String
   lastName: String
+  middleName: String
   """
   The name of an applicant.
   """
   name: String
   ownerId: String
   phoneNumbers: [PhoneNumberInput]
+  photoUrl: String
   """
   The PositionId the applicant applied for.
   """
   positionId: String
+  recordUrl: String
   sources: [String]
   tags: [String]
   title: String
@@ -5510,20 +5625,6 @@ type Hris {
     """
     raw: Boolean
   ): [Payroll]
-}
-
-type Department {
-  code: String
-  createdAt: String
-  createdBy: String
-  description: String
-  id: String
-  """
-  Department name
-  """
-  name: String
-  updatedAt: String
-  updatedBy: String
 }
 
 type DepartmentList {
