@@ -4189,6 +4189,10 @@ type StagesListItem {
   id: String
   name: String
   value: String
+  """
+  The expected probability of winning an Opportunity in this Pipeline Stage. Valid values are [0-100].
+  """
+  winProbability: Int
 }
 
 type PipelinesList {
@@ -4808,6 +4812,10 @@ input StagesListItemInput {
   displayOrder: Int
   name: String
   value: String
+  """
+  The expected probability of winning an Opportunity in this Pipeline Stage. Valid values are [0-100].
+  """
+  winProbability: Int
 }
 
 input UserInput {
