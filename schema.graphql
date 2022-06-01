@@ -3774,6 +3774,7 @@ type Company {
   payeeNumber: String
   phoneNumbers: [PhoneNumber]
   readOnly: Boolean
+  rowType: CompanyRowType
   salesTaxNumber: String
   socialLinks: [SocialLink]
   status: String
@@ -3785,6 +3786,11 @@ type Company {
   """
   vatNumber: String
   websites: [Website]
+}
+
+type CompanyRowType {
+  id: String
+  name: String
 }
 
 type SocialLink {
@@ -4679,6 +4685,7 @@ input CompanyInput {
   payeeNumber: String
   phoneNumbers: [PhoneNumberInput]
   readOnly: Boolean
+  rowType: CompanyRowTypeInput
   salesTaxNumber: String
   socialLinks: [SocialLinkInput]
   status: String
@@ -4688,6 +4695,11 @@ input CompanyInput {
   """
   vatNumber: String
   websites: [WebsiteInput]
+}
+
+input CompanyRowTypeInput {
+  id: String
+  name: String
 }
 
 input SocialLinkInput {
