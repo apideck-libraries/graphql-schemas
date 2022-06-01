@@ -368,9 +368,13 @@ type Payment {
 
 type LinkedLedgerAccount {
   """
+  The code assigned to the account.
+  """
+  code: String
+  """
   The unique identifier for the account.
   """
-  id: String!
+  id: String
   """
   The name of the account.
   """
@@ -1585,6 +1589,10 @@ type LedgerAccount {
   The classification of account.
   """
   classification: Classification
+  """
+  The code assigned to the account.
+  """
+  code: String
   createdAt: String
   createdBy: String
   """
@@ -2219,9 +2227,13 @@ input BillInput {
 
 input LinkedLedgerAccountInput {
   """
+  The code assigned to the account.
+  """
+  code: String
+  """
   The unique identifier for the account.
   """
-  id: String!
+  id: String
   """
   The nominal code of the account.
   """
@@ -2691,6 +2703,10 @@ input LedgerAccountInput {
   The classification of account.
   """
   classification: Classification
+  """
+  The code assigned to the account.
+  """
+  code: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
