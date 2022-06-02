@@ -173,6 +173,10 @@ type Accounting {
     """
     cursor: String
     """
+    Apply filters (beta)
+    """
+    filter: InvoiceItemsFilterInput
+    """
     Number of records to return
     """
     limit: Int
@@ -1565,6 +1569,13 @@ type InvoiceItemList {
   Response metadata
   """
   meta: Meta
+}
+
+input InvoiceItemsFilterInput {
+  """
+  Name of Invoice Items to search for
+  """
+  name: String
 }
 
 type InvoiceList {
