@@ -1175,6 +1175,10 @@ enum Status {
   receiving
   received
   read
+  active
+  inactive
+  trial
+  other
   tentative
   declined
   draft
@@ -3909,6 +3913,8 @@ enum Type {
   employee
   freelance
   temp
+  intership
+  other
   customer
   supplier
   personal
@@ -5711,6 +5717,11 @@ type Employee {
   """
   department: String
   description: String
+  """
+  Indicate the employee's dietary preference.
+  """
+  dietaryPreference: String
+  directReports: [String]
   displayName: String
   """
   The division the user is currently in.
@@ -5732,6 +5743,10 @@ type Employee {
   employmentStartDate: String
   employmentStatus: EmploymentStatus
   firstName: String
+  """
+  Indicate the employee's food allergies.
+  """
+  foodAllergies: [String]
   gender: Gender
   id: String
   initials: String
@@ -5754,13 +5769,22 @@ type Employee {
   salutation: String
   socialLinks: [SocialLinksListItem]
   socialSecurityNumber: String
+  source: String
+  sourceId: String
+  taxCode: String
+  taxId: String
   """
   The team the user is currently in.
   """
   team: Team
+  timezone: String
   title: String
   updatedAt: String
   updatedBy: String
+  """
+  Indicates whether the employee works remote
+  """
+  worksRemote: Boolean
 }
 
 type CompensationsListItem {
@@ -5836,6 +5860,7 @@ type JobsListItem {
   isPrimary: Boolean
   location: Address
   paymentUnit: PaymentUnit
+  role: String
   title: String
 }
 
@@ -6054,6 +6079,7 @@ type HrisCompany {
   id: String
   legalName: String!
   phoneNumbers: [PhoneNumber]
+  status: Status
   subdomain: String
   updatedAt: String
   updatedBy: String
@@ -6185,6 +6211,7 @@ input HrisCompanyInput {
   emails: [EmailInput]
   legalName: String!
   phoneNumbers: [PhoneNumberInput]
+  status: Status
   subdomain: String
   websites: [WebsiteInput]
 }
@@ -6215,6 +6242,11 @@ input EmployeeInput {
   """
   department: String
   description: String
+  """
+  Indicate the employee's dietary preference.
+  """
+  dietaryPreference: String
+  directReports: [String]
   displayName: String
   """
   The division the user is currently in.
@@ -6236,6 +6268,10 @@ input EmployeeInput {
   employmentStartDate: String
   employmentStatus: EmploymentStatus
   firstName: String
+  """
+  Indicate the employee's food allergies.
+  """
+  foodAllergies: [String]
   gender: Gender
   initials: String
   jobs: [JobsListItemInput]
@@ -6257,11 +6293,20 @@ input EmployeeInput {
   salutation: String
   socialLinks: [SocialLinksListItemInput]
   socialSecurityNumber: String
+  source: String
+  sourceId: String
+  taxCode: String
+  taxId: String
   """
   The team the user is currently in.
   """
   team: TeamInput
+  timezone: String
   title: String
+  """
+  Indicates whether the employee works remote
+  """
+  worksRemote: Boolean
 }
 
 input CompensationsListItemInput {
@@ -6302,6 +6347,7 @@ input JobsListItemInput {
   isPrimary: Boolean
   location: AddressInput
   paymentUnit: PaymentUnit
+  role: String
   title: String
 }
 
