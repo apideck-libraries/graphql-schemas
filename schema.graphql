@@ -3764,6 +3764,7 @@ type Company {
   description: String
   emails: [Email]
   fax: String
+  firstName: String
   id: String
   image: String
   """
@@ -3772,6 +3773,7 @@ type Company {
   industry: String
   interactionCount: Int
   lastActivityAt: String
+  lastName: String
   name: String!
   """
   Number of employees
@@ -4684,11 +4686,13 @@ input CompanyInput {
   description: String
   emails: [EmailInput]
   fax: String
+  firstName: String
   image: String
   """
   Industry
   """
   industry: String
+  lastName: String
   name: String!
   """
   Number of employees
