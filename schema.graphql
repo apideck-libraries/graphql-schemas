@@ -3135,9 +3135,6 @@ type Job {
   createdAt: String
   createdBy: String
   deleted: Boolean
-  """
-  Details of the department for which the organization is hiring.
-  """
   department: Department
   description: String
   """
@@ -3212,19 +3209,16 @@ type Branch {
   name: String
 }
 
-"""
-Details of the department for which the organization is hiring.
-"""
 type Department {
+  code: String
+  createdAt: String
+  createdBy: String
+  description: String
   id: String
   """
   Department name
   """
   name: String
-  code: String
-  createdAt: String
-  createdBy: String
-  description: String
   updatedAt: String
   updatedBy: String
 }
