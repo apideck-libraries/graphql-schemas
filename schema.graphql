@@ -1230,12 +1230,17 @@ type CompanyInfo {
   Date when company file was created
   """
   companyStartDate: String
+  """
+  country code according to ISO 3166-1 alpha-2.
+  """
+  country: String
   createdAt: String
   createdBy: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
+  defaultSalesTax: LinkedTaxRate
   emails: [Email]
   """
   The start month of fiscal year.
@@ -1252,6 +1257,10 @@ type CompanyInfo {
   legalName: String
   phoneNumbers: [PhoneNumber]
   rowVersion: String
+  """
+  Whether sales tax is enabled for the company
+  """
+  salesTaxEnabled: Boolean
   salesTaxNumber: String
   updatedAt: String
   updatedBy: String
