@@ -130,6 +130,10 @@ type Accounting {
     """
     cursor: String
     """
+    Apply filters (beta)
+    """
+    filter: CustomersFilterInput
+    """
     Number of records to return
     """
     limit: Int
@@ -1320,6 +1324,21 @@ type CustomerList {
   Response metadata
   """
   meta: Meta
+}
+
+input CustomersFilterInput {
+  """
+  Company Name of contact to search for
+  """
+  companyName: String
+  """
+  Email of contact to search for
+  """
+  email: String
+  """
+  Last name of contact to search for
+  """
+  lastName: String
 }
 
 type Invoice {
