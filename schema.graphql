@@ -1225,6 +1225,10 @@ type BillList {
 
 type CompanyInfo {
   addresses: [Address]
+  """
+  Whether sales tax is calculated automatically for the company
+  """
+  automatedSalesTax: Boolean
   companyName: String
   """
   Date when company file was created
@@ -1341,9 +1345,17 @@ input CustomersFilterInput {
   """
   companyName: String
   """
+  Display Name of contact to search for
+  """
+  displayName: String
+  """
   Email of contact to search for
   """
   email: String
+  """
+  First name of contact to search for
+  """
+  firstName: String
   """
   Last name of contact to search for
   """
