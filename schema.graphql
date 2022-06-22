@@ -6744,22 +6744,9 @@ type Vault {
     consumerId: String!
   ): Consumer
   """
-  This endpoint includes all application consumers, along with an aggregated count of requests made.
-  """
-  consumers(
-    """
-    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
-    """
-    cursor: String
-    """
-    Number of records to return
-    """
-    limit: Int
-  ): [GetConsumersResponseListItem]
-  """
   Get consumer request counts within a given datetime range.
   """
-  consumersRequestCounts(
+  consumerRequestCounts(
     """
     ID of the consumer to return
     """
@@ -6773,6 +6760,19 @@ type Vault {
     """
     startDatetime: String!
   ): ConsumerRequestCountsInDateRangeResponse
+  """
+  This endpoint includes all application consumers, along with an aggregated count of requests made.
+  """
+  consumers(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+  ): [GetConsumersResponseListItem]
   """
   This endpoint includes all consumer request logs.
   """
@@ -6976,6 +6976,15 @@ type RequestCountAllocation {
   vault: Float
 }
 
+type ConsumerRequestCountsInDateRangeResponse {
+  aggregatedRequestCount: Float
+  applicationId: String
+  consumerId: String
+  endDatetime: String
+  requestCounts: RequestCountAllocation
+  startDatetime: String
+}
+
 type GetConsumersResponseListItem {
   aggregatedRequestCount: Float
   applicationId: String
@@ -6986,15 +6995,6 @@ type GetConsumersResponseListItem {
   requestCountUpdated: String
   requestCounts: RequestCountAllocation
   services: [String]
-}
-
-type ConsumerRequestCountsInDateRangeResponse {
-  aggregatedRequestCount: Float
-  applicationId: String
-  consumerId: String
-  endDatetime: String
-  requestCounts: RequestCountAllocation
-  startDatetime: String
 }
 
 type LogList {
