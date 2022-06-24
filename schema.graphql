@@ -3876,7 +3876,7 @@ input CompaniesSortInput {
   """
   The field on which to sort the Companies
   """
-  by: CompaniesSortBy!
+  by: CompaniesSortBy
   """
   The direction in which to sort the results
   """
@@ -4002,7 +4002,7 @@ input ContactsSortInput {
   """
   The field on which to sort the Contacts
   """
-  by: ContactsSortBy!
+  by: ContactsSortBy
   """
   The direction in which to sort the results
   """
@@ -4122,7 +4122,7 @@ input LeadsSortInput {
   """
   The field on which to sort the Leads
   """
-  by: LeadsSortBy!
+  by: LeadsSortBy
   """
   The direction in which to sort the results
   """
@@ -4244,7 +4244,7 @@ input OpportunitiesSortInput {
   """
   The field on which to sort the Opportunities
   """
-  by: OpportunitiesSortBy!
+  by: OpportunitiesSortBy
   """
   The direction in which to sort the results
   """
@@ -5270,7 +5270,7 @@ input FilesSortInput {
   """
   The field on which to sort the Files
   """
-  by: FilesSortBy!
+  by: FilesSortBy
   """
   The direction in which to sort the results
   """
@@ -6772,7 +6772,7 @@ type Vault {
     Number of records to return
     """
     limit: Int
-  ): [GetConsumersResponseListItem]
+  ): GetConsumersResponse
   """
   This endpoint includes all consumer request logs.
   """
@@ -6985,7 +6985,15 @@ type ConsumerRequestCountsInDateRangeResponse {
   startDatetime: String
 }
 
-type GetConsumersResponseListItem {
+type GetConsumersResponse {
+  data: [DataListItem]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+type DataListItem {
   aggregatedRequestCount: Float
   applicationId: String
   consumerId: String
