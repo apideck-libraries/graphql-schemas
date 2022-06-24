@@ -5665,6 +5665,19 @@ type Hris {
     raw: Boolean
   ): EmployeePayrolls
   """
+  List schedules for employee, a schedule is a work pattern, not the actual worked hours, for an employee.
+  """
+  employeeSchedules(
+    """
+    ID of the employee you are acting upon.
+    """
+    employeeId: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): EmployeeSchedules
+  """
   List Employees
   """
   employees(
@@ -6092,6 +6105,49 @@ input PayrollsFilterInput {
   Return payrolls whose pay period is after the start date
   """
   startDate: String
+}
+
+type EmployeeSchedules {
+  employee: Employee
+  schedules: [Schedule]
+}
+
+type Schedule {
+  """
+  The end date, inclusive, of the schedule period.
+  """
+  endDate: String!
+  id: String!
+  """
+  The start date, inclusive, of the schedule period.
+  """
+  startDate: String!
+  workPattern: WorkPattern!
+}
+
+type WorkPattern {
+  evenWeeks: EvenWeeks
+  oddWeeks: OddWeeks
+}
+
+type EvenWeeks {
+  hoursFriday: Float
+  hoursMonday: Float
+  hoursSaturday: Float
+  hoursSunday: Float
+  hoursThursday: Float
+  hoursTuesday: Float
+  hoursWednesday: Float
+}
+
+type OddWeeks {
+  hoursFriday: Float
+  hoursMonday: Float
+  hoursSaturday: Float
+  hoursSunday: Float
+  hoursThursday: Float
+  hoursTuesday: Float
+  hoursWednesday: Float
 }
 
 type EmployeeList {
