@@ -1345,23 +1345,23 @@ type CustomerList {
 
 input CustomersFilterInput {
   """
-  Company Name of contact to search for
+  Company Name of customer to search for
   """
   companyName: String
   """
-  Display Name of contact to search for
+  Display Name of customer to search for
   """
   displayName: String
   """
-  Email of contact to search for
+  Email of customer to search for
   """
   email: String
   """
-  First name of contact to search for
+  First name of customer to search for
   """
   firstName: String
   """
-  Last name of contact to search for
+  Last name of customer to search for
   """
   lastName: String
 }
@@ -1426,6 +1426,10 @@ type Invoice {
   reference: String
   rowVersion: String
   shippingAddress: Address
+  """
+  URL link to a source document - shown as 'Go to [appName]' in the downstream app. Currently only supported for Xero.
+  """
+  sourceDocumentUrl: String
   """
   Invoice status
   """
@@ -2660,6 +2664,10 @@ input InvoiceInput {
   reference: String
   rowVersion: String
   shippingAddress: AddressInput
+  """
+  URL link to a source document - shown as 'Go to [appName]' in the downstream app. Currently only supported for Xero.
+  """
+  sourceDocumentUrl: String
   """
   Invoice status
   """
@@ -5729,6 +5737,36 @@ type Hris {
     raw: Boolean
   ): HrisCompany
   """
+  A Job for employee.
+  """
+  hrisJob(
+    """
+    ID of the employee you are acting upon.
+    """
+    employeeId: String!
+    """
+    ID of the job you are acting upon.
+    """
+    jobId: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): HrisJob
+  """
+  List Jobs for employee.
+  """
+  jobs(
+    """
+    ID of the employee you are acting upon.
+    """
+    employeeId: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): HrisJobs
+  """
   Get Payroll
   """
   payroll(
@@ -5777,6 +5815,7 @@ type Employee {
   createdAt: String
   createdBy: String
   customFields: [CustomField]
+  deceasedOn: String
   deleted: Boolean
   """
   The department the user is currently in.
@@ -5823,6 +5862,7 @@ type Employee {
   maritalStatus: String
   middleName: String
   nationalities: [String]
+  partner: Partner
   phoneNumbers: [PhoneNumber]
   photoUrl: String
   """
@@ -5918,6 +5958,7 @@ type JobsListItem {
   """
   currency: Currency
   employeeId: String
+  endDate: String
   hiredAt: String
   id: String
   """
@@ -5927,6 +5968,7 @@ type JobsListItem {
   location: Address
   paymentUnit: PaymentUnit
   role: String
+  startDate: String
   title: String
 }
 
@@ -5936,6 +5978,17 @@ type Manager {
   id: String
   lastName: String
   name: String
+}
+
+type Partner {
+  birthday: String
+  deceasedOn: String
+  firstName: String
+  gender: Gender
+  id: String
+  initials: String
+  lastName: String
+  middleName: String
 }
 
 type SocialLinksListItem {
@@ -6195,6 +6248,32 @@ type HrisCompany {
   websites: [Website]
 }
 
+type HrisJob {
+  """
+  Department name
+  """
+  department: String
+  """
+  Id of the employee
+  """
+  employeeId: String
+  employmentStatus: EmploymentStatus
+  endDate: String
+  id: String
+  location: Location
+  startDate: String
+  title: String
+}
+
+type Location {
+  name: String
+}
+
+type HrisJobs {
+  employee: Employee
+  jobs: [HrisJob]
+}
+
 type MutationHris {
   """
   Create Company
@@ -6345,6 +6424,7 @@ input EmployeeInput {
   """
   countryOfBirth: String
   customFields: [CustomFieldInput]
+  deceasedOn: String
   deleted: Boolean
   """
   The department the user is currently in.
@@ -6390,6 +6470,7 @@ input EmployeeInput {
   maritalStatus: String
   middleName: String
   nationalities: [String]
+  partner: PartnerInput
   phoneNumbers: [PhoneNumberInput]
   photoUrl: String
   """
@@ -6449,6 +6530,7 @@ input JobsListItemInput {
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
+  endDate: String
   hiredAt: String
   """
   Indicates whether this the employee's primary job
@@ -6457,6 +6539,7 @@ input JobsListItemInput {
   location: AddressInput
   paymentUnit: PaymentUnit
   role: String
+  startDate: String
   title: String
 }
 
@@ -6465,6 +6548,16 @@ input ManagerInput {
   firstName: String
   lastName: String
   name: String
+}
+
+input PartnerInput {
+  birthday: String
+  deceasedOn: String
+  firstName: String
+  gender: Gender
+  initials: String
+  lastName: String
+  middleName: String
 }
 
 input SocialLinksListItemInput {
