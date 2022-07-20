@@ -250,7 +250,7 @@ type Accounting {
     raw: Boolean
   ): Payment
   """
-  List Profit and Loss
+  Get Profit and Loss
   """
   profitAndLoss(
     """
