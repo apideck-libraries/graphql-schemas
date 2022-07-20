@@ -1283,6 +1283,10 @@ type CompanyInfo {
   """
   salesTaxEnabled: Boolean
   salesTaxNumber: String
+  """
+  Based on the status some functionality is enabled or disabled.
+  """
+  status: CompanyStatus
   updatedAt: String
   updatedBy: String
 }
@@ -1300,6 +1304,11 @@ enum FiscalYearStartMonth {
   October
   November
   December
+}
+
+enum CompanyStatus {
+  active
+  inactive
 }
 
 type Customer {
