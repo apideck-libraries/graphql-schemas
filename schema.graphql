@@ -250,6 +250,19 @@ type Accounting {
     raw: Boolean
   ): Payment
   """
+  List Profit and Loss
+  """
+  profitAndLoss(
+    """
+    Apply filters (beta)
+    """
+    filter: ProfitAndLossFilterInput
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): ProfitAndLoss
+  """
   Get Supplier
   """
   supplier(
@@ -1812,6 +1825,111 @@ type LedgerAccountList {
   Response metadata
   """
   meta: Meta
+}
+
+type ProfitAndLoss {
+  currency: String!
+  """
+  Customer id
+  """
+  customerId: String
+  """
+  The start date of the report
+  """
+  endDate: String
+  expenses: Expenses!
+  grossProfit: GrossProfit
+  id: String
+  income: Income!
+  netIncome: NetIncome
+  netOperatingIncome: NetOperatingIncome
+  """
+  The name of the report
+  """
+  reportName: String!
+  """
+  The start date of the report
+  """
+  startDate: String
+}
+
+type Expenses {
+  records: [ProfitAndLossRecordsListItem]!
+  """
+  Total expense
+  """
+  total: Float!
+}
+
+type ProfitAndLossRecordsListItem {
+  id: String
+  records: [RecordsListItem]
+  title: String
+  total: Float
+  type: JSON
+  value: Float
+}
+
+type RecordsListItem {
+  id: String
+  records: [RecordsListItem]
+  title: String
+  total: Float
+  type: JSON
+  value: Float
+}
+
+"""
+The \`JSON\` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+  @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+type GrossProfit {
+  records: [ProfitAndLossRecordsListItem]!
+  """
+  Total gross profit
+  """
+  total: Float!
+}
+
+type Income {
+  records: [ProfitAndLossRecordsListItem]!
+  """
+  Total income
+  """
+  total: Float!
+}
+
+type NetIncome {
+  records: [ProfitAndLossRecordsListItem]!
+  """
+  Total net income
+  """
+  total: Float!
+}
+
+type NetOperatingIncome {
+  records: [ProfitAndLossRecordsListItem]!
+  """
+  Total net operating income
+  """
+  total: Float!
+}
+
+input ProfitAndLossFilterInput {
+  """
+  Filter by customer id
+  """
+  customerId: String
+  """
+  Filter by end date. If end date is given, start date is required.
+  """
+  endDate: String
+  """
+  Filter by start date. If start date is given, end date is required.
+  """
+  startDate: String
 }
 
 type TaxRate {
@@ -3759,12 +3877,6 @@ type CustomField {
   name: String
   value: JSON
 }
-
-"""
-The \`JSON\` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
-  @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
 
 enum ShowAs {
   free
