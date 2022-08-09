@@ -5207,6 +5207,74 @@ input CustomerSupportCustomerInput {
 
 type FileStorage {
   """
+  Get Drive
+  """
+  drive(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Drive
+  """
+  Get DriveGroup
+  """
+  driveGroup(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): DriveGroup
+  """
+  List DriveGroups
+  """
+  driveGroups(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Apply filters (beta)
+    """
+    filter: DriveGroupsFilterInput
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): DriveGroupList
+  """
+  List Drives
+  """
+  drives(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Apply filters (beta)
+    """
+    filter: DrivesFilterInput
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): DriveList
+  """
   List Files
   """
   files(
@@ -5302,6 +5370,66 @@ type FileStorage {
   ): UploadSession
 }
 
+type Drive {
+  createdAt: String
+  createdBy: String
+  description: String
+  id: String!
+  """
+  The name of the drive
+  """
+  name: String!
+  updatedAt: String
+  updatedBy: String
+}
+
+type DriveGroup {
+  createdAt: String
+  createdBy: String
+  description: String
+  """
+  The display name of the drive group
+  """
+  displayName: String
+  id: String!
+  """
+  The name of the drive group
+  """
+  name: String!
+  updatedAt: String
+  updatedBy: String
+}
+
+type DriveGroupList {
+  data: [DriveGroup]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+input DriveGroupsFilterInput {
+  """
+  ID of the drive group to filter on
+  """
+  parentGroupId: String
+}
+
+type DriveList {
+  data: [Drive]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+input DrivesFilterInput {
+  """
+  ID of the drive group to filter on
+  """
+  groupId: String
+}
+
 type FileList {
   data: [UnifiedFile]!
   """
@@ -5321,6 +5449,10 @@ type UnifiedFile {
   Whether the current user can download this file
   """
   downloadable: Boolean
+  """
+  The third-party API ID of original entity
+  """
+  downstreamId: String
   id: String!
   """
   The MIME type of the file.
@@ -5385,6 +5517,10 @@ enum FileType {
 }
 
 input FilesFilterInput {
+  """
+  ID of the drive to filter on
+  """
+  driveId: String
   """
   ID of the folder to filter on. The root folder has an alias "root"
   """
@@ -5515,6 +5651,80 @@ type UploadSession {
 
 type MutationFileStorage {
   """
+  Create DriveGroup
+  """
+  driveGroupsAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: DriveGroupInput!
+  ): UnifiedId
+  """
+  Delete DriveGroup
+  """
+  driveGroupsDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update DriveGroup
+  """
+  driveGroupsUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: DriveGroupInput!
+  ): UnifiedId
+  """
+  Create Drive
+  """
+  drivesAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: DriveInput!
+  ): UnifiedId
+  """
+  Delete Drive
+  """
+  drivesDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Drive
+  """
+  drivesUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: DriveInput!
+  ): UnifiedId
+  """
   Delete File
   """
   filesDelete(
@@ -5644,7 +5854,31 @@ type MutationFileStorage {
   ): UnifiedFile
 }
 
+input DriveGroupInput {
+  description: String
+  """
+  The display name of the drive group
+  """
+  displayName: String
+  """
+  The name of the drive group
+  """
+  name: String!
+}
+
+input DriveInput {
+  description: String
+  """
+  The name of the drive
+  """
+  name: String!
+}
+
 input FilesSearchInput {
+  """
+  ID of the drive to filter on
+  """
+  driveId: String
   """
   The query to search for. May match across multiple fields.
   """
@@ -5656,6 +5890,10 @@ input CreateFolderRequestInput {
   Optional description of the folder.
   """
   description: String
+  """
+  ID of the drive to create the folder in.
+  """
+  driveId: String
   """
   The name of the folder.
   """
@@ -5701,6 +5939,10 @@ input SharedLinkInput {
 }
 
 input CreateUploadSessionRequestInput {
+  """
+  ID of the drive to upload to.
+  """
+  driveId: String
   """
   The name of the file.
   """
