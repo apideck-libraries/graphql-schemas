@@ -61,6 +61,10 @@ type Accounting {
   """
   balanceSheet(
     """
+    Apply filters (beta)
+    """
+    filter: BalanceSheetFilterInput
+    """
     Optional unmapped key/values that will be passed through to downstream as query parameters
     """
     passThrough: PassThroughInput
@@ -920,6 +924,10 @@ type BalanceSheet {
   assets: Assets!
   createdAt: String
   createdBy: String
+  """
+  The start date of the report
+  """
+  endDate: String
   equity: Equity!
   id: String
   liabilities: Liabilities!
@@ -1022,6 +1030,17 @@ type LiabilityAccountsList {
   The value of the liability
   """
   value: Float
+}
+
+input BalanceSheetFilterInput {
+  """
+  Filter by end date. If end date is given, start date is required.
+  """
+  endDate: String
+  """
+  Filter by start date. If start date is given, end date is required.
+  """
+  startDate: String
 }
 
 input PassThroughInput {
@@ -7650,6 +7669,11 @@ enum UnifiedApi {
   proxy
   vault
   accounting
+  hris
+  ats
+  pos
+  filestorage
+  sms
 }
 
 input LogsFilterInput {
