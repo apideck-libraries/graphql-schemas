@@ -3931,6 +3931,7 @@ type Company {
   """
   annualRevenue: String
   bankAccounts: [BankAccount]
+  birthday: String
   createdAt: String
   createdBy: String
   """
@@ -3971,6 +3972,7 @@ type Company {
   readOnly: Boolean
   rowType: CompanyRowType
   salesTaxNumber: String
+  salutation: String
   socialLinks: [SocialLink]
   status: String
   tags: [String]
@@ -4856,6 +4858,7 @@ input CompanyInput {
   """
   annualRevenue: String
   bankAccounts: [BankAccountInput]
+  birthday: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
@@ -4886,6 +4889,7 @@ input CompanyInput {
   readOnly: Boolean
   rowType: CompanyRowTypeInput
   salesTaxNumber: String
+  salutation: String
   socialLinks: [SocialLinkInput]
   status: String
   tags: [String]
