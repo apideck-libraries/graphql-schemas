@@ -23,6 +23,23 @@ type Mutation {
 
 type Accounting {
   """
+  List Credit Notes
+  """
+  CreditNotes(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): GetCreditNotesResponse
+  """
   List Payments
   """
   Payments(
@@ -112,6 +129,19 @@ type Accounting {
     """
     raw: Boolean
   ): CompanyInfo
+  """
+  Get Credit Note
+  """
+  creditNote(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): CreditNote
   """
   Get Customer
   """
@@ -315,25 +345,20 @@ type Accounting {
   ): TaxRateList
 }
 
-type PaymentList {
-  data: [Payment]!
+type GetCreditNotesResponse {
+  data: [CreditNote]!
   """
   Response metadata
   """
   meta: Meta
 }
 
-type Payment {
-  account: LinkedLedgerAccount
-  """
-  Unique identifier for the account to allocate payment to.
-  """
-  accountsReceivableAccountId: String
-  """
-  Type of accounts receivable account.
-  """
-  accountsReceivableAccountType: String
+type CreditNote {
   allocations: [AllocationsListItem]
+  """
+  The balance reflecting any payments made against the transaction.
+  """
+  balance: Float
   createdAt: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
@@ -348,66 +373,64 @@ type Payment {
   """
   customer: LinkedCustomer
   """
+  Date credit note issued - YYYY:MM::DDThh:mm:ss.sTZD
+  """
+  dateIssued: String
+  """
+  Date credit note paid - YYYY:MM::DDThh:mm:ss.sTZD
+  """
+  datePaid: String
+  """
   Unique identifier representing the entity
   """
   id: String
+  lineItems: [InvoiceLineItem]
   """
-  Optional note to be associated with the payment.
+  Optional note to be associated with the credit note.
   """
   note: String
   """
-  Payment method
+  Credit note number.
   """
-  paymentMethod: String
+  number: String
   """
-  Optional reference message returned by payment method on processing
-  """
-  paymentMethodReference: String
-  """
-  Payment has been reconciled
-  """
-  reconciled: Boolean
-  """
-  Optional payment reference message ie: Debit remittance detail.
+  Optional reference message ie: Debit remittance detail.
   """
   reference: String
+  """
+  Indicates the total credit amount still available to apply towards the payment.
+  """
+  remainingCredit: Float
   rowVersion: String
   """
   Status of payment
   """
-  status: PaymentStatus
+  status: CreditNoteStatus
   """
-  Amount of payment
+  Sub-total amount, normally before tax.
+  """
+  subTotal: Float
+  """
+  Applicable tax id/code override if tax is not supplied on a line item basis.
+  """
+  taxCode: String
+  """
+  Amounts are including tax
+  """
+  taxInclusive: Boolean
+  """
+  Amount of transaction
   """
   totalAmount: Float!
   """
-  Date transaction was entered - YYYY:MM::DDThh:mm:ss.sTZD
+  Total tax amount applied to this invoice.
   """
-  transactionDate: String!
+  totalTax: Float
   """
   Type of payment
   """
-  type: PaymentType
+  type: CreditNoteType
   updatedAt: String
-}
-
-type LinkedLedgerAccount {
-  """
-  The code assigned to the account.
-  """
-  code: String
-  """
-  The unique identifier for the account.
-  """
-  id: String
-  """
-  The name of the account.
-  """
-  name: String
-  """
-  The nominal code of the account.
-  """
-  nominalCode: String
 }
 
 type AllocationsListItem {
@@ -642,22 +665,119 @@ type LinkedCustomer {
   id: String!
 }
 
-enum PaymentStatus {
+type InvoiceLineItem {
+  """
+  User defined item code
+  """
+  code: String
+  """
+  User defined description
+  """
+  description: String
+  """
+  Discount percentage
+  """
+  discountPercentage: Float
+  id: String
+  item: LinkedInvoiceItem
+  ledgerAccount: LinkedLedgerAccount
+  """
+  Line number in the invoice
+  """
+  lineNumber: Int
+  quantity: Float
+  """
+  Row ID
+  """
+  rowId: String
+  rowVersion: String
+  """
+  Tax amount
+  """
+  taxAmount: Float
+  taxRate: LinkedTaxRate
+  """
+  Total amount of the line item
+  """
+  totalAmount: Float
+  """
+  Item type
+  """
+  type: InvoiceLineItemType
+  """
+  Description of the unit type the item is sold as, ie: kg, hour.
+  """
+  unitOfMeasure: String
+  unitPrice: Float
+}
+
+type LinkedInvoiceItem {
+  """
+  User defined item code
+  """
+  code: String
+  """
+  ID of the linked item. A reference to the [invoice item](https://developers.apideck.com/apis/accounting/reference#tag/Invoice-Items) that was used to create this line item
+  """
+  id: String
+  """
+  User defined item name
+  """
+  name: String
+}
+
+type LinkedLedgerAccount {
+  """
+  The code assigned to the account.
+  """
+  code: String
+  """
+  The unique identifier for the account.
+  """
+  id: String
+  """
+  The name of the account.
+  """
+  name: String
+  """
+  The nominal code of the account.
+  """
+  nominalCode: String
+}
+
+type LinkedTaxRate {
+  """
+  Tax rate code
+  """
+  code: String
+  """
+  The ID of the object.
+  """
+  id: String
+  """
+  Name of the tax rate
+  """
+  name: String
+}
+
+enum InvoiceLineItemType {
+  sales_item
+  discount
+  info
+  sub_total
+}
+
+enum CreditNoteStatus {
+  draft
   authorised
   paid
   voided
   deleted
 }
 
-enum PaymentType {
-  accounts_receivable
-  accounts_payable
+enum CreditNoteType {
   accounts_receivable_credit
   accounts_payable_credit
-  accounts_receivable_overpayment
-  accounts_payable_overpayment
-  accounts_receivable_prepayment
-  accounts_payable_prepayment
 }
 
 """
@@ -690,6 +810,100 @@ type Cursors {
   Cursor to navigate to the previous page of results through the API
   """
   previous: String
+}
+
+type PaymentList {
+  data: [Payment]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+type Payment {
+  account: LinkedLedgerAccount
+  """
+  Unique identifier for the account to allocate payment to.
+  """
+  accountsReceivableAccountId: String
+  """
+  Type of accounts receivable account.
+  """
+  accountsReceivableAccountType: String
+  allocations: [AllocationsListItem]
+  createdAt: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  Currency Exchange Rate at the time entity was recorded/generated.
+  """
+  currencyRate: Float
+  """
+  The customer this entity is linked to.
+  """
+  customer: LinkedCustomer
+  """
+  Unique identifier representing the entity
+  """
+  id: String
+  """
+  Optional note to be associated with the payment.
+  """
+  note: String
+  """
+  Payment method
+  """
+  paymentMethod: String
+  """
+  Optional reference message returned by payment method on processing
+  """
+  paymentMethodReference: String
+  """
+  Payment has been reconciled
+  """
+  reconciled: Boolean
+  """
+  Optional payment reference message ie: Debit remittance detail.
+  """
+  reference: String
+  rowVersion: String
+  """
+  Status of payment
+  """
+  status: PaymentStatus
+  """
+  Amount of payment
+  """
+  totalAmount: Float!
+  """
+  Date transaction was entered - YYYY:MM::DDThh:mm:ss.sTZD
+  """
+  transactionDate: String!
+  """
+  Type of payment
+  """
+  type: PaymentType
+  updatedAt: String
+}
+
+enum PaymentStatus {
+  authorised
+  paid
+  voided
+  deleted
+}
+
+enum PaymentType {
+  accounts_receivable
+  accounts_payable
+  accounts_receivable_credit
+  accounts_payable_credit
+  accounts_receivable_overpayment
+  accounts_payable_overpayment
+  accounts_receivable_prepayment
+  accounts_payable_prepayment
 }
 
 type SupplierList {
@@ -889,21 +1103,6 @@ enum CustomerStatus {
   gdprerasurerequest
   unknown
   inactive
-}
-
-type LinkedTaxRate {
-  """
-  Tax rate code
-  """
-  code: String
-  """
-  The ID of the object.
-  """
-  id: String
-  """
-  Name of the tax rate
-  """
-  name: String
 }
 
 type Website {
@@ -1178,21 +1377,6 @@ type BillLineItem {
   """
   unitOfMeasure: String
   unitPrice: Float
-}
-
-type LinkedInvoiceItem {
-  """
-  User defined item code
-  """
-  code: String
-  """
-  ID of the linked item. A reference to the [invoice item](https://developers.apideck.com/apis/accounting/reference#tag/Invoice-Items) that was used to create this line item
-  """
-  id: String
-  """
-  User defined item name
-  """
-  name: String
 }
 
 enum BillLineItemType {
@@ -1509,59 +1693,6 @@ type Invoice {
   type: InvoiceType
   updatedAt: String
   updatedBy: String
-}
-
-type InvoiceLineItem {
-  """
-  User defined item code
-  """
-  code: String
-  """
-  User defined description
-  """
-  description: String
-  """
-  Discount percentage
-  """
-  discountPercentage: Float
-  id: String
-  item: LinkedInvoiceItem
-  ledgerAccount: LinkedLedgerAccount
-  """
-  Line number in the invoice
-  """
-  lineNumber: Int
-  quantity: Float
-  """
-  Row ID
-  """
-  rowId: String
-  rowVersion: String
-  """
-  Tax amount
-  """
-  taxAmount: Float
-  taxRate: LinkedTaxRate
-  """
-  Total amount of the line item
-  """
-  totalAmount: Float
-  """
-  Item type
-  """
-  type: InvoiceLineItemType
-  """
-  Description of the unit type the item is sold as, ie: kg, hour.
-  """
-  unitOfMeasure: String
-  unitPrice: Float
-}
-
-enum InvoiceLineItemType {
-  sales_item
-  discount
-  info
-  sub_total
 }
 
 enum InvoiceType {
@@ -2100,6 +2231,43 @@ type MutationAccounting {
     requestBody: BillInput!
   ): UnifiedId
   """
+  Create Credit Note
+  """
+  creditNotesAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: CreditNoteInput!
+  ): UnifiedId
+  """
+  Delete Credit Note
+  """
+  creditNotesDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Credit Note
+  """
+  creditNotesUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: CreditNoteInput!
+  ): UnifiedId
+  """
   Create Customer
   """
   customersAdd(
@@ -2584,6 +2752,154 @@ input AddressInput {
   website: String
 }
 
+input CreditNoteInput {
+  allocations: [AllocationsListItemInput]
+  """
+  The balance reflecting any payments made against the transaction.
+  """
+  balance: Float
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  Currency Exchange Rate at the time entity was recorded/generated.
+  """
+  currencyRate: Float
+  """
+  The customer this entity is linked to.
+  """
+  customer: LinkedCustomerInput
+  """
+  Date credit note issued - YYYY:MM::DDThh:mm:ss.sTZD
+  """
+  dateIssued: String
+  """
+  Date credit note paid - YYYY:MM::DDThh:mm:ss.sTZD
+  """
+  datePaid: String
+  lineItems: [InvoiceLineItemInput]
+  """
+  Optional note to be associated with the credit note.
+  """
+  note: String
+  """
+  Credit note number.
+  """
+  number: String
+  """
+  Optional reference message ie: Debit remittance detail.
+  """
+  reference: String
+  """
+  Indicates the total credit amount still available to apply towards the payment.
+  """
+  remainingCredit: Float
+  rowVersion: String
+  """
+  Status of payment
+  """
+  status: CreditNoteStatus
+  """
+  Sub-total amount, normally before tax.
+  """
+  subTotal: Float
+  """
+  Applicable tax id/code override if tax is not supplied on a line item basis.
+  """
+  taxCode: String
+  """
+  Amounts are including tax
+  """
+  taxInclusive: Boolean
+  """
+  Amount of transaction
+  """
+  totalAmount: Float!
+  """
+  Total tax amount applied to this invoice.
+  """
+  totalTax: Float
+  """
+  Type of payment
+  """
+  type: CreditNoteType
+}
+
+input AllocationsListItemInput {
+  """
+  Amount of payment that should be attributed to this allocation. If null, the total_amount will be used.
+  """
+  amount: Float
+  """
+  Unique identifier of entity this payment should be attributed to.
+  """
+  id: String
+  """
+  Type of entity this payment should be attributed to.
+  """
+  type: AllocationType
+}
+
+"""
+The customer this entity is linked to.
+"""
+input LinkedCustomerInput {
+  """
+  The display name of the customer.
+  """
+  displayName: String
+  """
+  The ID of the customer this entity is linked to.
+  """
+  id: String!
+}
+
+input InvoiceLineItemInput {
+  """
+  User defined item code
+  """
+  code: String
+  """
+  User defined description
+  """
+  description: String
+  """
+  Discount percentage
+  """
+  discountPercentage: Float
+  item: LinkedInvoiceItemInput
+  ledgerAccount: LinkedLedgerAccountInput
+  """
+  Line number in the invoice
+  """
+  lineNumber: Int
+  quantity: Float
+  """
+  Row ID
+  """
+  rowId: String
+  rowVersion: String
+  """
+  Tax amount
+  """
+  taxAmount: Float
+  taxRate: LinkedTaxRateInput
+  """
+  Total amount of the line item
+  """
+  totalAmount: Float
+  """
+  Item type
+  """
+  type: InvoiceLineItemType
+  """
+  Description of the unit type the item is sold as, ie: kg, hour.
+  """
+  unitOfMeasure: String
+  unitPrice: Float
+}
+
 input CustomerInput {
   addresses: [AddressInput]
   bankAccounts: [BankAccountInput]
@@ -2852,65 +3168,6 @@ input InvoiceInput {
   type: InvoiceType
 }
 
-"""
-The customer this entity is linked to.
-"""
-input LinkedCustomerInput {
-  """
-  The display name of the customer.
-  """
-  displayName: String
-  """
-  The ID of the customer this entity is linked to.
-  """
-  id: String!
-}
-
-input InvoiceLineItemInput {
-  """
-  User defined item code
-  """
-  code: String
-  """
-  User defined description
-  """
-  description: String
-  """
-  Discount percentage
-  """
-  discountPercentage: Float
-  item: LinkedInvoiceItemInput
-  ledgerAccount: LinkedLedgerAccountInput
-  """
-  Line number in the invoice
-  """
-  lineNumber: Int
-  quantity: Float
-  """
-  Row ID
-  """
-  rowId: String
-  rowVersion: String
-  """
-  Tax amount
-  """
-  taxAmount: Float
-  taxRate: LinkedTaxRateInput
-  """
-  Total amount of the line item
-  """
-  totalAmount: Float
-  """
-  Item type
-  """
-  type: InvoiceLineItemType
-  """
-  Description of the unit type the item is sold as, ie: kg, hour.
-  """
-  unitOfMeasure: String
-  unitPrice: Float
-}
-
 input LedgerAccountInput {
   """
   Whether the account is active or not.
@@ -3066,21 +3323,6 @@ input PaymentInput {
   Type of payment
   """
   type: PaymentType
-}
-
-input AllocationsListItemInput {
-  """
-  Amount of payment that should be attributed to this allocation. If null, the total_amount will be used.
-  """
-  amount: Float
-  """
-  Unique identifier of entity this payment should be attributed to.
-  """
-  id: String
-  """
-  Type of entity this payment should be attributed to.
-  """
-  type: AllocationType
 }
 
 input SupplierInput {
