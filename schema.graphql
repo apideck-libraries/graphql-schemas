@@ -7613,6 +7613,9 @@ type Connection {
   Connection settings. Values will persist to \`form_fields\` with corresponding id
   """
   settings: JSON
+  """
+  List of settings that are required to be configured on integration before authorization can occur
+  """
   settingsRequiredForAuthorization: [String]
   """
   [Connection state flow](#section/Connection-state)
