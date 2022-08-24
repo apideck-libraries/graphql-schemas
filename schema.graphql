@@ -3452,7 +3452,7 @@ type Ats {
     raw: Boolean
   ): ApplicantList
   """
-  Get job
+  Get Job
   """
   job(
     """
@@ -3465,7 +3465,7 @@ type Ats {
     raw: Boolean
   ): Job
   """
-  List jobs
+  List Jobs
   """
   jobs(
     """
@@ -3491,6 +3491,7 @@ type Applicant {
   birthday: String
   confidential: Boolean
   coordinatorId: String
+  coverLetter: String
   createdAt: String
   cvUrl: String
   deleted: Boolean
@@ -3523,6 +3524,7 @@ type Applicant {
   recordUrl: String
   recruiterId: String
   rejectedAt: String
+  socialLinks: [SocialLinksListItem]
   sourceId: String
   sourcedBy: String
   sources: [String]
@@ -3531,6 +3533,12 @@ type Applicant {
   title: String
   updatedAt: String
   websites: [WebsitesListItem]
+}
+
+type SocialLinksListItem {
+  id: String
+  type: String
+  url: String!
 }
 
 type WebsitesListItem {
@@ -3741,6 +3749,8 @@ input ApplicantInput {
   archived: Boolean
   birthday: String
   confidential: Boolean
+  coordinatorId: String
+  coverLetter: String
   deleted: Boolean
   emails: [EmailInput]
   firstName: String
@@ -3764,10 +3774,19 @@ input ApplicantInput {
   """
   positionId: String
   recordUrl: String
+  recruiterId: String
+  socialLinks: [SocialLinksListItemInput]
   sources: [String]
+  stageId: String
   tags: [String]
   title: String
   websites: [WebsitesListItemInput]
+}
+
+input SocialLinksListItemInput {
+  id: String
+  type: String
+  url: String!
 }
 
 input WebsitesListItemInput {
@@ -6619,12 +6638,6 @@ type Partner {
   middleName: String
 }
 
-type SocialLinksListItem {
-  id: String
-  type: String
-  url: String!
-}
-
 """
 The team the user is currently in.
 """
@@ -7186,12 +7199,6 @@ input PartnerInput {
   initials: String
   lastName: String
   middleName: String
-}
-
-input SocialLinksListItemInput {
-  id: String
-  type: String
-  url: String!
 }
 
 """
