@@ -78,7 +78,7 @@ type Accounting {
   """
   balanceSheet(
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: BalanceSheetFilterInput
     """
@@ -164,7 +164,7 @@ type Accounting {
     """
     cursor: String
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: CustomersFilterInput
     """
@@ -211,7 +211,7 @@ type Accounting {
     """
     cursor: String
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: InvoiceItemsFilterInput
     """
@@ -239,6 +239,10 @@ type Accounting {
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
+    """
+    Apply sorting
+    """
+    sort: InvoicesSortInput
   ): InvoiceList
   """
   Get Ledger Account
@@ -288,7 +292,7 @@ type Accounting {
   """
   profitAndLoss(
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: ProfitAndLossFilterInput
     """
@@ -331,7 +335,7 @@ type Accounting {
     """
     cursor: String
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: TaxRatesFilterInput
     """
@@ -1809,6 +1813,26 @@ type InvoiceList {
   Response metadata
   """
   meta: Meta
+}
+
+input InvoicesSortInput {
+  """
+  The field on which to sort the Invoices
+  """
+  by: InvoicesSortBy
+  """
+  The direction in which to sort the results
+  """
+  direction: SortDirection
+}
+
+enum InvoicesSortBy {
+  updated_at
+}
+
+enum SortDirection {
+  asc
+  desc
 }
 
 type LedgerAccount {
@@ -3439,7 +3463,7 @@ type Ats {
     """
     cursor: String
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: JobsFilterInput
     """
@@ -3835,7 +3859,7 @@ type Crm {
     """
     cursor: String
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: CompaniesFilterInput
     """
@@ -3847,7 +3871,7 @@ type Crm {
     """
     raw: Boolean
     """
-    Apply sorting (beta)
+    Apply sorting
     """
     sort: CompaniesSortInput
   ): CompanyList
@@ -3886,7 +3910,7 @@ type Crm {
     """
     cursor: String
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: ContactsFilterInput
     """
@@ -3898,7 +3922,7 @@ type Crm {
     """
     raw: Boolean
     """
-    Apply sorting (beta)
+    Apply sorting
     """
     sort: ContactsSortInput
   ): ContactList
@@ -3924,7 +3948,7 @@ type Crm {
     """
     cursor: String
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: LeadsFilterInput
     """
@@ -3936,7 +3960,7 @@ type Crm {
     """
     raw: Boolean
     """
-    Apply sorting (beta)
+    Apply sorting
     """
     sort: LeadsSortInput
   ): LeadList
@@ -3979,7 +4003,7 @@ type Crm {
     """
     cursor: String
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: OpportunitiesFilterInput
     """
@@ -3991,7 +4015,7 @@ type Crm {
     """
     raw: Boolean
     """
-    Apply sorting (beta)
+    Apply sorting
     """
     sort: OpportunitiesSortInput
   ): OpportunityList
@@ -4300,11 +4324,6 @@ enum CompaniesSortBy {
   name
 }
 
-enum SortDirection {
-  asc
-  desc
-}
-
 type Contact {
   active: Boolean
   addresses: [Address]
@@ -4484,7 +4503,7 @@ type Lead {
     """
     cursor: String
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: LeadsFilterInput
     """
@@ -4496,7 +4515,7 @@ type Lead {
     """
     raw: Boolean
     """
-    Apply sorting (beta)
+    Apply sorting
     """
     sort: LeadsSortInput
   ): LeadList
@@ -5525,7 +5544,7 @@ type FileStorage {
     """
     cursor: String
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: DriveGroupsFilterInput
     """
@@ -5546,7 +5565,7 @@ type FileStorage {
     """
     cursor: String
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: DrivesFilterInput
     """
@@ -5567,7 +5586,7 @@ type FileStorage {
     """
     cursor: String
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: FilesFilterInput
     """
@@ -6311,7 +6330,7 @@ type Hris {
     """
     employeeId: String!
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: PayrollsFilterInput
     """
@@ -6341,7 +6360,7 @@ type Hris {
     """
     cursor: String
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: EmployeesFilterInput
     """
@@ -6431,7 +6450,7 @@ type Hris {
   """
   payrolls(
     """
-    Apply filters (beta)
+    Apply filters
     """
     filter: PayrollsFilterInput
     """
