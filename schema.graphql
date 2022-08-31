@@ -6543,6 +6543,7 @@ type Employee {
   socialSecurityNumber: String
   source: String
   sourceId: String
+  tags: [String]
   taxCode: String
   taxId: String
   """
@@ -7145,6 +7146,7 @@ input EmployeeInput {
   socialSecurityNumber: String
   source: String
   sourceId: String
+  tags: [String]
   taxCode: String
   taxId: String
   """
