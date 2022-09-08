@@ -6514,7 +6514,7 @@ type Employee {
   """
   employmentStartDate: String
   employmentStatus: EmploymentStatus
-  firstName: String!
+  firstName: String
   """
   Indicate the employee's food allergies.
   """
@@ -6524,7 +6524,7 @@ type Employee {
   initials: String
   jobs: [JobsListItem]
   languages: [String]
-  lastName: String!
+  lastName: String
   manager: Manager
   maritalStatus: String
   middleName: String
@@ -7118,7 +7118,7 @@ input EmployeeInput {
   """
   employmentStartDate: String
   employmentStatus: EmploymentStatus
-  firstName: String!
+  firstName: String
   """
   Indicate the employee's food allergies.
   """
@@ -7127,7 +7127,7 @@ input EmployeeInput {
   initials: String
   jobs: [JobsListItemInput]
   languages: [String]
-  lastName: String!
+  lastName: String
   manager: ManagerInput
   maritalStatus: String
   middleName: String
