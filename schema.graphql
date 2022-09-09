@@ -6878,6 +6878,37 @@ input EmployeesFilterInput {
   Company ID to filter on
   """
   companyId: String
+  """
+  Email to filter on
+  """
+  email: String
+  """
+  Employment status to filter on
+  """
+  employmentStatus: EmploymentStatusFilter
+  """
+  First Name to filter on
+  """
+  firstName: String
+  """
+  Last Name to filter on
+  """
+  lastName: String
+  """
+  Manager id to filter on
+  """
+  managerId: String
+  """
+  Job title to filter on
+  """
+  title: String
+}
+
+enum EmploymentStatusFilter {
+  active
+  inactive
+  terminated
+  other
 }
 
 type HrisCompanyList {
