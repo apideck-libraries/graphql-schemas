@@ -6459,6 +6459,40 @@ type Hris {
     """
     raw: Boolean
   ): [Payroll]
+  """
+  Get Time Off Request
+  """
+  timeOffRequest(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): TimeOffRequest
+  """
+  List Time Off Requests
+  """
+  timeOffRequests(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Apply filters
+    """
+    filter: TimeOffRequestsFilterInput
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): TimeOffRequestList
 }
 
 type DepartmentList {
@@ -6967,6 +7001,108 @@ type HrisJobs {
   jobs: [HrisJob]
 }
 
+type TimeOffRequest {
+  """
+  The amount of time off requested.
+  """
+  amount: Float
+  """
+  The date the request was approved
+  """
+  approvalDate: String
+  createdAt: String
+  createdBy: String
+  """
+  Description of the time off request.
+  """
+  description: String
+  """
+  ID of the employee
+  """
+  employeeId: String
+  """
+  The end date of the time off request.
+  """
+  endDate: String
+  id: String
+  notes: Notes
+  """
+  ID of the policy
+  """
+  policyId: String
+  """
+  The date the request was made.
+  """
+  requestDate: String
+  """
+  The type of request
+  """
+  requestType: TimeOffRequestType
+  """
+  The start date of the time off request.
+  """
+  startDate: String
+  """
+  The status of the time off request.
+  """
+  status: TimeOffRequestStatus
+  """
+  The unit of time off requested. Possible values include: \`hours\`, \`days\`, or \`other\`.
+  """
+  units: TimeOffRequestUnits
+  updatedAt: String
+  updatedBy: String
+}
+
+type Notes {
+  employee: String
+  manager: String
+}
+
+enum TimeOffRequestType {
+  vacaction
+  sick
+  personal
+  jury_duty
+  volunteer
+  bereavement
+  other
+}
+
+enum TimeOffRequestStatus {
+  requested
+  approved
+  declined
+  canceled
+  deleted
+  other
+}
+
+enum TimeOffRequestUnits {
+  days
+  hours
+  other
+}
+
+type TimeOffRequestList {
+  data: [TimeOffRequest]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+input TimeOffRequestsFilterInput {
+  """
+  End date
+  """
+  endDate: String
+  """
+  Start date
+  """
+  startDate: String
+}
+
 type MutationHris {
   """
   Create Company
@@ -7078,6 +7214,43 @@ type MutationHris {
     """
     raw: Boolean
     requestBody: EmployeeInput!
+  ): UnifiedId
+  """
+  Create Time Off Request
+  """
+  timeOffRequestsAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: TimeOffRequestInput!
+  ): UnifiedId
+  """
+  Delete Time Off Request
+  """
+  timeOffRequestsDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Time Off Request
+  """
+  timeOffRequestsUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: TimeOffRequestInput!
   ): UnifiedId
 }
 
@@ -7260,6 +7433,59 @@ The team the user is currently in.
 input TeamInput {
   id: String
   name: String
+}
+
+input TimeOffRequestInput {
+  """
+  The amount of time off requested.
+  """
+  amount: Float
+  """
+  The date the request was approved
+  """
+  approvalDate: String
+  """
+  Description of the time off request.
+  """
+  description: String
+  """
+  ID of the employee
+  """
+  employeeId: String
+  """
+  The end date of the time off request.
+  """
+  endDate: String
+  notes: NotesInput
+  """
+  ID of the policy
+  """
+  policyId: String
+  """
+  The date the request was made.
+  """
+  requestDate: String
+  """
+  The type of request
+  """
+  requestType: TimeOffRequestType
+  """
+  The start date of the time off request.
+  """
+  startDate: String
+  """
+  The status of the time off request.
+  """
+  status: TimeOffRequestStatus
+  """
+  The unit of time off requested. Possible values include: \`hours\`, \`days\`, or \`other\`.
+  """
+  units: TimeOffRequestUnits
+}
+
+input NotesInput {
+  employee: String
+  manager: String
 }
 
 type MutationLead {
