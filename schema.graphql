@@ -834,7 +834,7 @@ type Payment {
   Type of accounts receivable account.
   """
   accountsReceivableAccountType: String
-  allocations: [AllocationsListItem]
+  allocations: [PaymentAllocation]
   createdAt: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
@@ -890,6 +890,22 @@ type Payment {
   """
   type: PaymentType
   updatedAt: String
+}
+
+type PaymentAllocation {
+  """
+  Amount of payment that should be attributed to this allocation. If null, the total_amount will be used.
+  """
+  amount: Float
+  code: String
+  """
+  Unique identifier of entity this payment should be attributed to.
+  """
+  id: String
+  """
+  Type of entity this payment should be attributed to.
+  """
+  type: AllocationType
 }
 
 enum PaymentStatus {
@@ -3297,7 +3313,7 @@ input PaymentInput {
   Type of accounts receivable account.
   """
   accountsReceivableAccountType: String
-  allocations: [AllocationsListItemInput]
+  allocations: [PaymentAllocationInput]
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
@@ -3347,6 +3363,21 @@ input PaymentInput {
   Type of payment
   """
   type: PaymentType
+}
+
+input PaymentAllocationInput {
+  """
+  Amount of payment that should be attributed to this allocation. If null, the total_amount will be used.
+  """
+  amount: Float
+  """
+  Unique identifier of entity this payment should be attributed to.
+  """
+  id: String
+  """
+  Type of entity this payment should be attributed to.
+  """
+  type: AllocationType
 }
 
 input SupplierInput {
