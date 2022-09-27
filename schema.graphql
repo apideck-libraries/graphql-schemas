@@ -8416,6 +8416,7 @@ enum UnifiedApiId {
   ats
   hris
   pos
+  projectmanagement
 }
 
 input ThemeInput {
