@@ -6553,6 +6553,10 @@ type Employee {
   The department the user is currently in.
   """
   department: String
+  """
+  Unique identifier of the department ID this employee belongs to.
+  """
+  departmentId: String
   description: String
   """
   Indicate the employee's dietary preference.
@@ -6603,11 +6607,18 @@ type Employee {
   preferredLanguage: String
   preferredName: String
   pronouns: String
+  recordUrl: String
   rowVersion: String
   salutation: String
   socialLinks: [SocialLinksListItem]
   socialSecurityNumber: String
+  """
+  When the employee is imported as a new hire, this field indicates what system (e.g. the name of the ATS) this employee was imported from.
+  """
   source: String
+  """
+  Unique identifier of the employee in the system this employee was imported from (e.g. the ID in the ATS).
+  """
   sourceId: String
   tags: [String]
   taxCode: String
@@ -7331,6 +7342,10 @@ input EmployeeInput {
   The department the user is currently in.
   """
   department: String
+  """
+  Unique identifier of the department ID this employee belongs to.
+  """
+  departmentId: String
   description: String
   """
   Indicate the employee's dietary preference.
@@ -7380,11 +7395,18 @@ input EmployeeInput {
   preferredLanguage: String
   preferredName: String
   pronouns: String
+  recordUrl: String
   rowVersion: String
   salutation: String
   socialLinks: [SocialLinksListItemInput]
   socialSecurityNumber: String
+  """
+  When the employee is imported as a new hire, this field indicates what system (e.g. the name of the ATS) this employee was imported from.
+  """
   source: String
+  """
+  Unique identifier of the employee in the system this employee was imported from (e.g. the ID in the ATS).
+  """
   sourceId: String
   tags: [String]
   taxCode: String
