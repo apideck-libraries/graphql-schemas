@@ -6948,6 +6948,10 @@ input EmployeesFilterInput {
   """
   email: String
   """
+  Employee number to filter on
+  """
+  employeeNumber: String
+  """
   Employment status to filter on
   """
   employmentStatus: EmploymentStatusFilter
