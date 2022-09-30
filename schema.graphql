@@ -836,6 +836,7 @@ type Payment {
   accountsReceivableAccountType: String
   allocations: [PaymentAllocation]
   createdAt: String
+  createdBy: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
@@ -848,6 +849,10 @@ type Payment {
   The customer this entity is linked to.
   """
   customer: LinkedCustomer
+  """
+  Payment id to be displayed.
+  """
+  displayId: String
   """
   Unique identifier representing the entity
   """
@@ -890,6 +895,7 @@ type Payment {
   """
   type: PaymentType
   updatedAt: String
+  updatedBy: String
 }
 
 type PaymentAllocation {
@@ -3326,6 +3332,10 @@ input PaymentInput {
   The customer this entity is linked to.
   """
   customer: LinkedCustomerInput
+  """
+  Payment id to be displayed.
+  """
+  displayId: String
   """
   Optional note to be associated with the payment.
   """
