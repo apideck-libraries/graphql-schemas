@@ -667,6 +667,10 @@ type LinkedCustomer {
   The ID of the customer this entity is linked to.
   """
   id: String!
+  """
+  The name of the customer. Deprecated, use display_name instead.
+  """
+  name: String
 }
 
 type InvoiceLineItem {
@@ -2899,6 +2903,10 @@ input LinkedCustomerInput {
   The ID of the customer this entity is linked to.
   """
   id: String!
+  """
+  The name of the customer. Deprecated, use display_name instead.
+  """
+  name: String
 }
 
 input InvoiceLineItemInput {
