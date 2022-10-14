@@ -8434,7 +8434,11 @@ input SessionSettingsInput {
   """
   showLogs: Boolean
   """
-  Configure [Vault](/apis/vault/reference#section/Get-Started) to show the suggestions page. Defaults to \`true\`.
+  Configure [Vault](/apis/vault/reference#section/Get-Started) to show the sidebar. Defaults to \`true\`.
+  """
+  showSidebar: Boolean
+  """
+  Configure [Vault](/apis/vault/reference#section/Get-Started) to show the suggestions page. Defaults to \`false\`.
   """
   showSuggestions: Boolean
   """
