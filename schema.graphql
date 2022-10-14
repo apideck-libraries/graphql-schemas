@@ -683,7 +683,7 @@ type InvoiceLineItem {
   """
   description: String
   """
-  Discount percentage
+  Discount percentage applied to the line item when supported downstream.
   """
   discountPercentage: Float
   id: String
@@ -1649,6 +1649,10 @@ type Invoice {
   Amount of deposit made to this invoice.
   """
   deposit: Float
+  """
+  Discount percentage applied to this invoice.
+  """
+  discountPercentage: Float
   """
   The third-party API ID of original entity
   """
@@ -2919,7 +2923,7 @@ input InvoiceLineItemInput {
   """
   description: String
   """
-  Discount percentage
+  Discount percentage applied to the line item when supported downstream.
   """
   discountPercentage: Float
   item: LinkedInvoiceItemInput
@@ -3153,6 +3157,10 @@ input InvoiceInput {
   Amount of deposit made to this invoice.
   """
   deposit: Float
+  """
+  Discount percentage applied to this invoice.
+  """
+  discountPercentage: Float
   """
   The invoice due date is the date on which a payment or invoice is scheduled to be received by the seller - YYYY-MM-DD.
   """
@@ -7137,7 +7145,7 @@ enum TimeOffRequestStatus {
   requested
   approved
   declined
-  canceled
+  cancelled
   deleted
   other
 }
@@ -7733,11 +7741,9 @@ type Price {
   """
   currency: Currency
   """
-
   """
   perUnit: String
   """
-
   """
   totalAmount: String
 }
@@ -8461,6 +8467,7 @@ enum UnifiedApiId {
   hris
   pos
   projectmanagement
+  expensemanagement
 }
 
 input ThemeInput {
