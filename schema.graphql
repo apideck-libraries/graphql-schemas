@@ -8052,6 +8052,7 @@ type FormField {
 enum OAuthGrantType {
   authorization_code
   client_credentials
+  password
 }
 
 enum ConnectionState {
