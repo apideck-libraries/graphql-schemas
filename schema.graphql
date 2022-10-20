@@ -1288,6 +1288,7 @@ type Bill {
   Date bill was issued - YYYY-MM-DD.
   """
   billDate: String
+  billNumber: String
   createdAt: String
   createdBy: String
   """
@@ -1369,6 +1370,10 @@ type BillLineItem {
   """
   code: String
   """
+  Department id
+  """
+  departmentId: String
+  """
   User defined description
   """
   description: String
@@ -1383,6 +1388,10 @@ type BillLineItem {
   Line number in the invoice
   """
   lineNumber: Int
+  """
+  Location id
+  """
+  locationId: String
   quantity: Float
   """
   Row ID
@@ -2595,6 +2604,7 @@ input BillInput {
   Date bill was issued - YYYY-MM-DD.
   """
   billDate: String
+  billNumber: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
@@ -2682,6 +2692,10 @@ input BillLineItemInput {
   """
   code: String
   """
+  Department id
+  """
+  departmentId: String
+  """
   User defined description
   """
   description: String
@@ -2695,6 +2709,10 @@ input BillLineItemInput {
   Line number in the invoice
   """
   lineNumber: Int
+  """
+  Location id
+  """
+  locationId: String
   quantity: Float
   """
   Row ID
@@ -6200,7 +6218,7 @@ type MutationFileStorage {
     raw: Boolean
   ): UnifiedId
   """
-  Finish Upload Session
+  Finish Upload Session. Only call this endpoint after all File parts have been uploaded to [Upload part of File](#operation/uploadSessionsUpload).
   """
   uploadSessionsFinish(
     """
