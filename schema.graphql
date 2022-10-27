@@ -8490,6 +8490,7 @@ enum UnifiedApiId {
   pos
   projectmanagement
   expensemanagement
+  calendar
 }
 
 input ThemeInput {
