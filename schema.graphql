@@ -358,12 +358,14 @@ type GetCreditNotesResponse {
 }
 
 type CreditNote {
+  account: LinkedLedgerAccount
   allocations: [AllocationsListItem]
   """
   The balance reflecting any payments made against the transaction.
   """
   balance: Float
   createdAt: String
+  createdBy: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
@@ -435,6 +437,26 @@ type CreditNote {
   """
   type: CreditNoteType
   updatedAt: String
+  updatedBy: String
+}
+
+type LinkedLedgerAccount {
+  """
+  The code assigned to the account.
+  """
+  code: String
+  """
+  The unique identifier for the account.
+  """
+  id: String
+  """
+  The name of the account.
+  """
+  name: String
+  """
+  The nominal code of the account.
+  """
+  nominalCode: String
 }
 
 type AllocationsListItem {
@@ -678,6 +700,12 @@ type InvoiceLineItem {
   User defined item code
   """
   code: String
+  createdAt: String
+  createdBy: String
+  """
+  Department id
+  """
+  departmentId: String
   """
   User defined description
   """
@@ -693,6 +721,10 @@ type InvoiceLineItem {
   Line number in the invoice
   """
   lineNumber: Int
+  """
+  Location id
+  """
+  locationId: String
   quantity: Float
   """
   Row ID
@@ -717,6 +749,8 @@ type InvoiceLineItem {
   """
   unitOfMeasure: String
   unitPrice: Float
+  updatedAt: String
+  updatedBy: String
 }
 
 type LinkedInvoiceItem {
@@ -732,25 +766,6 @@ type LinkedInvoiceItem {
   User defined item name
   """
   name: String
-}
-
-type LinkedLedgerAccount {
-  """
-  The code assigned to the account.
-  """
-  code: String
-  """
-  The unique identifier for the account.
-  """
-  id: String
-  """
-  The name of the account.
-  """
-  name: String
-  """
-  The nominal code of the account.
-  """
-  nominalCode: String
 }
 
 type LinkedTaxRate {
@@ -858,6 +873,10 @@ type Payment {
   """
   displayId: String
   """
+  The third-party API ID of original entity
+  """
+  downstreamId: String
+  """
   Unique identifier representing the entity
   """
   id: String
@@ -886,6 +905,10 @@ type Payment {
   Status of payment
   """
   status: PaymentStatus
+  """
+  The supplier this entity is linked to.
+  """
+  supplier: LinkedSupplier
   """
   Amount of payment
   """
@@ -925,63 +948,23 @@ enum PaymentStatus {
   deleted
 }
 
-enum PaymentType {
-  accounts_receivable
-  accounts_payable
-  accounts_receivable_credit
-  accounts_payable_credit
-  accounts_receivable_overpayment
-  accounts_payable_overpayment
-  accounts_receivable_prepayment
-  accounts_payable_prepayment
-}
-
-type SupplierList {
-  data: [Supplier]!
+"""
+The supplier this entity is linked to.
+"""
+type LinkedSupplier {
+  address: Address
   """
-  Response metadata
+  The company name of the supplier.
   """
-  meta: Meta
-}
-
-type Supplier {
-  account: LinkedLedgerAccount
-  addresses: [Address]
-  bankAccounts: [BankAccount]
   companyName: String
-  createdAt: String
-  createdBy: String
   """
-  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
-  """
-  currency: Currency
-  """
-  Display name of supplier.
+  The display name of the supplier.
   """
   displayName: String
   """
-  The third-party API ID of original entity
+  The ID of the supplier this entity is linked to.
   """
-  downstreamId: String
-  emails: [Email]
-  firstName: String
-  id: String
-  lastName: String
-  middleName: String
-  notes: String
-  phoneNumbers: [PhoneNumber]
-  rowVersion: String
-  """
-  Customer status
-  """
-  status: CustomerStatus
-  suffix: String
-  taxNumber: String
-  taxRate: LinkedTaxRate
-  title: String
-  updatedAt: String
-  updatedBy: String
-  websites: [Website]
+  id: String!
 }
 
 type Address {
@@ -1048,6 +1031,65 @@ enum AddressType {
   shipping
   billing
   other
+}
+
+enum PaymentType {
+  accounts_receivable
+  accounts_payable
+  accounts_receivable_credit
+  accounts_payable_credit
+  accounts_receivable_overpayment
+  accounts_payable_overpayment
+  accounts_receivable_prepayment
+  accounts_payable_prepayment
+}
+
+type SupplierList {
+  data: [Supplier]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+type Supplier {
+  account: LinkedLedgerAccount
+  addresses: [Address]
+  bankAccounts: [BankAccount]
+  companyName: String
+  createdAt: String
+  createdBy: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  Display name of supplier.
+  """
+  displayName: String
+  """
+  The third-party API ID of original entity
+  """
+  downstreamId: String
+  emails: [Email]
+  firstName: String
+  id: String
+  lastName: String
+  middleName: String
+  notes: String
+  phoneNumbers: [PhoneNumber]
+  rowVersion: String
+  """
+  Customer status
+  """
+  status: CustomerStatus
+  suffix: String
+  taxNumber: String
+  taxRate: LinkedTaxRate
+  title: String
+  updatedAt: String
+  updatedBy: String
+  websites: [Website]
 }
 
 type BankAccount {
@@ -1369,6 +1411,8 @@ type BillLineItem {
   User defined item code
   """
   code: String
+  createdAt: String
+  createdBy: String
   """
   Department id
   """
@@ -1416,6 +1460,8 @@ type BillLineItem {
   """
   unitOfMeasure: String
   unitPrice: Float
+  updatedAt: String
+  updatedBy: String
 }
 
 enum BillLineItemType {
@@ -1453,25 +1499,6 @@ enum Status {
   void
   credit
   deleted
-}
-
-"""
-The supplier this entity is linked to.
-"""
-type LinkedSupplier {
-  address: Address
-  """
-  The company name of the supplier.
-  """
-  companyName: String
-  """
-  The display name of the supplier.
-  """
-  displayName: String
-  """
-  The ID of the supplier this entity is linked to.
-  """
-  id: String!
 }
 
 type BillList {
@@ -2825,6 +2852,7 @@ input AddressInput {
 }
 
 input CreditNoteInput {
+  account: LinkedLedgerAccountInput
   allocations: [AllocationsListItemInput]
   """
   The balance reflecting any payments made against the transaction.
@@ -2937,6 +2965,10 @@ input InvoiceLineItemInput {
   """
   code: String
   """
+  Department id
+  """
+  departmentId: String
+  """
   User defined description
   """
   description: String
@@ -2950,6 +2982,10 @@ input InvoiceLineItemInput {
   Line number in the invoice
   """
   lineNumber: Int
+  """
+  Location id
+  """
+  locationId: String
   quantity: Float
   """
   Row ID
@@ -3395,6 +3431,10 @@ input PaymentInput {
   Status of payment
   """
   status: PaymentStatus
+  """
+  The supplier this entity is linked to.
+  """
+  supplier: LinkedSupplierInput
   """
   Amount of payment
   """
