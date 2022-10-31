@@ -8047,6 +8047,7 @@ type Connection {
   """
   state: ConnectionState
   status: Status
+  subscriptions: [WebhookSubscription]
   tagLine: String
   unifiedApi: String
   updatedAt: Float
@@ -8118,6 +8119,29 @@ enum ConnectionState {
   callable
   added
   authorized
+}
+
+type WebhookSubscription {
+  """
+  The date and time the webhook subscription was created downstream
+  """
+  createdAt: String
+  """
+  The list of downstream Events this connection is subscribed to
+  """
+  downstreamEventTypes: [String]
+  """
+  The ID of the downstream service
+  """
+  downstreamId: String
+  """
+  The URL the downstream is sending to when the event is triggered
+  """
+  executeUrl: String
+  """
+  The list of Unify Events this connection is subscribed to
+  """
+  unifyEventTypes: [String]
 }
 
 type Consumer {
