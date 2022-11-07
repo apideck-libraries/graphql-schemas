@@ -8555,6 +8555,7 @@ enum UnifiedApiId {
   projectmanagement
   expensemanagement
   calendar
+  procurement
 }
 
 input ThemeInput {
