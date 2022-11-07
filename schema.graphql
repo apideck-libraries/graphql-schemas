@@ -3781,7 +3781,10 @@ type Job {
   URL of the job description
   """
   url: String
-  visibility: [VisibilityListItem]
+  """
+  The visibility of the job
+  """
+  visibility: Visibility
 }
 
 type BlocksListItem {
@@ -3855,7 +3858,7 @@ enum JobStatus {
   private
 }
 
-enum VisibilityListItem {
+enum Visibility {
   public
   internal
 }
