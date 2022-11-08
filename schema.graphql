@@ -7227,6 +7227,10 @@ type TimeOffRequestList {
 
 input TimeOffRequestsFilterInput {
   """
+  Employee ID
+  """
+  employeeId: String
+  """
   End date
   """
   endDate: String
