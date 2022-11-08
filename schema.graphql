@@ -7193,7 +7193,7 @@ type Notes {
 }
 
 enum TimeOffRequestType {
-  vacaction
+  vacation
   sick
   personal
   jury_duty
