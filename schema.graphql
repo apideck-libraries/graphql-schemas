@@ -3632,6 +3632,7 @@ type Applicant {
   coordinatorId: String
   coverLetter: String
   createdAt: String
+  createdBy: String
   cvUrl: String
   deleted: Boolean
   deletedAt: String
@@ -3671,6 +3672,7 @@ type Applicant {
   tags: [String]
   title: String
   updatedAt: String
+  updatedBy: String
   websites: [WebsitesListItem]
 }
 
@@ -7238,6 +7240,19 @@ input TimeOffRequestsFilterInput {
   Start date
   """
   startDate: String
+  """
+  Time off request status to filter on
+  """
+  timeOffRequestStatus: TimeOffStatusFilter
+}
+
+enum TimeOffStatusFilter {
+  requested
+  approved
+  declined
+  cancelled
+  deleted
+  other
 }
 
 type MutationHris {
