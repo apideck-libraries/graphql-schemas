@@ -4774,6 +4774,10 @@ type Opportunity {
 
 input OpportunitiesFilterInput {
   """
+  Company ID to filter on
+  """
+  companyId: String
+  """
   Monetary amount to filter on
   """
   monetaryAmount: Float
