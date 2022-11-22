@@ -8017,18 +8017,33 @@ type Connection {
   Whether the connection is enabled or not. You can enable or disable a connection using the Update Connection API.
   """
   enabled: Boolean
+  """
+  The settings that are wanted to create a connection.
+  """
   formFields: [FormField]
   """
   Whether the connector has a guide available in the developer docs or not (https://docs.apideck.com/connectors/{service_id}/docs/consumer+connection).
   """
   hasGuide: Boolean
+  """
+  A visual icon of the connection, that will be shown in the Vault
+  """
   icon: String
+  """
+  The unique identifier of the connection.
+  """
   id: String
+  """
+  The logo of the connection, that will be shown in the Vault
+  """
   logo: String
   """
   Attach your own consumer specific metadata
   """
   metadata: JSON
+  """
+  The name of the connection
+  """
   name: String
   """
   OAuth grant type used by the connector. More info: https://oauth.net/2/grant-types
@@ -8040,6 +8055,9 @@ type Connection {
   The OAuth revoke URI. Redirect your users to this URI to revoke this connection. Before you can use this URI, you must add \`redirect_uri\` as a query parameter. Your users will be redirected to this \`redirect_uri\` after they granted access to your app in the connector's UI.
   """
   revokeUrl: String
+  """
+  The ID of the service this connection belongs to.
+  """
   serviceId: String
   """
   Connection settings. Values will persist to \`form_fields\` with corresponding id
@@ -8053,11 +8071,20 @@ type Connection {
   [Connection state flow](#section/Connection-state)
   """
   state: ConnectionState
+  """
+  Status of the connection.
+  """
   status: Status
   subscriptions: [WebhookSubscription]
   tagLine: String
+  """
+  The unified API category where the connection belongs to.
+  """
   unifiedApi: String
   updatedAt: Float
+  """
+  The website URL of the connection
+  """
   website: String
 }
 
@@ -8104,13 +8131,38 @@ type FormField {
   """
   allowCustomValues: Boolean
   customField: Boolean
+  """
+  The description of the form field
+  """
   description: String
+  """
+  Indicates if the form field is displayed in a “read-only” mode.
+  """
   disabled: Boolean
+  """
+  Indicates if the form field is not displayed but the value that is being stored on the connection.
+  """
+  hidden: Boolean
+  """
+  The unique identifier of the form field.
+  """
   id: String
+  """
+  The label of the field
+  """
   label: String
   options: [FormFieldOption]
+  """
+  The placeholder for the form field
+  """
   placeholder: String
+  """
+  Indicates if the form field is required, which means it must be filled in before the form can be submitted
+  """
   required: Boolean
+  """
+  Indicates if the form field contains sensitive data, which will display the value as a masked input.
+  """
   sensitive: Boolean
   type: Type
 }
