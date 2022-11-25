@@ -4811,6 +4811,7 @@ enum OpportunitiesSortBy {
 }
 
 type Pipeline {
+  active: Boolean
   archived: Boolean
   createdAt: String
   """
@@ -4822,6 +4823,7 @@ type Pipeline {
   name: String!
   stages: [StagesListItem]
   updatedAt: String
+  winProbabilityEnabled: Boolean
 }
 
 type StagesListItem {
@@ -5447,6 +5449,7 @@ input OpportunityInput {
 }
 
 input PipelineInput {
+  active: Boolean
   archived: Boolean
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
@@ -5456,6 +5459,7 @@ input PipelineInput {
   id: String
   name: String!
   stages: [StagesListItemInput]
+  winProbabilityEnabled: Boolean
 }
 
 input StagesListItemInput {
