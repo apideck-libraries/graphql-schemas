@@ -5783,7 +5783,7 @@ type FileStorage {
     raw: Boolean
   ): UnifiedFile
   """
-  Get Upload Session
+  Get Upload Session. Use the \`part_size\` to split your file into parts. Upload the parts to the [Upload part of File](#operation/uploadSessionsUpload) endpoint.
   """
   uploadSession(
     """
@@ -6243,7 +6243,7 @@ type MutationFileStorage {
     requestBody: SharedLinkInput!
   ): UnifiedId
   """
-  Start Upload Session
+  Start an Upload Session. Upload sessions are used to upload large files, use the [Upload File](#operation/filesUpload) endpoint to upload smaller files (up to 100MB).
   """
   uploadSessionsAdd(
     """
