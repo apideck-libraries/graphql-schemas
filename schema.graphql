@@ -4450,6 +4450,7 @@ type Contact {
   customFields: [CustomField]
   department: String
   description: String
+  emailDomain: String
   emails: [Email]
   fax: String
   firstCallAt: String
@@ -5342,6 +5343,7 @@ input ContactInput {
   customFields: [CustomFieldInput]
   department: String
   description: String
+  emailDomain: String
   emails: [EmailInput]
   fax: String
   firstName: String
@@ -6690,6 +6692,10 @@ type Employee {
   jobs: [JobsListItem]
   languages: [String]
   lastName: String
+  """
+  The reason because the employment ended
+  """
+  leavingReason: LeavingReason
   manager: Manager
   maritalStatus: String
   middleName: String
@@ -6810,6 +6816,13 @@ type JobsListItem {
   role: String
   startDate: String
   title: String
+}
+
+enum LeavingReason {
+  dismissed
+  resigned
+  redundancy
+  other
 }
 
 type Manager {
@@ -7499,6 +7512,10 @@ input EmployeeInput {
   jobs: [JobsListItemInput]
   languages: [String]
   lastName: String
+  """
+  The reason because the employment ended
+  """
+  leavingReason: LeavingReason
   manager: ManagerInput
   maritalStatus: String
   middleName: String
