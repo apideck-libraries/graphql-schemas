@@ -3628,6 +3628,7 @@ type Applicant {
   coverLetter: String
   createdAt: String
   createdBy: String
+  customFields: [CustomField]
   cvUrl: String
   deleted: Boolean
   deletedAt: String
@@ -3669,6 +3670,19 @@ type Applicant {
   updatedAt: String
   updatedBy: String
   websites: [WebsitesListItem]
+}
+
+type CustomField {
+  """
+  More information about the custom field
+  """
+  description: String
+  id: String!
+  """
+  Name of the custom field.
+  """
+  name: String
+  value: JSON
 }
 
 type SocialLinksListItem {
@@ -3890,6 +3904,7 @@ input ApplicantInput {
   confidential: Boolean
   coordinatorId: String
   coverLetter: String
+  customFields: [CustomFieldInput]
   deleted: Boolean
   emails: [EmailInput]
   firstName: String
@@ -3920,6 +3935,19 @@ input ApplicantInput {
   tags: [String]
   title: String
   websites: [WebsitesListItemInput]
+}
+
+input CustomFieldInput {
+  """
+  More information about the custom field
+  """
+  description: String
+  id: String!
+  """
+  Name of the custom field.
+  """
+  name: String
+  value: JSON
 }
 
 input SocialLinksListItemInput {
@@ -4291,19 +4319,6 @@ type ActivityAttendee {
   suffix: String
   updatedAt: String
   userId: String
-}
-
-type CustomField {
-  """
-  More information about the custom field
-  """
-  description: String
-  id: String!
-  """
-  Name of the custom field.
-  """
-  name: String
-  value: JSON
 }
 
 enum ShowAs {
@@ -5246,19 +5261,6 @@ input ActivityAttendeeInput {
   prefix: String
   status: Status
   suffix: String
-}
-
-input CustomFieldInput {
-  """
-  More information about the custom field
-  """
-  description: String
-  id: String!
-  """
-  Name of the custom field.
-  """
-  name: String
-  value: JSON
 }
 
 input CompanyInput {
@@ -8582,6 +8584,9 @@ input SessionSettingsInput {
   Automatically redirect to redirect uri after the connection has been configured as callable. Defaults to \`false\`.
   """
   autoRedirect: Boolean
+  """
+  A boolean that controls the display of the configurable resources for an integration. When set to true, the resource configuration options will be hidden and not shown to the user. When set to false, the resource configuration options will be displayed to the user.
+  """
   hideResourceSettings: Boolean
   """
   Configure [Vault](/apis/vault/reference#section/Get-Started) to run in isolation mode, meaning it only shows the connection settings and hides the navigation items.
@@ -8608,7 +8613,7 @@ input SessionSettingsInput {
   """
   showSuggestions: Boolean
   """
-  Provide the IDs of the Unified APIs you want to be visible. Leaving it empty or omiting this field will show all Unified APIs.
+  Provide the IDs of the Unified APIs you want to be visible. Leaving it empty or omitting this field will show all Unified APIs.
   """
   unifiedApis: [UnifiedApiId]
 }
