@@ -3824,6 +3824,10 @@ type Department {
   Department name
   """
   name: String
+  """
+  Parent ID
+  """
+  parentId: String
   updatedAt: String
   updatedBy: String
 }
