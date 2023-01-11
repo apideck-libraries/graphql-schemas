@@ -5726,6 +5726,10 @@ type FileStorage {
     """
     limit: Int
     """
+    Optional unmapped key/values that will be passed through to downstream as query parameters
+    """
+    passThrough: PassThroughInput
+    """
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
@@ -6175,7 +6179,13 @@ type MutationFileStorage {
   """
   Search Files
   """
-  filesSearch(requestBody: FilesSearchInput!): FileList
+  filesSearch(
+    """
+    Optional unmapped key/values that will be passed through to downstream as query parameters
+    """
+    passThrough: PassThroughInput
+    requestBody: FilesSearchInput!
+  ): FileList
   """
   Create Folder
   """
