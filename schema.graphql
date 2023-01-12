@@ -8250,9 +8250,15 @@ type WebhookSubscription {
 
 type Consumer {
   aggregatedRequestCount: Float
+  """
+  ID of your Apideck Application
+  """
   applicationId: String
   connections: [ConsumerConnection]
-  consumerId: String
+  """
+  Unique consumer identifier. You can freely choose a consumer ID yourself. Most of the time, this is an ID of your internal data model that represents a user or account in your system (for example account:12345). If the consumer doesn't exist yet, Vault will upsert a consumer based on your ID.
+  """
+  consumerId: String!
   created: String
   metadata: ConsumerMetadata
   modified: String
@@ -8527,7 +8533,30 @@ type MutationVault {
     """
     unifiedApi: String!
   ): Connection
-  "Making a POST request to this endpoint will initiate a Hosted Vault session. Redirect the consumer to the returnedurl to allow temporary access to manage their integrations and settings.Note: This is a short lived token that will expire after 1 hour (TTL: 3600)."
+  """
+  Create a consumer
+  """
+  consumersAdd(requestBody: ConsumerInput!): Consumer
+  """
+  Delete consumer and all their connections, including credentials.
+  """
+  consumersDelete(
+    """
+    ID of the consumer to return
+    """
+    consumerId: String!
+  ): DeleteConsumerResponse
+  """
+  Update consumer metadata such as name and email.
+  """
+  consumersUpdate(
+    """
+    ID of the consumer to return
+    """
+    consumerId: String!
+    requestBody: UpdateConsumerRequestInput!
+  ): Consumer
+  "Making a POST request to this endpoint will initiate a Hosted Vault session. Redirect the consumer to the returnedURL to allow temporary access to manage their integrations and settings.Note: This is a short lived token that will expire after 1 hour (TTL: 3600)."
   sessionsCreate(requestBody: SessionInput): CreateSessionResponse
 }
 
@@ -8570,6 +8599,32 @@ input SimpleFormFieldOptionInput {
   value: JSON
 }
 
+input ConsumerInput {
+  """
+  Unique consumer identifier. You can freely choose a consumer ID yourself. Most of the time, this is an ID of your internal data model that represents a user or account in your system (for example account:12345). If the consumer doesn't exist yet, Vault will upsert a consumer based on your ID.
+  """
+  consumerId: String!
+  metadata: ConsumerMetadataInput
+}
+
+input ConsumerMetadataInput {
+  accountName: String
+  email: String
+  image: String
+  userName: String
+}
+
+type DeleteConsumerResponse {
+  """
+  Unique consumer identifier. You can freely choose a consumer ID yourself. Most of the time, this is an ID of your internal data model that represents a user or account in your system (for example account:12345). If the consumer doesn't exist yet, Vault will upsert a consumer based on your ID.
+  """
+  consumerId: String
+}
+
+input UpdateConsumerRequestInput {
+  metadata: ConsumerMetadataInput
+}
+
 type CreateSessionResponse {
   sessionToken: String!
   sessionUri: String!
@@ -8584,13 +8639,6 @@ input SessionInput {
   redirectUri: String
   settings: SessionSettingsInput
   theme: ThemeInput
-}
-
-input ConsumerMetadataInput {
-  accountName: String
-  email: String
-  image: String
-  userName: String
 }
 
 input SessionSettingsInput {
