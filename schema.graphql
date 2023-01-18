@@ -6688,7 +6688,7 @@ type Employee {
   """
   employeeNumber: String
   """
-  A Start Date is the date that the employee ended working at the company
+  An End Date is the date that the employee ended working at the company
   """
   employmentEndDate: String
   employmentRole: EmploymentRole
@@ -7509,7 +7509,7 @@ input EmployeeInput {
   """
   employeeNumber: String
   """
-  A Start Date is the date that the employee ended working at the company
+  An End Date is the date that the employee ended working at the company
   """
   employmentEndDate: String
   employmentRole: EmploymentRoleInput
