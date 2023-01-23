@@ -405,7 +405,7 @@ type CreditNote {
   remainingCredit: Float
   rowVersion: String
   """
-  Status of payment
+  Status of credit notes
   """
   status: CreditNoteStatus
   """
@@ -2892,7 +2892,7 @@ input CreditNoteInput {
   remainingCredit: Float
   rowVersion: String
   """
-  Status of payment
+  Status of credit notes
   """
   status: CreditNoteStatus
   """
