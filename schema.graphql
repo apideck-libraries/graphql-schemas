@@ -6513,6 +6513,10 @@ type Hris {
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
+    """
+    Apply sorting
+    """
+    sort: EmployeesSortInput
   ): EmployeeList
   """
   List Companies
@@ -7114,6 +7118,24 @@ enum EmploymentStatusFilter {
   inactive
   terminated
   other
+}
+
+input EmployeesSortInput {
+  """
+  The field on which to sort the Employees
+  """
+  by: EmployeesSortBy
+  """
+  The direction in which to sort the results
+  """
+  direction: SortDirection
+}
+
+enum EmployeesSortBy {
+  first_name
+  last_name
+  created_at
+  updated_at
 }
 
 type HrisCompanyList {
