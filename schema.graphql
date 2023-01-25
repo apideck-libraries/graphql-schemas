@@ -3976,6 +3976,10 @@ type Crm {
     """
     cursor: String
     """
+    Apply filters
+    """
+    filter: ActivitiesFilterInput
+    """
     Number of records to return
     """
     limit: Int
@@ -4340,6 +4344,10 @@ enum ActivityType {
   sendletter
   sendquote
   other
+}
+
+input ActivitiesFilterInput {
+  updatedSince: String
 }
 
 type CompanyList {
