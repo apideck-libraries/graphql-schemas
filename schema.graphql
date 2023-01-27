@@ -3,6 +3,7 @@ type Query {
   ats: Ats
   crm: Crm
   customerSupport: CustomerSupport
+  ecommerce: Ecommerce
   fileStorage: FileStorage
   hris: Hris
   lead: Lead
@@ -5646,6 +5647,611 @@ input CustomerSupportCustomerInput {
   """
   status: CustomerStatus
   taxNumber: String
+}
+
+type Ecommerce {
+  """
+  List Customers
+  """
+  customers(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): EcommerceCustomerList
+  """
+  Get Customer
+  """
+  ecommerceCustomer(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): EcommerceCustomer
+  """
+  Get Order
+  """
+  ecommerceOrder(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): EcommerceOrder
+  """
+  Get Product
+  """
+  ecommerceProduct(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): EcommerceProduct
+  """
+  Get Store
+  """
+  ecommerceStore(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): EcommerceStore
+  """
+  List Orders
+  """
+  orders(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): EcommerceOrderList
+  """
+  List Products
+  """
+  products(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): EcommerceProductList
+}
+
+type EcommerceCustomerList {
+  data: [EcommerceCustomer]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+type EcommerceCustomer {
+  """
+  An array of addresses for the customer.
+  """
+  addresses: [AddressesListItem]
+  """
+  Company name of the customer
+  """
+  companyName: String
+  createdAt: String
+  """
+  An array of email addresses for the customer.
+  """
+  emails: [Email]
+  """
+  First name of the customer
+  """
+  firstName: String
+  id: String!
+  """
+  Last name of the customer
+  """
+  lastName: String
+  """
+  Full name of the customer
+  """
+  name: String
+  orders: [LinkedEcommerceOrder]
+  """
+  An array of phone numbers for the customer.
+  """
+  phoneNumbers: [PhoneNumber]
+  """
+  The current status of the customer
+  """
+  status: EcommerceCustomerStatus
+  updatedAt: String
+}
+
+type AddressesListItem {
+  """
+  City of the customer
+  """
+  city: String
+  """
+  Country of the customer
+  """
+  country: String
+  """
+  First line of the street address of the customer
+  """
+  line1: String
+  """
+  Second line of the street address of the customer
+  """
+  line2: String
+  """
+  Postal code of the customer
+  """
+  postalCode: String
+  """
+  State of the customer
+  """
+  state: String
+  type: EcommerceCustomerAddressType
+}
+
+enum EcommerceCustomerAddressType {
+  primary
+  secondary
+  other
+}
+
+"""
+The order this entity is linked to.
+"""
+type LinkedEcommerceOrder {
+  id: String
+  """
+  Current status of the order.
+  """
+  orderStatus: EcommerceOrderStatus
+  """
+  The total amount of the order.
+  """
+  total: String
+}
+
+enum EcommerceOrderStatus {
+  active
+  cancelled
+  archived
+  unknown
+}
+
+enum EcommerceCustomerStatus {
+  active
+  archived
+}
+
+type EcommerceOrder {
+  """
+  An object representing a shipping or billing address.
+  """
+  billingAddress: EcommerceAddress
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  The customer this entity is linked to.
+  """
+  customer: LinkedEcommerceCustomer
+  discounts: [EcommerceDiscount]
+  """
+  Current fulfillment status of the order.
+  """
+  fulfillmentStatus: EcommerceFulfillmentStatus
+  fulfillments: [JSON]
+  id: String!
+  lineItems: [EcommerceOrderLineItem]
+  """
+  Note for the order.
+  """
+  note: String
+  """
+  Order number, if any.
+  """
+  orderNumber: String
+  """
+  Payment method used for this order.
+  """
+  paymentMethod: String
+  """
+  Current payment status of the order.
+  """
+  paymentStatus: EcommercePaymentStatus
+  """
+  An object representing a shipping or billing address.
+  """
+  shippingAddress: EcommerceAddress
+  """
+  Shipping cost, if any.
+  """
+  shippingCost: String
+  """
+  Current status of the order.
+  """
+  status: EcommerceOrderStatus
+  """
+  Sub-total amount, normally before tax.
+  """
+  subTotal: String
+  """
+  Total amount due.
+  """
+  totalAmount: String
+  """
+  Total discount, if any.
+  """
+  totalDiscount: String
+  """
+  Total tax, if any.
+  """
+  totalTax: String
+  updatedAt: String
+}
+
+"""
+An object representing a shipping or billing address.
+"""
+type EcommerceAddress {
+  """
+  City of the billing address.
+  """
+  city: String
+  """
+  Country of the billing address.
+  """
+  country: String
+  """
+  Address line 1 of the billing address.
+  """
+  line1: String
+  """
+  Address line 2 of the billing address.
+  """
+  line2: String
+  """
+  Postal/ZIP code of the billing address.
+  """
+  postalCode: String
+  """
+  State/province of the billing address.
+  """
+  state: String
+}
+
+"""
+The customer this entity is linked to.
+"""
+type LinkedEcommerceCustomer {
+  """
+  Company name of the customer
+  """
+  companyName: String
+  emails: [Email]
+  """
+  First name of the customer
+  """
+  firstName: String
+  """
+  The ID of the customer this entity is linked to.
+  """
+  id: String!
+  """
+  Last name of the customer
+  """
+  lastName: String
+  """
+  Full name of the customer
+  """
+  name: String
+  phoneNumbers: [PhoneNumber]
+}
+
+"""
+An object representing a discount applied to an ecommerce order or product.
+"""
+type EcommerceDiscount {
+  """
+  The fixed amount of the discount.
+  """
+  amount: String
+  """
+  The code used to apply the discount.
+  """
+  code: String
+  """
+  The percentage of the discount.
+  """
+  percentage: String
+}
+
+enum EcommerceFulfillmentStatus {
+  pending
+  shipped
+  partial
+  delivered
+  cancelled
+  returned
+  unknown
+}
+
+"""
+A single line item of an ecommerce order, representing a product or variant with associated options, quantity, and pricing information.
+"""
+type EcommerceOrderLineItem {
+  """
+  The description of the product or variant associated with the line item.
+  """
+  description: String
+  discounts: [EcommerceDiscount]
+  id: String
+  """
+  The name of the product or variant associated with the line item.
+  """
+  name: String!
+  options: [OptionsListItem]
+  """
+  A unique identifier for the product associated with the line item.
+  """
+  productId: String
+  """
+  The quantity of the product or variant associated with the line item.
+  """
+  quantity: Float!
+  """
+  The SKU of the product or variant associated with the line item.
+  """
+  sku: String
+  """
+  The total tax amount applied to the product or variant associated with the line item.
+  """
+  taxAmount: String
+  """
+  The tax rate applied to the product or variant associated with the line item.
+  """
+  taxRate: String
+  """
+  The total amount for the product(s) or variant associated with the line item, including taxes and discounts.
+  """
+  totalAmount: String!
+  """
+  The unit price of the product or variant associated with the line item.
+  """
+  unitPrice: String
+  """
+  A unique identifier for the variant of the product associated with the line item, if applicable.
+  """
+  variantId: String
+}
+
+type OptionsListItem {
+  """
+  A unique identifier for the option.
+  """
+  id: String
+  """
+  The name of the option.
+  """
+  name: String
+  """
+  The value of the option.
+  """
+  value: String
+}
+
+enum EcommercePaymentStatus {
+  pending
+  authorized
+  paid
+  refunded
+  voided
+  unknown
+}
+
+type EcommerceProduct {
+  """
+  An array of categories for the product, used for organization and searching.
+  """
+  categories: [String]
+  createdAt: String
+  """
+  A detailed description of the product.
+  """
+  description: String
+  id: String!
+  """
+  An array of image URLs for the product.
+  """
+  images: [EcommerceProductImage]
+  """
+  The quantity of the product in stock.
+  """
+  inventoryQuantity: Int
+  """
+  The name of the product as it should be displayed to customers.
+  """
+  name: String
+  """
+  An array of options for the product.
+  """
+  options: [EcommerceProductOption]
+  """
+  The price of the product.
+  """
+  price: String
+  """
+  The stock keeping unit of the product.
+  """
+  sku: String
+  """
+  The current status of the product (active or archived).
+  """
+  status: EcommerceProductStatus
+  """
+  An array of tags for the product, used for organization and searching.
+  """
+  tags: [String]
+  updatedAt: String
+  variants: [VariantsListItem]
+  """
+  The weight of the product.
+  """
+  weight: String
+  """
+  The unit of measurement for the weight of the product.
+  """
+  weightUnit: String
+}
+
+type EcommerceProductImage {
+  """
+  The URL of an image of the product.
+  """
+  url: String
+}
+
+type EcommerceProductOption {
+  """
+  A unique identifier for the option of the product.
+  """
+  id: String
+  """
+  The name of the option for the product.
+  """
+  name: String
+  values: [String]
+}
+
+enum EcommerceProductStatus {
+  active
+  archived
+}
+
+type VariantsListItem {
+  """
+  A unique identifier for the variant of the product.
+  """
+  id: String
+  images: [EcommerceVariantImage]
+  """
+  The quantity of the variant in stock.
+  """
+  inventoryQuantity: Int
+  """
+  The name for the variant, used for displaying to customers.
+  """
+  name: String
+  options: [EcommerceVariantOption]
+  """
+  The price of the variant.
+  """
+  price: String
+  """
+  The stock keeping unit of the variant.
+  """
+  sku: String
+  """
+  The weight of the variant.
+  """
+  weight: String
+  """
+  The unit of measurement for the weight of the variant.
+  """
+  weightUnit: String
+}
+
+type EcommerceVariantImage {
+  """
+  The URL of an image of the variant.
+  """
+  url: String
+}
+
+type EcommerceVariantOption {
+  """
+  A unique identifier for the option of the variant.
+  """
+  id: String
+  """
+  The name of the option for the variant.
+  """
+  name: String
+  """
+  The value of the option for the variant.
+  """
+  value: String
+}
+
+type EcommerceStore {
+  """
+  The store's admin login URL
+  """
+  adminUrl: String
+  createdAt: String
+  id: String!
+  """
+  The store's name
+  """
+  name: String
+  """
+  The store's website URL
+  """
+  storeUrl: String
+  updatedAt: String
+}
+
+type EcommerceOrderList {
+  data: [EcommerceOrder]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+type EcommerceProductList {
+  data: [EcommerceProduct]!
+  """
+  Response metadata
+  """
+  meta: Meta
 }
 
 type FileStorage {
