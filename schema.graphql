@@ -5913,7 +5913,6 @@ type EcommerceOrder {
   Current fulfillment status of the order.
   """
   fulfillmentStatus: EcommerceFulfillmentStatus
-  fulfillments: [JSON]
   id: String!
   lineItems: [EcommerceOrderLineItem]
   """
