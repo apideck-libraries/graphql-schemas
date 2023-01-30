@@ -1061,7 +1061,11 @@ type Supplier {
   """
   currency: Currency
   """
-  Display name of supplier.
+  Display ID
+  """
+  displayId: String
+  """
+  Display name
   """
   displayName: String
   """
@@ -1071,15 +1075,22 @@ type Supplier {
   emails: [Email]
   firstName: String
   id: String
+  """
+  Is this an individual or business supplier
+  """
+  individual: Boolean
   lastName: String
   middleName: String
+  """
+  Some notes about this supplier
+  """
   notes: String
   phoneNumbers: [PhoneNumber]
   rowVersion: String
   """
-  Customer status
+  Supplier status
   """
-  status: CustomerStatus
+  status: SupplierStatus
   suffix: String
   taxNumber: String
   taxRate: LinkedTaxRate
@@ -1166,12 +1177,12 @@ enum PhoneType {
   other
 }
 
-enum CustomerStatus {
+enum SupplierStatus {
   active
+  inactive
   archived
   gdprerasurerequest
   unknown
-  inactive
 }
 
 type Website {
@@ -1578,6 +1589,7 @@ enum CompanyStatus {
 }
 
 type Customer {
+  account: LinkedLedgerAccount
   addresses: [Address]
   bankAccounts: [BankAccount]
   companyName: String
@@ -1592,9 +1604,13 @@ type Customer {
   """
   displayId: String
   """
-  Display Name
+  Display name
   """
   displayName: String
+  """
+  The third-party API ID of original entity
+  """
+  downstreamId: String
   emails: [Email]
   firstName: String
   id: String
@@ -1621,6 +1637,14 @@ type Customer {
   updatedAt: String
   updatedBy: String
   websites: [Website]
+}
+
+enum CustomerStatus {
+  active
+  archived
+  gdprerasurerequest
+  unknown
+  inactive
 }
 
 type CustomerList {
@@ -3009,6 +3033,7 @@ input InvoiceLineItemInput {
 }
 
 input CustomerInput {
+  account: LinkedLedgerAccountInput
   addresses: [AddressInput]
   bankAccounts: [BankAccountInput]
   companyName: String
@@ -3021,7 +3046,7 @@ input CustomerInput {
   """
   displayId: String
   """
-  Display Name
+  Display name
   """
   displayName: String
   emails: [EmailInput]
@@ -3470,20 +3495,31 @@ input SupplierInput {
   """
   currency: Currency
   """
-  Display name of supplier.
+  Display ID
+  """
+  displayId: String
+  """
+  Display name
   """
   displayName: String
   emails: [EmailInput]
   firstName: String
+  """
+  Is this an individual or business supplier
+  """
+  individual: Boolean
   lastName: String
   middleName: String
+  """
+  Some notes about this supplier
+  """
   notes: String
   phoneNumbers: [PhoneNumberInput]
   rowVersion: String
   """
-  Customer status
+  Supplier status
   """
-  status: CustomerStatus
+  status: SupplierStatus
   suffix: String
   taxNumber: String
   taxRate: LinkedTaxRateInput
