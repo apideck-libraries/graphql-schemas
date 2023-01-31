@@ -8931,6 +8931,9 @@ type Consumer {
   """
   consumerId: String!
   created: String
+  """
+  The metadata of the consumer. This is used to display the consumer in the sidebar. This is optional, but recommended.
+  """
   metadata: ConsumerMetadata
   modified: String
   requestCountUpdated: String
@@ -8974,10 +8977,25 @@ enum State {
   authorized
 }
 
+"""
+The metadata of the consumer. This is used to display the consumer in the sidebar. This is optional, but recommended.
+"""
 type ConsumerMetadata {
+  """
+  The name of the account as shown in the sidebar.
+  """
   accountName: String
+  """
+  The email of the user as shown in the sidebar.
+  """
   email: String
+  """
+  The avatar of the user in the sidebar. Must be a valid URL
+  """
   image: String
+  """
+  The name of the user as shown in the sidebar.
+  """
   userName: String
 }
 
@@ -9009,6 +9027,9 @@ type DataListItem {
   applicationId: String
   consumerId: String
   created: String
+  """
+  The metadata of the consumer. This is used to display the consumer in the sidebar. This is optional, but recommended.
+  """
   metadata: ConsumerMetadata
   modified: String
   requestCountUpdated: String
@@ -9275,13 +9296,31 @@ input ConsumerInput {
   Unique consumer identifier. You can freely choose a consumer ID yourself. Most of the time, this is an ID of your internal data model that represents a user or account in your system (for example account:12345). If the consumer doesn't exist yet, Vault will upsert a consumer based on your ID.
   """
   consumerId: String!
+  """
+  The metadata of the consumer. This is used to display the consumer in the sidebar. This is optional, but recommended.
+  """
   metadata: ConsumerMetadataInput
 }
 
+"""
+The metadata of the consumer. This is used to display the consumer in the sidebar. This is optional, but recommended.
+"""
 input ConsumerMetadataInput {
+  """
+  The name of the account as shown in the sidebar.
+  """
   accountName: String
+  """
+  The email of the user as shown in the sidebar.
+  """
   email: String
+  """
+  The avatar of the user in the sidebar. Must be a valid URL
+  """
   image: String
+  """
+  The name of the user as shown in the sidebar.
+  """
   userName: String
 }
 
@@ -9293,6 +9332,9 @@ type DeleteConsumerResponse {
 }
 
 input UpdateConsumerRequestInput {
+  """
+  The metadata of the consumer. This is used to display the consumer in the sidebar. This is optional, but recommended.
+  """
   metadata: ConsumerMetadataInput
 }
 
@@ -9302,16 +9344,31 @@ type CreateSessionResponse {
 }
 
 input SessionInput {
+  """
+  The metadata of the consumer. This is used to display the consumer in the sidebar. This is optional, but recommended.
+  """
   consumerMetadata: ConsumerMetadataInput
   """
   Custom consumer settings that are passed as part of the session.
   """
   customConsumerSettings: JSON
+  """
+  The URL to redirect the user to after the session has been configured.
+  """
   redirectUri: String
+  """
+  Settings to change the way the Vault is displayed.
+  """
   settings: SessionSettingsInput
+  """
+  Theming options to change the look and feel of Vault.
+  """
   theme: ThemeInput
 }
 
+"""
+Settings to change the way the Vault is displayed.
+"""
 input SessionSettingsInput {
   """
   Automatically redirect to redirect uri after the connection has been configured as callable. Defaults to \`false\`.
@@ -9379,12 +9436,36 @@ enum UnifiedApiId {
   procurement
 }
 
+"""
+Theming options to change the look and feel of Vault.
+"""
 input ThemeInput {
+  """
+  The URL to the favicon to use for Vault.
+  """
   favicon: String
+  """
+  The primary color to use for Vault.
+  """
   primaryColor: String
+  """
+  The URL to the privacy policy that will be shown in the sidebar.
+  """
   privacyUrl: String
+  """
+  The background color to use for the sidebar.
+  """
   sidepanelBackgroundColor: String
+  """
+  The text color to use for the sidebar.
+  """
   sidepanelTextColor: String
+  """
+  The URL to the terms and conditions that will be shown in the sidebar.
+  """
   termsUrl: String
+  """
+  The name that will be shown in the sidebar.
+  """
   vaultName: String
 }
