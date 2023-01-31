@@ -7733,6 +7733,10 @@ input EmployeesFilterInput {
   """
   companyId: String
   """
+  ID of the department to filter on
+  """
+  departmentId: String
+  """
   Email to filter on
   """
   email: String
