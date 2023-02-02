@@ -361,7 +361,13 @@ type CreditNote {
   The balance reflecting any payments made against the transaction.
   """
   balance: Float
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
@@ -404,6 +410,9 @@ type CreditNote {
   Indicates the total credit amount still available to apply towards the payment.
   """
   remainingCredit: Float
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Status of credit notes
@@ -433,7 +442,13 @@ type CreditNote {
   Type of payment
   """
   type: CreditNoteType
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
@@ -697,7 +712,13 @@ type InvoiceLineItem {
   User defined item code
   """
   code: String
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   Department id
@@ -711,6 +732,9 @@ type InvoiceLineItem {
   Discount percentage applied to the line item when supported downstream.
   """
   discountPercentage: Float
+  """
+  A unique identifier for an object.
+  """
   id: String
   item: LinkedInvoiceItem
   ledgerAccount: LinkedLedgerAccount
@@ -727,6 +751,9 @@ type InvoiceLineItem {
   Row ID
   """
   rowId: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Tax amount
@@ -746,7 +773,13 @@ type InvoiceLineItem {
   """
   unitOfMeasure: String
   unitPrice: Float
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
@@ -851,7 +884,13 @@ type Payment {
   """
   accountsReceivableAccountType: String
   allocations: [PaymentAllocation]
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
@@ -897,6 +936,9 @@ type Payment {
   Optional payment reference message ie: Debit remittance detail.
   """
   reference: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Status of payment
@@ -918,7 +960,13 @@ type Payment {
   Type of payment
   """
   type: PaymentType
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
@@ -1005,6 +1053,9 @@ type Address {
   Zip code or equivalent.
   """
   postalCode: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   salutation: String
   """
@@ -1053,8 +1104,17 @@ type Supplier {
   account: LinkedLedgerAccount
   addresses: [Address]
   bankAccounts: [BankAccount]
+  """
+  The name of the company.
+  """
   companyName: String
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
@@ -1073,19 +1133,34 @@ type Supplier {
   """
   downstreamId: String
   emails: [Email]
+  """
+  The first name of the person.
+  """
   firstName: String
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   Is this an individual or business supplier
   """
   individual: Boolean
+  """
+  The last name of the person.
+  """
   lastName: String
+  """
+  Middle name of the person.
+  """
   middleName: String
   """
   Some notes about this supplier
   """
   notes: String
   phoneNumbers: [PhoneNumber]
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Supplier status
@@ -1094,8 +1169,17 @@ type Supplier {
   suffix: String
   taxNumber: String
   taxRate: LinkedTaxRate
+  """
+  The job title of the person.
+  """
   title: String
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
   websites: [Website]
 }
@@ -1201,13 +1285,22 @@ enum WebsiteType {
 
 type BalanceSheet {
   assets: Assets!
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   The start date of the report
   """
   endDate: String
   equity: Equity!
+  """
+  A unique identifier for an object.
+  """
   id: String
   liabilities: Liabilities!
   """
@@ -1218,7 +1311,13 @@ type BalanceSheet {
   The start date of the report
   """
   startDate: String!
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
@@ -1240,6 +1339,9 @@ type CurrentAssets {
 }
 
 type CurrentAssetAccountsList {
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   The name of the current asset account
@@ -1260,6 +1362,9 @@ type FixedAssets {
 }
 
 type FixedAssetAccountsList {
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   The name of the fixed asset account
@@ -1280,6 +1385,9 @@ type Equity {
 }
 
 type EquityItemsList {
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   The type of the equity
@@ -1300,6 +1408,9 @@ type Liabilities {
 }
 
 type LiabilityAccountsList {
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   The name of the liability account
@@ -1339,7 +1450,13 @@ type Bill {
   """
   billDate: String
   billNumber: String
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
@@ -1361,6 +1478,9 @@ type Bill {
   The due date is the date on which a payment is scheduled to be received by the supplier - YYYY-MM-DD.
   """
   dueDate: String
+  """
+  A unique identifier for an object.
+  """
   id: String
   ledgerAccount: LinkedLedgerAccount
   lineItems: [BillLineItem]
@@ -1377,6 +1497,9 @@ type Bill {
   Optional invoice reference.
   """
   reference: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Invoice status
@@ -1410,7 +1533,13 @@ type Bill {
   Total tax amount applied to this bill.
   """
   totalTax: Float
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
@@ -1419,7 +1548,13 @@ type BillLineItem {
   User defined item code
   """
   code: String
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   Department id
@@ -1433,6 +1568,9 @@ type BillLineItem {
   Discount percentage
   """
   discountPercentage: Float
+  """
+  A unique identifier for an object.
+  """
   id: String
   item: LinkedInvoiceItem
   ledgerAccount: LinkedLedgerAccount
@@ -1449,6 +1587,9 @@ type BillLineItem {
   Row ID
   """
   rowId: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Tax amount
@@ -1468,7 +1609,13 @@ type BillLineItem {
   """
   unitOfMeasure: String
   unitPrice: Float
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
@@ -1523,6 +1670,9 @@ type CompanyInfo {
   Whether sales tax is calculated automatically for the company
   """
   automatedSalesTax: Boolean
+  """
+  The name of the company.
+  """
   companyName: String
   """
   Date when company file was created
@@ -1532,7 +1682,13 @@ type CompanyInfo {
   country code according to ISO 3166-1 alpha-2.
   """
   country: String
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
@@ -1544,6 +1700,9 @@ type CompanyInfo {
   The start month of fiscal year.
   """
   fiscalYearStartMonth: FiscalYearStartMonth
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   language code according to ISO 639-1. For the United States - EN
@@ -1554,6 +1713,9 @@ type CompanyInfo {
   """
   legalName: String
   phoneNumbers: [PhoneNumber]
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Whether sales tax is enabled for the company
@@ -1564,7 +1726,13 @@ type CompanyInfo {
   Based on the status some functionality is enabled or disabled.
   """
   status: CompanyStatus
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
@@ -1592,8 +1760,17 @@ type Customer {
   account: LinkedLedgerAccount
   addresses: [Address]
   bankAccounts: [BankAccount]
+  """
+  The name of the company.
+  """
   companyName: String
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
@@ -1612,19 +1789,34 @@ type Customer {
   """
   downstreamId: String
   emails: [Email]
+  """
+  The first name of the person.
+  """
   firstName: String
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   Is this an individual or business customer
   """
   individual: Boolean
+  """
+  The last name of the person.
+  """
   lastName: String
+  """
+  Middle name of the person.
+  """
   middleName: String
   """
   Some notes about this customer
   """
   notes: String
   phoneNumbers: [PhoneNumber]
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Customer status
@@ -1633,8 +1825,17 @@ type Customer {
   suffix: String
   taxNumber: String
   taxRate: LinkedTaxRate
+  """
+  The job title of the person.
+  """
   title: String
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
   websites: [Website]
 }
@@ -1684,7 +1885,13 @@ type Invoice {
   """
   balance: Float
   billingAddress: Address
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
@@ -1718,6 +1925,9 @@ type Invoice {
   The invoice due date is the date on which a payment or invoice is scheduled to be received by the seller - YYYY-MM-DD.
   """
   dueDate: String
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   Date invoice was issued - YYYY-MM-DD.
@@ -1740,6 +1950,9 @@ type Invoice {
   Optional invoice reference.
   """
   reference: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   shippingAddress: Address
   """
@@ -1782,7 +1995,13 @@ type Invoice {
   Invoice type
   """
   type: InvoiceType
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
@@ -1802,7 +2021,13 @@ type InvoiceItem {
   User defined item code
   """
   code: String
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   A short description of the item
@@ -1828,6 +2053,9 @@ type InvoiceItem {
   """
   purchased: Boolean
   quantity: Float
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   salesDetails: SalesDetails
   """
@@ -1843,7 +2071,13 @@ type InvoiceItem {
   """
   type: InvoiceItemType
   unitPrice: Float
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
@@ -1940,7 +2174,13 @@ type LedgerAccount {
   The code assigned to the account.
   """
   code: String
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
@@ -1966,6 +2206,9 @@ type LedgerAccount {
   Whether the account is a header or not.
   """
   header: Boolean
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   Reconciliation Date means the last calendar day of each Reconciliation Period.
@@ -1985,6 +2228,9 @@ type LedgerAccount {
   """
   openingBalance: Float
   parentAccount: ParentAccount
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   The status of the account.
@@ -2011,7 +2257,13 @@ type LedgerAccount {
   The type of account.
   """
   type: LedgerAccountType
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
@@ -2109,6 +2361,9 @@ type ProfitAndLoss {
   endDate: String
   expenses: Expenses!
   grossProfit: GrossProfit
+  """
+  A unique identifier for an object.
+  """
   id: String
   income: Income!
   netIncome: NetIncome
@@ -2207,7 +2462,13 @@ type TaxRate {
   """
   code: String
   components: [ComponentsListItem]
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   Description of tax rate
@@ -2233,6 +2494,9 @@ type TaxRate {
   Report Tax type to aggregate tax collected or paid for reporting purposes
   """
   reportTaxType: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Tax rate status
@@ -2254,7 +2518,13 @@ type TaxRate {
   Tax type used to indicate the source of tax collected or paid
   """
   type: String
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
@@ -2639,6 +2909,9 @@ type MutationAccounting {
 }
 
 type UnifiedId {
+  """
+  The unique identifier of the resource
+  """
   id: String!
 }
 
@@ -2683,6 +2956,9 @@ input BillInput {
   Optional invoice reference.
   """
   reference: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Invoice status
@@ -2765,6 +3041,9 @@ input BillLineItemInput {
   Row ID
   """
   rowId: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Tax amount
@@ -2856,6 +3135,9 @@ input AddressInput {
   Zip code or equivalent.
   """
   postalCode: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   salutation: String
   """
@@ -2915,6 +3197,9 @@ input CreditNoteInput {
   Indicates the total credit amount still available to apply towards the payment.
   """
   remainingCredit: Float
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Status of credit notes
@@ -3011,6 +3296,9 @@ input InvoiceLineItemInput {
   Row ID
   """
   rowId: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Tax amount
@@ -3036,6 +3324,9 @@ input CustomerInput {
   account: LinkedLedgerAccountInput
   addresses: [AddressInput]
   bankAccounts: [BankAccountInput]
+  """
+  The name of the company.
+  """
   companyName: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
@@ -3050,18 +3341,30 @@ input CustomerInput {
   """
   displayName: String
   emails: [EmailInput]
+  """
+  The first name of the person.
+  """
   firstName: String
   """
   Is this an individual or business customer
   """
   individual: Boolean
+  """
+  The last name of the person.
+  """
   lastName: String
+  """
+  Middle name of the person.
+  """
   middleName: String
   """
   Some notes about this customer
   """
   notes: String
   phoneNumbers: [PhoneNumberInput]
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Customer status
@@ -3070,6 +3373,9 @@ input CustomerInput {
   suffix: String
   taxNumber: String
   taxRate: LinkedTaxRateInput
+  """
+  The job title of the person.
+  """
   title: String
   websites: [WebsiteInput]
 }
@@ -3155,6 +3461,9 @@ input InvoiceItemInput {
   """
   purchased: Boolean
   quantity: Float
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   salesDetails: SalesDetailsInput
   """
@@ -3203,6 +3512,9 @@ type InvoiceResponse {
   The third-party API ID of original entity
   """
   downstreamId: String
+  """
+  A unique identifier for an object.
+  """
   id: String
 }
 
@@ -3261,6 +3573,9 @@ input InvoiceInput {
   Optional invoice reference.
   """
   reference: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   shippingAddress: AddressInput
   """
@@ -3361,6 +3676,9 @@ input LedgerAccountInput {
   """
   openingBalance: Float
   parentAccount: ParentAccountInput
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   The status of the account.
@@ -3447,6 +3765,9 @@ input PaymentInput {
   Optional payment reference message ie: Debit remittance detail.
   """
   reference: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Status of payment
@@ -3489,6 +3810,9 @@ input SupplierInput {
   account: LinkedLedgerAccountInput
   addresses: [AddressInput]
   bankAccounts: [BankAccountInput]
+  """
+  The name of the company.
+  """
   companyName: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
@@ -3503,18 +3827,30 @@ input SupplierInput {
   """
   displayName: String
   emails: [EmailInput]
+  """
+  The first name of the person.
+  """
   firstName: String
   """
   Is this an individual or business supplier
   """
   individual: Boolean
+  """
+  The last name of the person.
+  """
   lastName: String
+  """
+  Middle name of the person.
+  """
   middleName: String
   """
   Some notes about this supplier
   """
   notes: String
   phoneNumbers: [PhoneNumberInput]
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Supplier status
@@ -3523,6 +3859,9 @@ input SupplierInput {
   suffix: String
   taxNumber: String
   taxRate: LinkedTaxRateInput
+  """
+  The job title of the person.
+  """
   title: String
   websites: [WebsiteInput]
 }
@@ -3557,6 +3896,9 @@ input TaxRateInput {
   Report Tax type to aggregate tax collected or paid for reporting purposes
   """
   reportTaxType: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
   """
   Tax rate status
@@ -3659,29 +4001,59 @@ type Applicant {
   anonymized: Boolean
   applications: [String]
   archived: Boolean
+  """
+  The date of birth of the person.
+  """
   birthday: String
   confidential: Boolean
   coordinatorId: String
   coverLetter: String
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   customFields: [CustomField]
   cvUrl: String
   deleted: Boolean
+  """
+  The time at which the object was deleted.
+  """
   deletedAt: String
+  """
+  The user who deleted the object.
+  """
   deletedBy: String
   emails: [Email]
+  """
+  The first name of the person.
+  """
   firstName: String
   followers: [String]
   """
   Typically a list of previous companies where the contact has worked or schools that the contact has attended
   """
   headline: String
+  """
+  A unique identifier for an object.
+  """
   id: String
+  """
+  The initials of the person, usually derived from their first, middle, and last names.
+  """
   initials: String
   jobUrl: String
   lastInteractionAt: String
+  """
+  The last name of the person.
+  """
   lastName: String
+  """
+  Middle name of the person.
+  """
   middleName: String
   """
   The name of an applicant.
@@ -3689,6 +4061,9 @@ type Applicant {
   name: String
   ownerId: String
   phoneNumbers: [PhoneNumber]
+  """
+  The URL of the photo of a person.
+  """
   photoUrl: String
   """
   The PositionId the applicant applied for.
@@ -3703,8 +4078,17 @@ type Applicant {
   sources: [String]
   stageId: String
   tags: [String]
+  """
+  The job title of the person.
+  """
   title: String
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
   websites: [WebsitesListItem]
 }
@@ -3771,10 +4155,19 @@ type Job {
   """
   code: String
   confidential: Boolean
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   deleted: Boolean
   department: Department
+  """
+  A description of the object.
+  """
   description: String
   """
   The job description in HTML format
@@ -3787,6 +4180,9 @@ type Job {
   experience: String
   followers: [String]
   hiringManagers: [HiringManagersListItem]
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   URL of the job portal
@@ -3822,8 +4218,17 @@ type Job {
   """
   status: JobStatus
   tags: [String]
+  """
+  The job title of the person.
+  """
   title: String
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
   """
   URL of the job description
@@ -3844,6 +4249,9 @@ type BlocksListItem {
 Details of the branch for which the job is created.
 """
 type Branch {
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   Name of the branch.
@@ -3853,9 +4261,18 @@ type Branch {
 
 type Department {
   code: String
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   description: String
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   Department name
@@ -3865,14 +4282,20 @@ type Department {
   Parent ID
   """
   parentId: String
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
 enum EmploymentTerms {
   fulltime
   parttime
-  intership
+  internship
   contractor
   employee
   freelance
@@ -3941,6 +4364,9 @@ input ApplicantInput {
   anonymized: Boolean
   applications: [String]
   archived: Boolean
+  """
+  The date of birth of the person.
+  """
   birthday: String
   confidential: Boolean
   coordinatorId: String
@@ -3948,14 +4374,26 @@ input ApplicantInput {
   customFields: [CustomFieldInput]
   deleted: Boolean
   emails: [EmailInput]
+  """
+  The first name of the person.
+  """
   firstName: String
   followers: [String]
   """
   Typically a list of previous companies where the contact has worked or schools that the contact has attended
   """
   headline: String
+  """
+  The initials of the person, usually derived from their first, middle, and last names.
+  """
   initials: String
+  """
+  The last name of the person.
+  """
   lastName: String
+  """
+  Middle name of the person.
+  """
   middleName: String
   """
   The name of an applicant.
@@ -3963,6 +4401,9 @@ input ApplicantInput {
   name: String
   ownerId: String
   phoneNumbers: [PhoneNumberInput]
+  """
+  The URL of the photo of a person.
+  """
   photoUrl: String
   """
   The PositionId the applicant applied for.
@@ -3974,6 +4415,9 @@ input ApplicantInput {
   sources: [String]
   stageId: String
   tags: [String]
+  """
+  The job title of the person.
+  """
   title: String
   websites: [WebsitesListItemInput]
 }
@@ -4414,6 +4858,9 @@ type Company {
   """
   annualRevenue: String
   bankAccounts: [BankAccount]
+  """
+  The date of birth of the person.
+  """
   birthday: String
   createdAt: String
   createdBy: String
@@ -4426,6 +4873,9 @@ type Company {
   description: String
   emails: [Email]
   fax: String
+  """
+  The first name of the person.
+  """
   firstName: String
   id: String
   image: String
@@ -4435,6 +4885,9 @@ type Company {
   industry: String
   interactionCount: Int
   lastActivityAt: String
+  """
+  The last name of the person.
+  """
   lastName: String
   name: String!
   """
@@ -4455,6 +4908,9 @@ type Company {
   readOnly: Boolean
   rowType: CompanyRowType
   salesTaxNumber: String
+  """
+  A formal salutation for the person. For example, 'Mr', 'Mrs'
+  """
   salutation: String
   socialLinks: [SocialLink]
   status: String
@@ -4535,6 +4991,9 @@ type Contact {
   name: String!
   ownerId: String
   phoneNumbers: [PhoneNumber]
+  """
+  The URL of the photo of a person.
+  """
   photoUrl: String
   prefix: String
   socialLinks: [SocialLink]
@@ -4575,7 +5034,7 @@ enum Type {
   employee
   freelance
   temp
-  intership
+  internship
   other
   customer
   supplier
@@ -4878,6 +5337,9 @@ enum OpportunitiesSortBy {
 type Pipeline {
   active: Boolean
   archived: Boolean
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
@@ -4887,6 +5349,9 @@ type Pipeline {
   id: String
   name: String!
   stages: [StagesListItem]
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
   winProbabilityEnabled: Boolean
 }
@@ -4912,15 +5377,21 @@ type PipelinesList {
 
 type User {
   addresses: [Address]
+  """
+  The name of the company.
+  """
   companyName: String
   createdAt: String
   """
-  The department the user is currently in.
+  The department the person is currently in.
   """
   department: String
+  """
+  A description of the object.
+  """
   description: String
   """
-  The division the user is currently in.
+  The division the person is currently in. Usually a collection of departments or teams or regions.
   """
   division: String
   emails: [Email]!
@@ -4928,6 +5399,9 @@ type User {
   An Employee Number, Employee ID or Employee Code, is a unique number that has been assigned to each individual staff member within a company.
   """
   employeeNumber: String
+  """
+  The first name of the person.
+  """
   firstName: String
   id: String
   image: String
@@ -4935,10 +5409,16 @@ type User {
   language code according to ISO 639-1. For the United States - EN
   """
   language: String
+  """
+  The last name of the person.
+  """
   lastName: String
   parentId: String
   phoneNumbers: [PhoneNumber]
   status: String
+  """
+  The job title of the person.
+  """
   title: String
   updatedAt: String
   username: String
@@ -5331,6 +5811,9 @@ input CompanyInput {
   """
   annualRevenue: String
   bankAccounts: [BankAccountInput]
+  """
+  The date of birth of the person.
+  """
   birthday: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
@@ -5340,12 +5823,18 @@ input CompanyInput {
   description: String
   emails: [EmailInput]
   fax: String
+  """
+  The first name of the person.
+  """
   firstName: String
   image: String
   """
   Industry
   """
   industry: String
+  """
+  The last name of the person.
+  """
   lastName: String
   name: String!
   """
@@ -5362,6 +5851,9 @@ input CompanyInput {
   readOnly: Boolean
   rowType: CompanyRowTypeInput
   salesTaxNumber: String
+  """
+  A formal salutation for the person. For example, 'Mr', 'Mrs'
+  """
   salutation: String
   socialLinks: [SocialLinkInput]
   status: String
@@ -5411,6 +5903,9 @@ input ContactInput {
   name: String!
   ownerId: String
   phoneNumbers: [PhoneNumberInput]
+  """
+  The URL of the photo of a person.
+  """
   photoUrl: String
   prefix: String
   socialLinks: [SocialLinkInput]
@@ -5527,14 +6022,20 @@ input StagesListItemInput {
 
 input UserInput {
   addresses: [AddressInput]
+  """
+  The name of the company.
+  """
   companyName: String
   """
-  The department the user is currently in.
+  The department the person is currently in.
   """
   department: String
+  """
+  A description of the object.
+  """
   description: String
   """
-  The division the user is currently in.
+  The division the person is currently in. Usually a collection of departments or teams or regions.
   """
   division: String
   emails: [EmailInput]!
@@ -5542,17 +6043,26 @@ input UserInput {
   An Employee Number, Employee ID or Employee Code, is a unique number that has been assigned to each individual staff member within a company.
   """
   employeeNumber: String
+  """
+  The first name of the person.
+  """
   firstName: String
   image: String
   """
   language code according to ISO 639-1. For the United States - EN
   """
   language: String
+  """
+  The last name of the person.
+  """
   lastName: String
   parentId: String
   password: String
   phoneNumbers: [PhoneNumberInput]
   status: String
+  """
+  The job title of the person.
+  """
   title: String
   username: String
 }
@@ -5593,17 +6103,35 @@ type CustomerSupport {
 type CustomerSupportCustomer {
   addresses: [Address]
   bankAccounts: BankAccount
+  """
+  The name of the company.
+  """
   companyName: String
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
   emails: [Email]
+  """
+  The first name of the person.
+  """
   firstName: String
+  """
+  A unique identifier for an object.
+  """
   id: String
   individual: Boolean
+  """
+  The last name of the person.
+  """
   lastName: String
   notes: String
   phoneNumbers: [PhoneNumber]
@@ -5612,7 +6140,13 @@ type CustomerSupportCustomer {
   """
   status: CustomerStatus
   taxNumber: String
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
@@ -5667,14 +6201,23 @@ type MutationCustomerSupport {
 input CustomerSupportCustomerInput {
   addresses: [AddressInput]
   bankAccounts: BankAccountInput
+  """
+  The name of the company.
+  """
   companyName: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
   emails: [EmailInput]
+  """
+  The first name of the person.
+  """
   firstName: String
   individual: Boolean
+  """
+  The last name of the person.
+  """
   lastName: String
   notes: String
   phoneNumbers: [PhoneNumberInput]
@@ -5804,6 +6347,9 @@ type EcommerceCustomer {
   Company name of the customer
   """
   companyName: String
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
   """
   An array of email addresses for the customer.
@@ -5813,6 +6359,9 @@ type EcommerceCustomer {
   First name of the customer
   """
   firstName: String
+  """
+  A unique identifier for an object.
+  """
   id: String!
   """
   Last name of the customer
@@ -5831,6 +6380,9 @@ type EcommerceCustomer {
   The current status of the customer
   """
   status: EcommerceCustomerStatus
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
 }
 
@@ -5872,6 +6424,9 @@ enum EcommerceCustomerAddressType {
 The order this entity is linked to.
 """
 type LinkedEcommerceOrder {
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   Current status of the order.
@@ -5913,6 +6468,9 @@ type EcommerceOrder {
   Current fulfillment status of the order.
   """
   fulfillmentStatus: EcommerceFulfillmentStatus
+  """
+  A unique identifier for an object.
+  """
   id: String!
   lineItems: [EcommerceOrderLineItem]
   """
@@ -5959,6 +6517,9 @@ type EcommerceOrder {
   Total tax, if any.
   """
   totalTax: String
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
 }
 
@@ -6057,6 +6618,9 @@ type EcommerceOrderLineItem {
   """
   description: String
   discounts: [EcommerceDiscount]
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   The name of the product or variant associated with the line item.
@@ -6126,11 +6690,17 @@ type EcommerceProduct {
   An array of categories for the product, used for organization and searching.
   """
   categories: [String]
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
   """
   A detailed description of the product.
   """
   description: String
+  """
+  A unique identifier for an object.
+  """
   id: String!
   """
   An array of image URLs for the product.
@@ -6164,6 +6734,9 @@ type EcommerceProduct {
   An array of tags for the product, used for organization and searching.
   """
   tags: [String]
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
   variants: [VariantsListItem]
   """
@@ -6260,7 +6833,13 @@ type EcommerceStore {
   The store's admin login URL
   """
   adminUrl: String
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  A unique identifier for an object.
+  """
   id: String!
   """
   The store's name
@@ -6270,6 +6849,9 @@ type EcommerceStore {
   The store's website URL
   """
   storeUrl: String
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
 }
 
@@ -6459,32 +7041,68 @@ type FileStorage {
 }
 
 type Drive {
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
+  """
+  A description of the object.
+  """
   description: String
+  """
+  A unique identifier for an object.
+  """
   id: String!
   """
   The name of the drive
   """
   name: String!
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
 type DriveGroup {
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
+  """
+  A description of the object.
+  """
   description: String
   """
   The display name of the drive group
   """
   displayName: String
+  """
+  A unique identifier for an object.
+  """
   id: String!
   """
   The name of the drive group
   """
   name: String!
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
@@ -6527,7 +7145,13 @@ type FileList {
 }
 
 type UnifiedFile {
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   Optional description of the file
@@ -6541,6 +7165,9 @@ type UnifiedFile {
   The third-party API ID of original entity
   """
   downstreamId: String
+  """
+  A unique identifier for an object.
+  """
   id: String!
   """
   The MIME type of the file.
@@ -6571,7 +7198,13 @@ type UnifiedFile {
   The type of resource. Could be file, folder or url
   """
   type: FileType!
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
@@ -6591,6 +7224,9 @@ type Owner {
 }
 
 type LinkedFolder {
+  """
+  A unique identifier for an object.
+  """
   id: String!
   """
   The name of the folder
@@ -6636,12 +7272,21 @@ enum FilesSortBy {
 }
 
 type Folder {
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   Optional description of the folder
   """
   description: String
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   The name of the folder
@@ -6664,11 +7309,20 @@ type Folder {
   The size of the folder in bytes
   """
   size: Int
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
 type SharedLink {
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
   """
   The URL that can be used to download the file.
@@ -6684,6 +7338,9 @@ type SharedLink {
   """
   scope: Scope
   target: SharedLinkTarget
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
   """
   The URL that can be used to view the file.
@@ -6697,6 +7354,9 @@ enum Scope {
 }
 
 type SharedLinkTarget {
+  """
+  A unique identifier for an object.
+  """
   id: String!
   """
   The name of the file
@@ -6718,6 +7378,9 @@ type SharedLinkList {
 
 type UploadSession {
   expiresAt: String
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   Indicates if parts of the file can uploaded in parallel.
@@ -6949,6 +7612,9 @@ type MutationFileStorage {
 }
 
 input DriveGroupInput {
+  """
+  A description of the object.
+  """
   description: String
   """
   The display name of the drive group
@@ -6961,6 +7627,9 @@ input DriveGroupInput {
 }
 
 input DriveInput {
+  """
+  A description of the object.
+  """
   description: String
   """
   The name of the drive
@@ -7299,36 +7968,63 @@ type DepartmentList {
 
 type Employee {
   addresses: [Address]
+  """
+  The date of birth of the person.
+  """
   birthday: String
+  """
+  The unique identifier of the company.
+  """
   companyId: String
+  """
+  The name of the company.
+  """
   companyName: String
   compensations: [CompensationsListItem]
   """
-  country code according to ISO 3166-1 alpha-2.
+  Country code according to ISO 3166-1 alpha-2.
   """
   countryOfBirth: String
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   customFields: [CustomField]
+  """
+  The date the person deceased.
+  """
   deceasedOn: String
   deleted: Boolean
   """
-  The department the user is currently in.
+  The department the person is currently in.
   """
   department: String
   """
   Unique identifier of the department ID this employee belongs to.
   """
   departmentId: String
+  """
+  A description of the object.
+  """
   description: String
   """
   Indicate the employee's dietary preference.
   """
   dietaryPreference: String
+  """
+  The direct reports refer to the individuals who report directly to a person in the organizational hierarchy.
+  """
   directReports: [String]
+  """
+  The name used to display the employee, often a combination of their first and last names.
+  """
   displayName: String
   """
-  The division the user is currently in.
+  The division the person is currently in. Usually a collection of departments or teams or regions.
   """
   division: String
   """
@@ -7349,39 +8045,81 @@ type Employee {
   A Start Date is the date that the employee started working at the company
   """
   employmentStartDate: String
-  employmentStatus: EmploymentStatus
+  """
+  The employment status of the employee, indicating whether they are currently employed, inactive, terminated, or in another status.
+  """
+  employmentStatus: EmployeeEmploymentStatus
+  """
+  The first name of the person.
+  """
   firstName: String
   """
   Indicate the employee's food allergies.
   """
   foodAllergies: [String]
+  """
+  The gender represents the gender identity of a person.
+  """
   gender: Gender
+  """
+  A unique identifier for an object.
+  """
   id: String!
+  """
+  The initials of the person, usually derived from their first, middle, and last names.
+  """
   initials: String
   jobs: [JobsListItem]
   languages: [String]
+  """
+  The last name of the person.
+  """
   lastName: String
   """
-  The reason because the employment ended
+  The reason because the employment ended.
   """
   leavingReason: LeavingReason
   manager: Manager
+  """
+  The marital status of the employee.
+  """
   maritalStatus: String
+  """
+  Middle name of the person.
+  """
   middleName: String
   nationalities: [String]
   partner: Partner
   phoneNumbers: [PhoneNumber]
+  """
+  The URL of the photo of a person.
+  """
   photoUrl: String
   """
   language code according to ISO 639-1. For the United States - EN
   """
   preferredLanguage: String
+  """
+  The name the employee prefers to be addressed by, which may be different from their legal name.
+  """
   preferredName: String
+  """
+  The preferred pronouns of the person.
+  """
   pronouns: String
   recordUrl: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
+  """
+  A formal salutation for the person. For example, 'Mr', 'Mrs'
+  """
   salutation: String
   socialLinks: [SocialLinksListItem]
+  """
+  A unique identifier assigned by the government. This field is considered sensitive information and may be subject to special security and privacy restrictions.
+  """
   socialSecurityNumber: String
   """
   When the employee is imported as a new hire, this field indicates what system (e.g. the name of the ATS) this employee was imported from.
@@ -7395,15 +8133,27 @@ type Employee {
   taxCode: String
   taxId: String
   """
-  The team the user is currently in.
+  The team the person is currently in.
   """
   team: Team
+  """
+  The time zone related to the resource. The value is a string containing a standard time zone identifier, e.g. Europe/London.
+  """
   timezone: String
+  """
+  The job title of the person.
+  """
   title: String
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
   """
-  Indicates whether the employee works remote
+  Indicates if the employee works from a remote location.
   """
   worksRemote: Boolean
 }
@@ -7414,18 +8164,24 @@ type CompensationsListItem {
   """
   currency: Currency
   """
-  The effective date for this compensation.
+  The date on which a change to an employee's compensation takes effect.
   """
   effectiveDate: String
   """
   The FLSA status for this compensation.
   """
   flsaStatus: FlsaStatus
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   The ID of the job to which the compensation belongs.
   """
   jobId: String
+  """
+  Unit of measurement for employee compensation.
+  """
   paymentUnit: PaymentUnit
   """
   The amount paid per payment unit.
@@ -7449,7 +8205,13 @@ enum PaymentUnit {
 }
 
 type EmploymentRole {
+  """
+  The work schedule of the employee.
+  """
   subType: SubType
+  """
+  The type of employment relationship the employee has with the organization.
+  """
   type: Type
 }
 
@@ -7459,7 +8221,7 @@ enum SubType {
   hourly
 }
 
-enum EmploymentStatus {
+enum EmployeeEmploymentStatus {
   active
   inactive
   terminated
@@ -7467,23 +8229,50 @@ enum EmploymentStatus {
 }
 
 type JobsListItem {
+  """
+  The rate of pay for the employee in their current job role.
+  """
   compensationRate: Float
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
+  """
+  A unique identifier for an object.
+  """
   employeeId: String
+  """
+  The date on which the employee leaves or is expected to leave their current job role.
+  """
   endDate: String
+  """
+  The date on which the employee was hired by the organization
+  """
   hiredAt: String
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
-  Indicates whether this the employee's primary job
+  Indicates whether this the employee's primary job.
   """
   isPrimary: Boolean
   location: Address
+  """
+  Unit of measurement for employee compensation.
+  """
   paymentUnit: PaymentUnit
+  """
+  The position and responsibilities of the person within the organization.
+  """
   role: String
+  """
+  The date on which the employee starts working in their current job role.
+  """
   startDate: String
+  """
+  The job title of the person.
+  """
   title: String
 }
 
@@ -7495,29 +8284,65 @@ enum LeavingReason {
 }
 
 type Manager {
+  """
+  The email address of the manager.
+  """
   email: String
+  """
+  The first name of the person.
+  """
   firstName: String
+  """
+  A unique identifier for an object.
+  """
   id: String
+  """
+  The last name of the person.
+  """
   lastName: String
+  """
+  The name of the manager, often a combination of their first and last names.
+  """
   name: String
 }
 
 type Partner {
   birthday: String
   deceasedOn: String
+  """
+  The first name of the person.
+  """
   firstName: String
+  """
+  The gender represents the gender identity of a person.
+  """
   gender: Gender
+  """
+  A unique identifier for an object.
+  """
   id: String
   initials: String
+  """
+  The last name of the person.
+  """
   lastName: String
+  """
+  Middle name of the person.
+  """
   middleName: String
 }
 
 """
-The team the user is currently in.
+The team the person is currently in.
 """
 type Team {
+  """
+  The unique identifier of the team.
+  """
   id: String
+  """
+  The name of the team.
+  """
   name: String
 }
 
@@ -7531,6 +8356,9 @@ type Payroll {
   The date on which employees will be paid for the payroll.
   """
   checkDate: String!
+  """
+  The unique identifier of the company.
+  """
   companyId: String
   """
   An array of compensations for the payroll.
@@ -7540,6 +8368,9 @@ type Payroll {
   The end date, inclusive, of the pay period.
   """
   endDate: String!
+  """
+  A unique identifier for an object.
+  """
   id: String!
   """
   Whether or not the payroll has been successfully processed. Note that processed payrolls cannot be updated.
@@ -7565,6 +8396,9 @@ type Compensation {
   An array of employee deductions for the pay period.
   """
   deductions: [Deduction]
+  """
+  A unique identifier for an object.
+  """
   employeeId: String!
   """
   The employee's gross pay. Only available when payroll has been processed
@@ -7686,6 +8520,9 @@ type Schedule {
   The end date, inclusive, of the schedule period.
   """
   endDate: String!
+  """
+  A unique identifier for an object.
+  """
   id: String!
   """
   The start date, inclusive, of the schedule period.
@@ -7805,18 +8642,33 @@ type HrisCompany {
   An Company Number, Company ID or Company Code, is a unique number that has been assigned to each company.
   """
   companyNumber: String
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   debtorId: String
   deleted: Boolean
   displayName: String
   emails: [Email]
+  """
+  A unique identifier for an object.
+  """
   id: String
   legalName: String!
   phoneNumbers: [PhoneNumber]
   status: Status
   subdomain: String
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
   websites: [Website]
 }
@@ -7830,12 +8682,25 @@ type HrisJob {
   Id of the employee
   """
   employeeId: String
-  employmentStatus: EmploymentStatus
+  employmentStatus: JobEmploymentStatus
   endDate: String
+  """
+  A unique identifier for an object.
+  """
   id: String
   location: Location
   startDate: String
+  """
+  The job title of the person.
+  """
   title: String
+}
+
+enum JobEmploymentStatus {
+  active
+  inactive
+  terminated
+  other
 }
 
 type Location {
@@ -7856,7 +8721,13 @@ type TimeOffRequest {
   The date the request was approved
   """
   approvalDate: String
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   Description of the time off request.
@@ -7870,6 +8741,9 @@ type TimeOffRequest {
   The end date of the time off request.
   """
   endDate: String
+  """
+  A unique identifier for an object.
+  """
   id: String
   notes: Notes
   """
@@ -7896,7 +8770,13 @@ type TimeOffRequest {
   The unit of time off requested. Possible values include: \`hours\`, \`days\`, or \`other\`.
   """
   units: TimeOffRequestUnits
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
 }
 
@@ -8144,34 +9024,55 @@ input DepartmentInput {
 
 input EmployeeInput {
   addresses: [AddressInput]
+  """
+  The date of birth of the person.
+  """
   birthday: String
+  """
+  The unique identifier of the company.
+  """
   companyId: String
+  """
+  The name of the company.
+  """
   companyName: String
   compensations: [CompensationsListItemInput]
   """
-  country code according to ISO 3166-1 alpha-2.
+  Country code according to ISO 3166-1 alpha-2.
   """
   countryOfBirth: String
   customFields: [CustomFieldInput]
+  """
+  The date the person deceased.
+  """
   deceasedOn: String
   deleted: Boolean
   """
-  The department the user is currently in.
+  The department the person is currently in.
   """
   department: String
   """
   Unique identifier of the department ID this employee belongs to.
   """
   departmentId: String
+  """
+  A description of the object.
+  """
   description: String
   """
   Indicate the employee's dietary preference.
   """
   dietaryPreference: String
+  """
+  The direct reports refer to the individuals who report directly to a person in the organizational hierarchy.
+  """
   directReports: [String]
+  """
+  The name used to display the employee, often a combination of their first and last names.
+  """
   displayName: String
   """
-  The division the user is currently in.
+  The division the person is currently in. Usually a collection of departments or teams or regions.
   """
   division: String
   """
@@ -8192,38 +9093,77 @@ input EmployeeInput {
   A Start Date is the date that the employee started working at the company
   """
   employmentStartDate: String
-  employmentStatus: EmploymentStatus
+  """
+  The employment status of the employee, indicating whether they are currently employed, inactive, terminated, or in another status.
+  """
+  employmentStatus: EmployeeEmploymentStatus
+  """
+  The first name of the person.
+  """
   firstName: String
   """
   Indicate the employee's food allergies.
   """
   foodAllergies: [String]
+  """
+  The gender represents the gender identity of a person.
+  """
   gender: Gender
+  """
+  The initials of the person, usually derived from their first, middle, and last names.
+  """
   initials: String
   jobs: [JobsListItemInput]
   languages: [String]
+  """
+  The last name of the person.
+  """
   lastName: String
   """
-  The reason because the employment ended
+  The reason because the employment ended.
   """
   leavingReason: LeavingReason
   manager: ManagerInput
+  """
+  The marital status of the employee.
+  """
   maritalStatus: String
+  """
+  Middle name of the person.
+  """
   middleName: String
   nationalities: [String]
   partner: PartnerInput
   phoneNumbers: [PhoneNumberInput]
+  """
+  The URL of the photo of a person.
+  """
   photoUrl: String
   """
   language code according to ISO 639-1. For the United States - EN
   """
   preferredLanguage: String
+  """
+  The name the employee prefers to be addressed by, which may be different from their legal name.
+  """
   preferredName: String
+  """
+  The preferred pronouns of the person.
+  """
   pronouns: String
   recordUrl: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
   rowVersion: String
+  """
+  A formal salutation for the person. For example, 'Mr', 'Mrs'
+  """
   salutation: String
   socialLinks: [SocialLinksListItemInput]
+  """
+  A unique identifier assigned by the government. This field is considered sensitive information and may be subject to special security and privacy restrictions.
+  """
   socialSecurityNumber: String
   """
   When the employee is imported as a new hire, this field indicates what system (e.g. the name of the ATS) this employee was imported from.
@@ -8237,13 +9177,19 @@ input EmployeeInput {
   taxCode: String
   taxId: String
   """
-  The team the user is currently in.
+  The team the person is currently in.
   """
   team: TeamInput
+  """
+  The time zone related to the resource. The value is a string containing a standard time zone identifier, e.g. Europe/London.
+  """
   timezone: String
+  """
+  The job title of the person.
+  """
   title: String
   """
-  Indicates whether the employee works remote
+  Indicates if the employee works from a remote location.
   """
   worksRemote: Boolean
 }
@@ -8254,13 +9200,16 @@ input CompensationsListItemInput {
   """
   currency: Currency
   """
-  The effective date for this compensation.
+  The date on which a change to an employee's compensation takes effect.
   """
   effectiveDate: String
   """
   The FLSA status for this compensation.
   """
   flsaStatus: FlsaStatus
+  """
+  Unit of measurement for employee compensation.
+  """
   paymentUnit: PaymentUnit
   """
   The amount paid per payment unit.
@@ -8269,51 +9218,108 @@ input CompensationsListItemInput {
 }
 
 input EmploymentRoleInput {
+  """
+  The work schedule of the employee.
+  """
   subType: SubType
+  """
+  The type of employment relationship the employee has with the organization.
+  """
   type: Type
 }
 
 input JobsListItemInput {
+  """
+  The rate of pay for the employee in their current job role.
+  """
   compensationRate: Float
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
+  """
+  The date on which the employee leaves or is expected to leave their current job role.
+  """
   endDate: String
+  """
+  The date on which the employee was hired by the organization
+  """
   hiredAt: String
   """
-  Indicates whether this the employee's primary job
+  Indicates whether this the employee's primary job.
   """
   isPrimary: Boolean
   location: AddressInput
+  """
+  Unit of measurement for employee compensation.
+  """
   paymentUnit: PaymentUnit
+  """
+  The position and responsibilities of the person within the organization.
+  """
   role: String
+  """
+  The date on which the employee starts working in their current job role.
+  """
   startDate: String
+  """
+  The job title of the person.
+  """
   title: String
 }
 
 input ManagerInput {
+  """
+  The email address of the manager.
+  """
   email: String
+  """
+  The first name of the person.
+  """
   firstName: String
+  """
+  The last name of the person.
+  """
   lastName: String
+  """
+  The name of the manager, often a combination of their first and last names.
+  """
   name: String
 }
 
 input PartnerInput {
   birthday: String
   deceasedOn: String
+  """
+  The first name of the person.
+  """
   firstName: String
+  """
+  The gender represents the gender identity of a person.
+  """
   gender: Gender
   initials: String
+  """
+  The last name of the person.
+  """
   lastName: String
+  """
+  Middle name of the person.
+  """
   middleName: String
 }
 
 """
-The team the user is currently in.
+The team the person is currently in.
 """
 input TeamInput {
+  """
+  The unique identifier of the team.
+  """
   id: String
+  """
+  The name of the team.
+  """
   name: String
 }
 
@@ -8448,7 +9454,13 @@ type Message {
   The message text.
   """
   body: String!
+  """
+  The date and time when the object was created.
+  """
   createdAt: String
+  """
+  The user who created the object.
+  """
   createdBy: String
   """
   The direction of the message.
@@ -8462,6 +9474,9 @@ type Message {
   The phone number that initiated the message.
   """
   from: String!
+  """
+  A unique identifier for an object.
+  """
   id: String
   """
   The ID of the Messaging Service used with the message. In case of Plivo this links to the Powerpack ID.
@@ -8504,7 +9519,13 @@ type Message {
   Set to sms for SMS messages and mms for MMS messages.
   """
   type: Type
+  """
+  The date and time when the object was last updated.
+  """
   updatedAt: String
+  """
+  The user who last updated the object.
+  """
   updatedBy: String
   """
   Define a webhook to receive delivery notifications.
