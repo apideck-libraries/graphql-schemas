@@ -10193,6 +10193,8 @@ enum UnifiedApi {
   accounting
   hris
   ats
+  ecommerce
+  ticketing
   pos
   filestorage
   sms
