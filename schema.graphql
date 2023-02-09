@@ -8048,7 +8048,7 @@ type Employee {
   """
   The employment status of the employee, indicating whether they are currently employed, inactive, terminated, or in another status.
   """
-  employmentStatus: EmployeeEmploymentStatus
+  employmentStatus: EmploymentStatus
   """
   The first name of the person.
   """
@@ -8221,7 +8221,7 @@ enum SubType {
   hourly
 }
 
-enum EmployeeEmploymentStatus {
+enum EmploymentStatus {
   active
   inactive
   terminated
@@ -8288,6 +8288,10 @@ type Manager {
   The email address of the manager.
   """
   email: String
+  """
+  The employment status of the employee, indicating whether they are currently employed, inactive, terminated, or in another status.
+  """
+  employmentStatus: EmploymentStatus
   """
   The first name of the person.
   """
@@ -8682,7 +8686,10 @@ type HrisJob {
   Id of the employee
   """
   employeeId: String
-  employmentStatus: JobEmploymentStatus
+  """
+  The employment status of the employee, indicating whether they are currently employed, inactive, terminated, or in another status.
+  """
+  employmentStatus: EmploymentStatus
   endDate: String
   """
   A unique identifier for an object.
@@ -8694,13 +8701,6 @@ type HrisJob {
   The job title of the person.
   """
   title: String
-}
-
-enum JobEmploymentStatus {
-  active
-  inactive
-  terminated
-  other
 }
 
 type Location {
@@ -9096,7 +9096,7 @@ input EmployeeInput {
   """
   The employment status of the employee, indicating whether they are currently employed, inactive, terminated, or in another status.
   """
-  employmentStatus: EmployeeEmploymentStatus
+  employmentStatus: EmploymentStatus
   """
   The first name of the person.
   """
@@ -9273,6 +9273,10 @@ input ManagerInput {
   The email address of the manager.
   """
   email: String
+  """
+  The employment status of the employee, indicating whether they are currently employed, inactive, terminated, or in another status.
+  """
+  employmentStatus: EmploymentStatus
   """
   The first name of the person.
   """
