@@ -2247,7 +2247,6 @@ type JournalEntryLineItem {
   """
   id: String
   ledgerAccount: LinkedLedgerAccount!
-  linkedTrackingCategory: LinkedLedgerAccount
   """
   Tax amount
   """
@@ -2257,10 +2256,22 @@ type JournalEntryLineItem {
   Debit entries are considered positive, and credit entries are considered negative.
   """
   totalAmount: Float!
+  trackingCategory: LinkedTrackingCategory
   """
   Debit entries are considered positive, and credit entries are considered negative.
   """
   type: JournalEntryLineItemType!
+}
+
+type LinkedTrackingCategory {
+  """
+  The unique identifier for the tracking category.
+  """
+  id: String
+  """
+  The name of the tracking category.
+  """
+  name: String
 }
 
 enum JournalEntryLineItemType {
@@ -3798,7 +3809,6 @@ input JournalEntryLineItemInput {
   """
   description: String
   ledgerAccount: LinkedLedgerAccountInput!
-  linkedTrackingCategory: LinkedLedgerAccountInput
   """
   Tax amount
   """
@@ -3808,10 +3818,22 @@ input JournalEntryLineItemInput {
   Debit entries are considered positive, and credit entries are considered negative.
   """
   totalAmount: Float!
+  trackingCategory: LinkedTrackingCategoryInput
   """
   Debit entries are considered positive, and credit entries are considered negative.
   """
   type: JournalEntryLineItemType!
+}
+
+input LinkedTrackingCategoryInput {
+  """
+  The unique identifier for the tracking category.
+  """
+  id: String
+  """
+  The name of the tracking category.
+  """
+  name: String
 }
 
 input LedgerAccountInput {
