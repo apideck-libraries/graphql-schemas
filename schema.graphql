@@ -246,6 +246,36 @@ type Accounting {
     sort: InvoicesSortInput
   ): InvoiceList
   """
+  List Journal Entries
+  """
+  journalEntries(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): JournalEntryList
+  """
+  Get Journal Entry
+  """
+  journalEntry(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): JournalEntry
+  """
   Get Ledger Account
   """
   ledgerAccount(
@@ -2156,6 +2186,88 @@ enum SortDirection {
   desc
 }
 
+type JournalEntryList {
+  data: [JournalEntry]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+type JournalEntry {
+  """
+  The date and time when the object was created.
+  """
+  createdAt: String
+  """
+  The user who created the object.
+  """
+  createdBy: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currencyRate: Currency
+  """
+  A unique identifier for an object.
+  """
+  id: String
+  """
+  Requires a minimum of 2 line items that sum to 0
+  """
+  lineItems: [JournalEntryLineItem]
+  """
+  Reference for the journal entry.
+  """
+  memo: String
+  """
+  This is the date on which the journal entry was added. This can be different from the creation date and can also be backdated.
+  """
+  postedAt: String
+  """
+  The date and time when the object was last updated.
+  """
+  updatedAt: String
+  """
+  The user who last updated the object.
+  """
+  updatedBy: String
+}
+
+type JournalEntryLineItem {
+  """
+  User defined description
+  """
+  description: String
+  """
+  A unique identifier for an object.
+  """
+  id: String
+  ledgerAccount: LinkedLedgerAccount!
+  linkedTrackingCategory: LinkedLedgerAccount
+  """
+  Tax amount
+  """
+  taxAmount: Float
+  taxRate: LinkedTaxRate
+  """
+  Debit entries are considered positive, and credit entries are considered negative.
+  """
+  totalAmount: Float!
+  """
+  Debit entries are considered positive, and credit entries are considered negative.
+  """
+  type: JournalEntryLineItemType!
+}
+
+enum JournalEntryLineItemType {
+  debit
+  credit
+}
+
 type LedgerAccount {
   """
   Whether the account is active or not.
@@ -2758,6 +2870,43 @@ type MutationAccounting {
     raw: Boolean
     requestBody: InvoiceInput!
   ): InvoiceResponse
+  """
+  Create Journal Entry
+  """
+  journalEntriesAdd(
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: JournalEntryInput!
+  ): UnifiedId
+  """
+  Delete Journal Entry
+  """
+  journalEntriesDelete(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): UnifiedId
+  """
+  Update Journal Entry
+  """
+  journalEntriesUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: JournalEntryInput!
+  ): UnifiedId
   """
   Create Ledger Account
   """
@@ -3618,6 +3767,51 @@ input InvoiceInput {
   Invoice type
   """
   type: InvoiceType
+}
+
+input JournalEntryInput {
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currencyRate: Currency
+  """
+  Requires a minimum of 2 line items that sum to 0
+  """
+  lineItems: [JournalEntryLineItemInput]
+  """
+  Reference for the journal entry.
+  """
+  memo: String
+  """
+  This is the date on which the journal entry was added. This can be different from the creation date and can also be backdated.
+  """
+  postedAt: String
+}
+
+input JournalEntryLineItemInput {
+  """
+  User defined description
+  """
+  description: String
+  ledgerAccount: LinkedLedgerAccountInput!
+  linkedTrackingCategory: LinkedLedgerAccountInput
+  """
+  Tax amount
+  """
+  taxAmount: Float
+  taxRate: LinkedTaxRateInput
+  """
+  Debit entries are considered positive, and credit entries are considered negative.
+  """
+  totalAmount: Float!
+  """
+  Debit entries are considered positive, and credit entries are considered negative.
+  """
+  type: JournalEntryLineItemType!
 }
 
 input LedgerAccountInput {
