@@ -6454,6 +6454,10 @@ type Ecommerce {
     """
     cursor: String
     """
+    Apply filters
+    """
+    filter: EcommerceCustomersFilterInput
+    """
     Number of records to return
     """
     limit: Int
@@ -6519,6 +6523,10 @@ type Ecommerce {
     """
     cursor: String
     """
+    Apply filters
+    """
+    filter: EcommerceOrdersFilterInput
+    """
     Number of records to return
     """
     limit: Int
@@ -6567,6 +6575,10 @@ type EcommerceCustomer {
   The date and time when the object was created.
   """
   createdAt: String
+  """
+  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  """
+  currency: Currency
   """
   An array of email addresses for the customer.
   """
@@ -6631,8 +6643,8 @@ type AddressesListItem {
 }
 
 enum EcommerceCustomerAddressType {
-  primary
-  secondary
+  billing
+  shipping
   other
 }
 
@@ -6647,7 +6659,7 @@ type LinkedEcommerceOrder {
   """
   Current status of the order.
   """
-  orderStatus: EcommerceOrderStatus
+  status: EcommerceOrderStatus
   """
   The total amount of the order.
   """
@@ -6656,6 +6668,7 @@ type LinkedEcommerceOrder {
 
 enum EcommerceOrderStatus {
   active
+  completed
   cancelled
   archived
   unknown
@@ -6666,11 +6679,22 @@ enum EcommerceCustomerStatus {
   archived
 }
 
+input EcommerceCustomersFilterInput {
+  """
+  Customer email address to filter on
+  """
+  email: String
+}
+
 type EcommerceOrder {
   """
   An object representing a shipping or billing address.
   """
   billingAddress: EcommerceAddress
+  """
+  The date and time when the object was created.
+  """
+  createdAt: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
@@ -6747,6 +6771,10 @@ type EcommerceAddress {
   City of the billing address.
   """
   city: String
+  """
+  Company name of the customer
+  """
+  companyName: String
   """
   Country of the billing address.
   """
@@ -6896,6 +6924,7 @@ enum EcommercePaymentStatus {
   pending
   authorized
   paid
+  partial
   refunded
   voided
   unknown
@@ -6905,7 +6934,7 @@ type EcommerceProduct {
   """
   An array of categories for the product, used for organization and searching.
   """
-  categories: [String]
+  categories: [EcommerceProductCategory]
   """
   The date and time when the object was created.
   """
@@ -6965,7 +6994,22 @@ type EcommerceProduct {
   weightUnit: String
 }
 
+type EcommerceProductCategory {
+  """
+  A unique identifier for an object.
+  """
+  id: String
+  """
+  The name of the category.
+  """
+  name: String
+}
+
 type EcommerceProductImage {
+  """
+  A unique identifier for an object.
+  """
+  id: String
   """
   The URL of an image of the product.
   """
@@ -7024,6 +7068,10 @@ type VariantsListItem {
 
 type EcommerceVariantImage {
   """
+  A unique identifier for an object.
+  """
+  id: String
+  """
   The URL of an image of the variant.
   """
   url: String
@@ -7077,6 +7125,13 @@ type EcommerceOrderList {
   Response metadata
   """
   meta: Meta
+}
+
+input EcommerceOrdersFilterInput {
+  """
+  Customer email address to filter on
+  """
+  email: String
 }
 
 type EcommerceProductList {
