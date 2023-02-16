@@ -1843,7 +1843,15 @@ type Customer {
   Some notes about this customer
   """
   notes: String
+  """
+  The parent customer this entity is linked to.
+  """
+  parent: LinkedParentCustomer
   phoneNumbers: [PhoneNumber]
+  """
+  If true, indicates this is a Project.
+  """
+  project: Boolean
   """
   A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
   """
@@ -1868,6 +1876,20 @@ type Customer {
   """
   updatedBy: String
   websites: [Website]
+}
+
+"""
+The parent customer this entity is linked to.
+"""
+type LinkedParentCustomer {
+  """
+  The parent ID of the customer this entity is linked to.
+  """
+  id: String!
+  """
+  The name of the parent customer.
+  """
+  name: String
 }
 
 enum CustomerStatus {
@@ -3521,7 +3543,15 @@ input CustomerInput {
   Some notes about this customer
   """
   notes: String
+  """
+  The parent customer this entity is linked to.
+  """
+  parent: LinkedParentCustomerInput
   phoneNumbers: [PhoneNumberInput]
+  """
+  If true, indicates this is a Project.
+  """
+  project: Boolean
   """
   A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
   """
@@ -3577,6 +3607,20 @@ input EmailInput {
   email: String!
   id: String
   type: EmailType
+}
+
+"""
+The parent customer this entity is linked to.
+"""
+input LinkedParentCustomerInput {
+  """
+  The parent ID of the customer this entity is linked to.
+  """
+  id: String!
+  """
+  The name of the parent customer.
+  """
+  name: String
 }
 
 input PhoneNumberInput {
