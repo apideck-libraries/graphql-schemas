@@ -2230,13 +2230,17 @@ type JournalEntry {
   """
   currency: Currency
   """
-  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  Currency Exchange Rate at the time entity was recorded/generated.
   """
-  currencyRate: Currency
+  currencyRate: Float
   """
   A unique identifier for an object.
   """
   id: String
+  """
+  Journal symbol of the entry. For example IND for indirect costs
+  """
+  journalSymbol: String
   """
   Requires a minimum of 2 line items that sum to 0
   """
@@ -2250,6 +2254,10 @@ type JournalEntry {
   """
   postedAt: String
   """
+  Journal entry title
+  """
+  title: String
+  """
   The date and time when the object was last updated.
   """
   updatedAt: String
@@ -2261,6 +2269,10 @@ type JournalEntry {
 
 type JournalEntryLineItem {
   """
+  A unique identifier for an object.
+  """
+  departmentId: String
+  """
   User defined description
   """
   description: String
@@ -2269,6 +2281,10 @@ type JournalEntryLineItem {
   """
   id: String
   ledgerAccount: LinkedLedgerAccount!
+  """
+  A unique identifier for an object.
+  """
+  locationId: String
   """
   Tax amount
   """
@@ -3830,9 +3846,13 @@ input JournalEntryInput {
   """
   currency: Currency
   """
-  Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  Currency Exchange Rate at the time entity was recorded/generated.
   """
-  currencyRate: Currency
+  currencyRate: Float
+  """
+  Journal symbol of the entry. For example IND for indirect costs
+  """
+  journalSymbol: String
   """
   Requires a minimum of 2 line items that sum to 0
   """
@@ -3845,6 +3865,10 @@ input JournalEntryInput {
   This is the date on which the journal entry was added. This can be different from the creation date and can also be backdated.
   """
   postedAt: String
+  """
+  Journal entry title
+  """
+  title: String
 }
 
 input JournalEntryLineItemInput {
