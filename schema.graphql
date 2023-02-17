@@ -66,6 +66,10 @@ type Accounting {
     """
     cursor: String
     """
+    Apply filters
+    """
+    filter: SuppliersFilterInput
+    """
     Number of records to return
     """
     limit: Int
@@ -1311,6 +1315,17 @@ enum WebsiteType {
   work
   personal
   other
+}
+
+input SuppliersFilterInput {
+  """
+  Company Name of supplier to search for
+  """
+  companyName: String
+  """
+  Email of supplier to search for
+  """
+  email: String
 }
 
 type BalanceSheet {
