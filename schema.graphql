@@ -7857,6 +7857,20 @@ type MutationFileStorage {
     requestBody: FilesSearchInput!
   ): FileList
   """
+  Rename or move File
+  """
+  filesUpdate(
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: UpdateFileRequestInput!
+  ): UnifiedId
+  """
   Create Folder
   """
   foldersAdd(
@@ -8004,6 +8018,21 @@ input FilesSearchInput {
   The query to search for. May match across multiple fields.
   """
   query: String!
+}
+
+input UpdateFileRequestInput {
+  """
+  Optional description of the file.
+  """
+  description: String
+  """
+  The name of the file.
+  """
+  name: String
+  """
+  The parent folder to create the new file within.
+  """
+  parentFolderId: String
 }
 
 input CreateFolderRequestInput {
