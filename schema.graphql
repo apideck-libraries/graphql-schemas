@@ -7041,7 +7041,7 @@ type EcommerceProduct {
   """
   The quantity of the product in stock.
   """
-  inventoryQuantity: Int
+  inventoryQuantity: String
   """
   The name of the product as it should be displayed to customers.
   """
@@ -7129,7 +7129,7 @@ type VariantsListItem {
   """
   The quantity of the variant in stock.
   """
-  inventoryQuantity: Int
+  inventoryQuantity: String
   """
   The name for the variant, used for displaying to customers.
   """
