@@ -6707,6 +6707,10 @@ type AddressesListItem {
   """
   country: String
   """
+  A unique identifier for an object.
+  """
+  id: String
+  """
   First line of the street address of the customer
   """
   line1: String
