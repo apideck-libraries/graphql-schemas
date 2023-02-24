@@ -8,6 +8,7 @@ type Query {
   hris: Hris
   lead: Lead
   sms: Sms
+  issueTracking: IssueTracking
   vault: Vault
 }
 
@@ -19,6 +20,7 @@ type Mutation {
   hris: MutationHris
   lead: MutationLead
   sms: MutationSms
+  issueTracking: MutationIssueTracking
   vault: MutationVault
 }
 
@@ -10043,6 +10045,590 @@ input MessageInput {
   webhookUrl: String
 }
 
+type IssueTracking {
+  """
+  Get Collection
+  """
+  collection(
+    """
+    The collection ID
+    """
+    collectionId: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): Collection
+  """
+  Get Ticket
+  """
+  collectionTicket(
+    """
+    The collection ID
+    """
+    collectionId: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    """
+    ID of the ticket you are acting upon.
+    """
+    ticketId: String!
+  ): Ticket
+  """
+  Get Comment
+  """
+  collectionTicketComment(
+    """
+    The collection ID
+    """
+    collectionId: String!
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    """
+    ID of the ticket you are acting upon.
+    """
+    ticketId: String!
+  ): CollectionTicketComment
+  """
+  List Comments
+  """
+  collectionTicketComments(
+    """
+    The collection ID
+    """
+    collectionId: String!
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    """
+    Apply sorting
+    """
+    sort: CommentsSortInput
+    """
+    ID of the ticket you are acting upon.
+    """
+    ticketId: String!
+  ): CommentList
+  """
+  List Tickets
+  """
+  collectionTickets(
+    """
+    The collection ID
+    """
+    collectionId: String!
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Apply filters
+    """
+    filter: IssuesFilterInput
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    """
+    Apply sorting
+    """
+    sort: TicketsSortInput
+  ): TicketList
+  """
+  Get user
+  """
+  collectionUser(
+    """
+    The collection ID
+    """
+    collectionId: String!
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): CollectionUser
+  """
+  List Users
+  """
+  collectionUsers(
+    """
+    The collection ID
+    """
+    collectionId: String!
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): CollectionUserList
+  """
+  List Collections
+  """
+  collections(
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    """
+    Apply sorting
+    """
+    sort: CollectionsSortInput
+  ): CollectionList
+}
+
+type Collection {
+  """
+  The date and time when the object was created.
+  """
+  createdAt: String
+  """
+  Description of the collection
+  """
+  description: String
+  """
+  A unique identifier for an object.
+  """
+  id: String!
+  """
+  Name of the collection
+  """
+  name: String
+  """
+  The collections's parent ID
+  """
+  parentId: String
+  """
+  The collections's type
+  """
+  type: String
+  """
+  The date and time when the object was last updated.
+  """
+  updatedAt: String
+}
+
+type Ticket {
+  assignees: [Assignee]
+  """
+  The ticket's collection ID
+  """
+  collectionId: String
+  """
+  When the ticket was completed
+  """
+  completedAt: String
+  """
+  The date and time when the object was created.
+  """
+  createdAt: String
+  """
+  The user who created the object.
+  """
+  createdBy: String
+  """
+  The ticket's description. HTML version of description is mapped if supported by the third-party platform
+  """
+  description: String
+  """
+  Due date of the ticket
+  """
+  dueDate: String
+  """
+  A unique identifier for an object.
+  """
+  id: String!
+  """
+  The ticket's parent ID
+  """
+  parentId: String
+  """
+  Priority of the ticket
+  """
+  priority: Priority
+  """
+  The current status of the ticket. Possible values include: open, in_progress, closed, or - in cases where there is no clear mapping - the original value passed through.
+  """
+  status: String
+  """
+  Subject of the ticket
+  """
+  subject: String
+  tags: [String]
+  """
+  The ticket's type
+  """
+  type: String
+  """
+  The date and time when the object was last updated.
+  """
+  updatedAt: String
+}
+
+type Assignee {
+  """
+  A unique identifier for an object.
+  """
+  id: String!
+  username: String
+}
+
+enum Priority {
+  low
+  normal
+  high
+  urgent
+}
+
+type CollectionTicketComment {
+  """
+  Body of the comment
+  """
+  body: String
+  """
+  The date and time when the object was created.
+  """
+  createdAt: String
+  """
+  The user who created the object.
+  """
+  createdBy: String
+  """
+  A unique identifier for an object.
+  """
+  id: String
+  """
+  The date and time when the object was last updated.
+  """
+  updatedAt: String
+}
+
+type CommentList {
+  data: [CollectionTicketComment]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+input CommentsSortInput {
+  """
+  The field on which to sort the Comments
+  """
+  by: CommentsSortBy
+  """
+  The direction in which to sort the results
+  """
+  direction: SortDirection
+}
+
+enum CommentsSortBy {
+  created_at
+  updated_at
+}
+
+type TicketList {
+  data: [Ticket]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+input IssuesFilterInput {
+  """
+  Only return tickets assigned to a specific user
+  """
+  assigneeId: String
+  """
+  Only return tickets since a specific date
+  """
+  since: String
+  """
+  Filter by ticket status, can be \`open\`, \`closed\` or \`all\`. Will passthrough if none of the above match
+  """
+  status: [String]
+}
+
+input TicketsSortInput {
+  """
+  The field on which to sort the Tickets
+  """
+  by: TicketsSortBy
+  """
+  The direction in which to sort the results
+  """
+  direction: SortDirection
+}
+
+enum TicketsSortBy {
+  created_at
+  updated_at
+}
+
+type CollectionUser {
+  """
+  The date and time when the object was created.
+  """
+  createdAt: String
+  email: String
+  firstName: String
+  """
+  A unique identifier for an object.
+  """
+  id: String
+  lastName: String
+  name: String
+  """
+  The URL of the photo of a person.
+  """
+  photoUrl: String
+  """
+  The date and time when the object was last updated.
+  """
+  updatedAt: String
+}
+
+type CollectionUserList {
+  data: [CollectionUser]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+type CollectionList {
+  data: [Collection]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+input CollectionsSortInput {
+  """
+  The field on which to sort the Collections
+  """
+  by: CollectionsSortBy
+  """
+  The direction in which to sort the results
+  """
+  direction: SortDirection
+}
+
+enum CollectionsSortBy {
+  name
+  created_at
+  updated_at
+}
+
+type MutationIssueTracking {
+  """
+  Create Comment
+  """
+  collectionTicketCommentsAdd(
+    """
+    The collection ID
+    """
+    collectionId: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: CollectionTicketCommentInput!
+    """
+    ID of the ticket you are acting upon.
+    """
+    ticketId: String!
+  ): UnifiedId
+  """
+  Delete Comment
+  """
+  collectionTicketCommentsDelete(
+    """
+    The collection ID
+    """
+    collectionId: String!
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    """
+    ID of the ticket you are acting upon.
+    """
+    ticketId: String!
+  ): UnifiedId
+  """
+  Update Comment
+  """
+  collectionTicketCommentsUpdate(
+    """
+    The collection ID
+    """
+    collectionId: String!
+    """
+    ID of the record you are acting upon.
+    """
+    id: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: CollectionTicketCommentInput!
+    """
+    ID of the ticket you are acting upon.
+    """
+    ticketId: String!
+  ): UnifiedId
+  """
+  Create Ticket
+  """
+  collectionTicketsAdd(
+    """
+    The collection ID
+    """
+    collectionId: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: TicketInput!
+  ): UnifiedId
+  """
+  Delete Ticket
+  """
+  collectionTicketsDelete(
+    """
+    The collection ID
+    """
+    collectionId: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    """
+    ID of the ticket you are acting upon.
+    """
+    ticketId: String!
+  ): UnifiedId
+  """
+  Update Ticket
+  """
+  collectionTicketsUpdate(
+    """
+    The collection ID
+    """
+    collectionId: String!
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+    requestBody: TicketInput!
+    """
+    ID of the ticket you are acting upon.
+    """
+    ticketId: String!
+  ): UnifiedId
+}
+
+input CollectionTicketCommentInput {
+  """
+  Body of the comment
+  """
+  body: String
+}
+
+input TicketInput {
+  assignees: [AssigneeInput]
+  """
+  The ticket's description. HTML version of description is mapped if supported by the third-party platform
+  """
+  description: String
+  """
+  Due date of the ticket
+  """
+  dueDate: String
+  """
+  The ticket's parent ID
+  """
+  parentId: String
+  """
+  Priority of the ticket
+  """
+  priority: Priority
+  """
+  The current status of the ticket. Possible values include: open, in_progress, closed, or - in cases where there is no clear mapping - the original value passed through.
+  """
+  status: String
+  """
+  Subject of the ticket
+  """
+  subject: String
+  tags: [String]
+  """
+  The ticket's type
+  """
+  type: String
+}
+
+input AssigneeInput {
+  """
+  A unique identifier for an object.
+  """
+  id: String!
+}
+
 type Vault {
   """
   Get a connection
@@ -10165,6 +10751,10 @@ type Connection {
   The unique identifier of the connection.
   """
   id: String
+  """
+  The current state of the Integration.
+  """
+  integrationState: IntegrationState
   """
   The logo of the connection, that will be shown in the Vault
   """
@@ -10297,6 +10887,12 @@ type FormField {
   """
   sensitive: Boolean
   type: Type
+}
+
+enum IntegrationState {
+  disabled
+  needs_configuration
+  configured
 }
 
 enum OAuthGrantType {
@@ -10585,7 +11181,7 @@ enum UnifiedApi {
   hris
   ats
   ecommerce
-  ticketing
+  issuetracking
   pos
   filestorage
   sms
@@ -10827,31 +11423,32 @@ input SessionSettingsInput {
 }
 
 enum UnifiedApiId {
-  vault
-  lead
-  crm
   accounting
-  filestorage
-  spreadsheet
+  ats
+  calendar
+  crm
+  csp
+  customersupport
+  ecommerce
   email
+  emailmarketing
+  expensemanagement
+  filestorage
+  form
+  hris
+  lead
+  payroll
+  pos
+  procurement
+  projectmanagement
   script
   sms
+  spreadsheet
   teammessaging
-  ecommerce
-  payroll
-  customersupport
+  issuetracking
   timeregistration
   transactionalemail
-  form
-  csp
-  emailmarketing
-  ats
-  hris
-  pos
-  projectmanagement
-  expensemanagement
-  calendar
-  procurement
+  vault
 }
 
 """
