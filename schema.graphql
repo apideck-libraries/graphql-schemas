@@ -10060,6 +10060,27 @@ type IssueTracking {
     raw: Boolean
   ): Collection
   """
+  List Tags
+  """
+  collectionTag(
+    """
+    The collection ID
+    """
+    collectionId: String!
+    """
+    Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+    """
+    cursor: String
+    """
+    Number of records to return
+    """
+    limit: Int
+    """
+    Include raw response. Mostly used for debugging purposes
+    """
+    raw: Boolean
+  ): TagsList
+  """
   Get Ticket
   """
   collectionTicket(
@@ -10255,6 +10276,22 @@ type Collection {
   updatedAt: String
 }
 
+type TagsList {
+  data: [CollectionTag]!
+  """
+  Response metadata
+  """
+  meta: Meta
+}
+
+type CollectionTag {
+  """
+  A unique identifier for an object.
+  """
+  id: String!
+  name: String
+}
+
 type Ticket {
   assignees: [Assignee]
   """
@@ -10301,7 +10338,7 @@ type Ticket {
   Subject of the ticket
   """
   subject: String
-  tags: [String]
+  tags: [CollectionTag]
   """
   The ticket's type
   """
@@ -10615,7 +10652,7 @@ input TicketInput {
   Subject of the ticket
   """
   subject: String
-  tags: [String]
+  tags: [CollectionTagInput]
   """
   The ticket's type
   """
@@ -10623,6 +10660,13 @@ input TicketInput {
 }
 
 input AssigneeInput {
+  """
+  A unique identifier for an object.
+  """
+  id: String!
+}
+
+input CollectionTagInput {
   """
   A unique identifier for an object.
   """
