@@ -11433,6 +11433,10 @@ input SessionSettingsInput {
   """
   autoRedirect: Boolean
   """
+  Hide Apideck connection guides in [Vault](/apis/vault/reference#section/Get-Started). Defaults to \`false\`.
+  """
+  hideGuides: Boolean
+  """
   A boolean that controls the display of the configurable resources for an integration. When set to true, the resource configuration options will be hidden and not shown to the user. When set to false, the resource configuration options will be displayed to the user.
   """
   hideResourceSettings: Boolean
