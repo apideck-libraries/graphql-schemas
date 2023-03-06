@@ -11508,6 +11508,10 @@ input ThemeInput {
   """
   favicon: String
   """
+  The URL to the logo to use for Vault.
+  """
+  logo: String
+  """
   The primary color to use for Vault.
   """
   primaryColor: String
