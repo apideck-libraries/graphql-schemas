@@ -6994,7 +6994,7 @@ type EcommerceOrderLineItem {
   """
   The quantity of the product or variant associated with the line item.
   """
-  quantity: Float!
+  quantity: String!
   """
   The SKU of the product or variant associated with the line item.
   """
