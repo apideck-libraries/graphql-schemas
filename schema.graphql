@@ -2271,6 +2271,10 @@ type JournalEntry {
   """
   postedAt: String
   """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
+  rowVersion: String
+  """
   Journal entry title
   """
   title: String
@@ -3882,6 +3886,10 @@ input JournalEntryInput {
   This is the date on which the journal entry was added. This can be different from the creation date and can also be backdated.
   """
   postedAt: String
+  """
+  A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object.
+  """
+  rowVersion: String
   """
   Journal entry title
   """
