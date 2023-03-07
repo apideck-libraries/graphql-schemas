@@ -126,6 +126,10 @@ type Accounting {
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
+    """
+    Apply sorting
+    """
+    sort: BillsSortInput
   ): BillList
   """
   Get company info
@@ -1711,6 +1715,26 @@ type BillList {
   meta: Meta
 }
 
+input BillsSortInput {
+  """
+  The field on which to sort the Bills
+  """
+  by: BillsSortBy
+  """
+  The direction in which to sort the results
+  """
+  direction: SortDirection
+}
+
+enum BillsSortBy {
+  updated_at
+}
+
+enum SortDirection {
+  asc
+  desc
+}
+
 type CompanyInfo {
   addresses: [Address]
   """
@@ -2218,11 +2242,6 @@ input InvoicesSortInput {
 
 enum InvoicesSortBy {
   updated_at
-}
-
-enum SortDirection {
-  asc
-  desc
 }
 
 type JournalEntryList {
