@@ -6800,6 +6800,10 @@ input EcommerceCustomersFilterInput {
   Customer email address to filter on
   """
   email: String
+  """
+  Customer phone number to filter on
+  """
+  phoneNumber: String
 }
 
 type EcommerceOrder {
