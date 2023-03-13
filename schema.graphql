@@ -769,6 +769,10 @@ type InvoiceLineItem {
   """
   description: String
   """
+  Discount amount applied to the line item when supported downstream.
+  """
+  discountAmount: Float
+  """
   Discount percentage applied to the line item when supported downstream.
   """
   discountPercentage: Float
@@ -2006,6 +2010,10 @@ type Invoice {
   Amount of deposit made to this invoice.
   """
   deposit: Float
+  """
+  Discount amount applied to this invoice.
+  """
+  discountAmount: Float
   """
   Discount percentage applied to this invoice.
   """
@@ -3516,6 +3524,10 @@ input InvoiceLineItemInput {
   """
   description: String
   """
+  Discount amount applied to the line item when supported downstream.
+  """
+  discountAmount: Float
+  """
   Discount percentage applied to the line item when supported downstream.
   """
   discountPercentage: Float
@@ -3804,6 +3816,10 @@ input InvoiceInput {
   Amount of deposit made to this invoice.
   """
   deposit: Float
+  """
+  Discount amount applied to this invoice.
+  """
+  discountAmount: Float
   """
   Discount percentage applied to this invoice.
   """
