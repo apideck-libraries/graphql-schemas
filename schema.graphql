@@ -9771,6 +9771,10 @@ type HrisJob {
   A unique identifier for an object.
   """
   id: String
+  """
+  Indicates whether this the employee's primary job.
+  """
+  isPrimary: Boolean
   location: Location
   startDate: String
   """
