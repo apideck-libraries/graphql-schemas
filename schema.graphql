@@ -34,6 +34,14 @@ type Accounting {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Number of records to return
     """
     limit: Int
@@ -51,6 +59,14 @@ type Accounting {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Number of records to return
     """
     limit: Int
@@ -67,6 +83,14 @@ type Accounting {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Apply filters
     """
@@ -102,6 +126,14 @@ type Accounting {
   """
   bill(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -118,6 +150,14 @@ type Accounting {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Number of records to return
     """
@@ -136,6 +176,14 @@ type Accounting {
   """
   companyInfo(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
@@ -144,6 +192,14 @@ type Accounting {
   Get Credit Note
   """
   creditNote(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -157,6 +213,14 @@ type Accounting {
   Get Customer
   """
   customer(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -175,6 +239,14 @@ type Accounting {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Apply filters
     """
     filter: CustomersFilterInput
@@ -192,6 +264,14 @@ type Accounting {
   """
   invoice(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -204,6 +284,14 @@ type Accounting {
   Get Invoice Item
   """
   invoiceItem(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -221,6 +309,14 @@ type Accounting {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Apply filters
     """
@@ -243,6 +339,14 @@ type Accounting {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Number of records to return
     """
     limit: Int
@@ -264,6 +368,14 @@ type Accounting {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Number of records to return
     """
     limit: Int
@@ -277,6 +389,14 @@ type Accounting {
   """
   journalEntry(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -289,6 +409,14 @@ type Accounting {
   Get Ledger Account
   """
   ledgerAccount(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -307,6 +435,14 @@ type Accounting {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Number of records to return
     """
     limit: Int
@@ -319,6 +455,14 @@ type Accounting {
   Get Payment
   """
   payment(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -333,6 +477,14 @@ type Accounting {
   """
   profitAndLoss(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Apply filters
     """
     filter: ProfitAndLossFilterInput
@@ -346,6 +498,14 @@ type Accounting {
   """
   supplier(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -356,6 +516,14 @@ type Accounting {
   ): Supplier
   "Get Tax Rate. Note: Not all connectors return the actual rate/percentage value. In this case, only the tax code or reference is returned. Support will soon be added to return the actual rate/percentage by doing additional calls in the background to provide the full view of a given tax rate. Connectors Affected: Quickbooks"
   taxRate(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -371,6 +539,14 @@ type Accounting {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Apply filters
     """
@@ -4279,6 +4455,14 @@ type Ats {
   """
   applicant(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -4295,6 +4479,14 @@ type Ats {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Apply filters
     """
@@ -4313,6 +4505,14 @@ type Ats {
   """
   job(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -4329,6 +4529,14 @@ type Ats {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Number of records to return
     """
@@ -4801,6 +5009,14 @@ type Crm {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Apply filters
     """
     filter: ActivitiesFilterInput
@@ -4818,6 +5034,14 @@ type Crm {
   """
   activity(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -4834,6 +5058,14 @@ type Crm {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Apply filters
     """
@@ -4856,6 +5088,14 @@ type Crm {
   """
   company(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -4868,6 +5108,14 @@ type Crm {
   Get contact
   """
   contact(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -4885,6 +5133,14 @@ type Crm {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Apply filters
     """
@@ -4907,6 +5163,14 @@ type Crm {
   """
   lead(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -4923,6 +5187,14 @@ type Crm {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Apply filters
     """
@@ -4945,6 +5217,14 @@ type Crm {
   """
   note(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -4962,6 +5242,14 @@ type Crm {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Number of records to return
     """
     limit: Int
@@ -4978,6 +5266,14 @@ type Crm {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Apply filters
     """
@@ -5000,6 +5296,14 @@ type Crm {
   """
   opportunity(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -5012,6 +5316,14 @@ type Crm {
   Get pipeline
   """
   pipeline(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -5030,6 +5342,14 @@ type Crm {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Number of records to return
     """
     limit: Int
@@ -5042,6 +5362,14 @@ type Crm {
   Get user
   """
   user(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -5059,6 +5387,14 @@ type Crm {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Number of records to return
     """
@@ -5470,6 +5806,14 @@ type Lead {
   """
   lead(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -5486,6 +5830,14 @@ type Lead {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Apply filters
     """
@@ -6417,6 +6769,14 @@ type CustomerSupport {
   """
   customerSupportCustomer(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -6433,6 +6793,14 @@ type CustomerSupport {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Number of records to return
     """
@@ -6582,6 +6950,14 @@ type Ecommerce {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Apply filters
     """
     filter: EcommerceCustomersFilterInput
@@ -6599,6 +6975,14 @@ type Ecommerce {
   """
   ecommerceCustomer(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -6611,6 +6995,14 @@ type Ecommerce {
   Get Order
   """
   ecommerceOrder(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -6625,6 +7017,14 @@ type Ecommerce {
   """
   ecommerceProduct(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -6638,6 +7038,14 @@ type Ecommerce {
   """
   ecommerceStore(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
@@ -6650,6 +7058,14 @@ type Ecommerce {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Apply filters
     """
@@ -6671,6 +7087,14 @@ type Ecommerce {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Number of records to return
     """
@@ -7284,6 +7708,14 @@ type FileStorage {
   """
   drive(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -7296,6 +7728,14 @@ type FileStorage {
   Get DriveGroup
   """
   driveGroup(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -7313,6 +7753,14 @@ type FileStorage {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Apply filters
     """
@@ -7335,6 +7783,14 @@ type FileStorage {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Apply filters
     """
     filter: DrivesFilterInput
@@ -7355,6 +7811,14 @@ type FileStorage {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Apply filters
     """
@@ -7381,6 +7845,14 @@ type FileStorage {
   """
   folder(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -7393,6 +7865,14 @@ type FileStorage {
   Get Shared Link
   """
   sharedLink(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -7411,6 +7891,14 @@ type FileStorage {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Number of records to return
     """
     limit: Int
@@ -7424,6 +7912,14 @@ type FileStorage {
   """
   unifiedFile(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -7436,6 +7932,14 @@ type FileStorage {
   Get Upload Session. Use the \`part_size\` to split your file into parts. Upload the parts to the [Upload part of File](#operation/uploadSessionsUpload) endpoint. Note that the base URL is upload.apideck.com instead of unify.apideck.com. For more information on uploads, refer to the [file upload guide](/guides/file-upload).
   """
   uploadSession(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -7900,6 +8404,14 @@ type MutationFileStorage {
   """
   filesSearch(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Optional unmapped key/values that will be passed through to downstream as query parameters
     """
     passThrough: PassThroughInput
@@ -7923,6 +8435,14 @@ type MutationFileStorage {
   Create Folder
   """
   foldersAdd(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Include raw response. Mostly used for debugging purposes
     """
@@ -8162,6 +8682,14 @@ type Hris {
   """
   department(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -8179,6 +8707,14 @@ type Hris {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Number of records to return
     """
     limit: Int
@@ -8191,6 +8727,14 @@ type Hris {
   Get Employee
   """
   employee(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -8209,6 +8753,14 @@ type Hris {
     """
     employeeId: String!
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the payroll you are acting upon.
     """
     payrollId: String!
@@ -8225,6 +8777,14 @@ type Hris {
     ID of the employee you are acting upon.
     """
     employeeId: String!
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Apply filters
     """
@@ -8243,6 +8803,14 @@ type Hris {
     """
     employeeId: String!
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
@@ -8255,6 +8823,14 @@ type Hris {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Apply filters
     """
@@ -8281,6 +8857,14 @@ type Hris {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Number of records to return
     """
     limit: Int
@@ -8293,6 +8877,14 @@ type Hris {
   Get Company
   """
   hrisCompany(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -8311,6 +8903,14 @@ type Hris {
     """
     employeeId: String!
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the job you are acting upon.
     """
     jobId: String!
@@ -8328,6 +8928,14 @@ type Hris {
     """
     employeeId: String!
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
@@ -8336,6 +8944,14 @@ type Hris {
   Get Payroll
   """
   payroll(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the payroll you are acting upon.
     """
@@ -8350,6 +8966,14 @@ type Hris {
   """
   payrolls(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Apply filters
     """
     filter: PayrollsFilterInput
@@ -8362,6 +8986,14 @@ type Hris {
   Get Time Off Request
   """
   timeOffRequest(
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -8379,6 +9011,14 @@ type Hris {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Apply filters
     """
@@ -9862,6 +10502,14 @@ type Sms {
   """
   message(
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -9878,6 +10526,14 @@ type Sms {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Number of records to return
     """
@@ -10102,6 +10758,14 @@ type IssueTracking {
     """
     collectionId: String!
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
@@ -10119,6 +10783,14 @@ type IssueTracking {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Number of records to return
     """
     limit: Int
@@ -10135,6 +10807,14 @@ type IssueTracking {
     The collection ID
     """
     collectionId: String!
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Include raw response. Mostly used for debugging purposes
     """
@@ -10156,6 +10836,14 @@ type IssueTracking {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     ID of the record you are acting upon.
     """
@@ -10186,6 +10874,14 @@ type IssueTracking {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Number of records to return
     """
     limit: Int
@@ -10215,6 +10911,14 @@ type IssueTracking {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Apply filters
     """
     filter: IssuesFilterInput
@@ -10240,6 +10944,14 @@ type IssueTracking {
     """
     collectionId: String!
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     ID of the record you are acting upon.
     """
     id: String!
@@ -10261,6 +10973,14 @@ type IssueTracking {
     """
     cursor: String
     """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
+    """
     Number of records to return
     """
     limit: Int
@@ -10277,6 +10997,14 @@ type IssueTracking {
     Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
     """
     cursor: String
+    """
+    This parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response.
+
+    Example: unify_fields=name,age,email
+
+     In the example above, the API will only include the fields "name", "age", and "email" in the response. If any other fields are available, they will be excluded.
+    """
+    fields: String
     """
     Number of records to return
     """
