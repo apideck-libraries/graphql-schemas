@@ -7105,6 +7105,7 @@ type EcommerceOrder {
   Total tax, if any.
   """
   totalTax: String
+  tracking: [TrackingItem]
   """
   The date and time when the object was last updated.
   """
@@ -7276,6 +7277,28 @@ enum EcommercePaymentStatus {
   refunded
   voided
   unknown
+}
+
+"""
+Represents the tracking information associated with an ecommerce order.
+"""
+type TrackingItem {
+  """
+  The tracking number associated with the shipment, which can be used to track the progress of the delivery.
+  """
+  number: String!
+  """
+  The name or code of the carrier or shipping company that is handling the shipment.
+  """
+  provider: String!
+  """
+  The date and time when the object was last updated.
+  """
+  updatedAt: String
+  """
+  The URL of the carrier's tracking page, which can be used to view detailed information about the shipment's progress.
+  """
+  url: String
 }
 
 type EcommerceProduct {
