@@ -42,6 +42,10 @@ type Accounting {
     """
     limit: Int
     """
+    Optional unmapped key/values that will be passed through to downstream as query parameters
+    """
+    passThrough: PassThroughInput
+    """
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
@@ -62,6 +66,10 @@ type Accounting {
     Number of records to return
     """
     limit: Int
+    """
+    Optional unmapped key/values that will be passed through to downstream as query parameters
+    """
+    passThrough: PassThroughInput
     """
     Include raw response. Mostly used for debugging purposes
     """
@@ -87,6 +95,10 @@ type Accounting {
     Number of records to return
     """
     limit: Int
+    """
+    Optional unmapped key/values that will be passed through to downstream as query parameters
+    """
+    passThrough: PassThroughInput
     """
     Include raw response. Mostly used for debugging purposes
     """
@@ -142,6 +154,10 @@ type Accounting {
     Number of records to return
     """
     limit: Int
+    """
+    Optional unmapped key/values that will be passed through to downstream as query parameters
+    """
+    passThrough: PassThroughInput
     """
     Include raw response. Mostly used for debugging purposes
     """
@@ -219,6 +235,10 @@ type Accounting {
     """
     limit: Int
     """
+    Optional unmapped key/values that will be passed through to downstream as query parameters
+    """
+    passThrough: PassThroughInput
+    """
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
@@ -278,6 +298,10 @@ type Accounting {
     """
     limit: Int
     """
+    Optional unmapped key/values that will be passed through to downstream as query parameters
+    """
+    passThrough: PassThroughInput
+    """
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
@@ -298,6 +322,10 @@ type Accounting {
     Number of records to return
     """
     limit: Int
+    """
+    Optional unmapped key/values that will be passed through to downstream as query parameters
+    """
+    passThrough: PassThroughInput
     """
     Include raw response. Mostly used for debugging purposes
     """
@@ -323,6 +351,10 @@ type Accounting {
     Number of records to return
     """
     limit: Int
+    """
+    Optional unmapped key/values that will be passed through to downstream as query parameters
+    """
+    passThrough: PassThroughInput
     """
     Include raw response. Mostly used for debugging purposes
     """
@@ -379,6 +411,10 @@ type Accounting {
     """
     limit: Int
     """
+    Optional unmapped key/values that will be passed through to downstream as query parameters
+    """
+    passThrough: PassThroughInput
+    """
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
@@ -412,6 +448,10 @@ type Accounting {
     Apply filters
     """
     filter: ProfitAndLossFilterInput
+    """
+    Optional unmapped key/values that will be passed through to downstream as query parameters
+    """
+    passThrough: PassThroughInput
     """
     Include raw response. Mostly used for debugging purposes
     """
@@ -468,6 +508,10 @@ type Accounting {
     """
     limit: Int
     """
+    Optional unmapped key/values that will be passed through to downstream as query parameters
+    """
+    passThrough: PassThroughInput
+    """
     Include raw response. Mostly used for debugging purposes
     """
     raw: Boolean
@@ -520,7 +564,7 @@ type CreditNote {
   """
   Unique identifier representing the entity
   """
-  id: String
+  id: String!
   lineItems: [InvoiceLineItem]
   """
   Optional note to be associated with the credit note.
@@ -558,6 +602,10 @@ type CreditNote {
   Amounts are including tax
   """
   taxInclusive: Boolean
+  """
+  Optional terms to be associated with the credit note.
+  """
+  terms: String
   """
   Amount of transaction
   """
@@ -943,6 +991,10 @@ type LinkedTaxRate {
   Name of the tax rate
   """
   name: String
+  """
+  Rate of the tax rate
+  """
+  rate: Float
 }
 
 enum InvoiceLineItemType {
@@ -997,6 +1049,13 @@ type Cursors {
   previous: String
 }
 
+input PassThroughInput {
+  """
+  All passthrough query parameters are passed along to the connector as is (?pass_through[search]=leads becomes ?search=leads)
+  """
+  exampleDownstreamProperty: String
+}
+
 type PaymentList {
   data: [Payment]!
   """
@@ -1047,7 +1106,7 @@ type Payment {
   """
   Unique identifier representing the entity
   """
-  id: String
+  id: String!
   """
   Optional note to be associated with the payment.
   """
@@ -1272,7 +1331,7 @@ type Supplier {
   """
   A unique identifier for an object.
   """
-  id: String
+  id: String!
   """
   Is this an individual or business supplier
   """
@@ -1576,13 +1635,6 @@ input BalanceSheetFilterInput {
   startDate: String
 }
 
-input PassThroughInput {
-  """
-  All passthrough query parameters are passed along to the connector as is (?pass_through[search]=leads becomes ?search=leads)
-  """
-  exampleDownstreamProperty: String
-}
-
 type Bill {
   """
   Balance of bill due.
@@ -1637,7 +1689,7 @@ type Bill {
   """
   poNumber: String
   """
-  Optional invoice reference.
+  Optional bill reference.
   """
   reference: String
   """
@@ -1959,7 +2011,7 @@ type Customer {
   """
   A unique identifier for an object.
   """
-  id: String
+  id: String!
   """
   Is this an individual or business customer
   """
@@ -3287,7 +3339,7 @@ input BillInput {
   """
   poNumber: String
   """
-  Optional invoice reference.
+  Optional bill reference.
   """
   reference: String
   """
@@ -3551,6 +3603,10 @@ input CreditNoteInput {
   Amounts are including tax
   """
   taxInclusive: Boolean
+  """
+  Optional terms to be associated with the credit note.
+  """
+  terms: String
   """
   Amount of transaction
   """
