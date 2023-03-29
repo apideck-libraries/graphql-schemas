@@ -11923,6 +11923,12 @@ Settings to change the way the Vault is displayed.
 """
 input SessionSettingsInput {
   """
+  Hide actions from your users in [Vault](/apis/vault/reference#section/Get-Started). Actions in \`allow_actions\` will be shown on a connection in Vault.
+  Available actions are: \`delete\`, \`disconnect\`, \`reauthorize\` and \`disable\`.
+  Empty array will hide all actions. By default all actions are visible.
+  """
+  allowActions: [AllowActionsListItem]
+  """
   Automatically redirect to redirect uri after the connection has been configured as callable. Defaults to \`false\`.
   """
   autoRedirect: Boolean
@@ -11962,6 +11968,13 @@ input SessionSettingsInput {
   Provide the IDs of the Unified APIs you want to be visible. Leaving it empty or omitting this field will show all Unified APIs.
   """
   unifiedApis: [UnifiedApiId]
+}
+
+enum AllowActionsListItem {
+  delete
+  disconnect
+  reauthorize
+  disable
 }
 
 enum UnifiedApiId {
