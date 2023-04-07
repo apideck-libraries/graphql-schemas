@@ -5619,7 +5619,11 @@ type ContactList {
 
 input ContactsFilterInput {
   """
-  E-mail of the contact to filter on
+  Unique identifier for the associated company of the contact to filter on
+  """
+  companyId: String
+  """
+  Email of the contact to filter on
   """
   email: String
   """
@@ -5817,53 +5821,159 @@ type OpportunityList {
 }
 
 type Opportunity {
+  """
+  The actual closing date for the opportunity. If close_date is null, the opportunity is not closed yet.
+  """
   closeDate: String
+  """
+  The unique identifier of the company associated with the opportunity.
+  """
   companyId: String
+  """
+  The name of the company associated with the opportunity.
+  """
   companyName: String
+  """
+  The unique identifier of the contact associated with the opportunity.
+  """
   contactId: String
+  """
+  An array of unique identifiers of all contacts associated with the opportunity.
+  """
+  contactIds: [String]
+  """
+  The date and time when the opportunity was created.
+  """
   createdAt: String
+  """
+  The unique identifier of the user who created the opportunity.
+  """
   createdBy: String
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
   customFields: [CustomField]
+  """
+  The date and time when the opportunity was last contacted.
+  """
   dateLastContacted: String
+  """
+  The date and time when the lead associated with the opportunity was created.
+  """
   dateLeadCreated: String
+  """
+  The date and time when the stage of the opportunity was last changed.
+  """
   dateStageChanged: String
+  """
+  Indicates whether the opportunity has been deleted.
+  """
   deleted: Boolean
+  """
+  A description of the opportunity.
+  """
   description: String
   """
-  Expected Revenue
+  The expected revenue from the opportunity
   """
   expectedRevenue: Float
+  """
+  A unique identifier for the opportunity.
+  """
   id: String
+  """
+  The number of interactions with the opportunity.
+  """
   interactionCount: Float
+  """
+  The date and time of the last activity associated with the opportunity.
+  """
   lastActivityAt: String
+  """
+  The unique identifier of the lead associated with the opportunity.
+  """
   leadId: String
   """
-  Lead source
+  The source of the lead associated with the opportunity.
   """
   leadSource: String
+  """
+  The reason why the opportunity was lost.
+  """
   lossReason: String
+  """
+  The unique identifier of the reason why the opportunity was lost.
+  """
   lossReasonId: String
+  """
+  The monetary value associated with the opportunity
+  """
   monetaryAmount: Float
+  """
+  The unique identifier of the user who owns the opportunity.
+  """
   ownerId: String
+  """
+  The unique identifier of the pipeline associated with the opportunity
+  """
   pipelineId: String
+  """
+  The unique identifier of the stage in the pipeline associated with the opportunity.
+  """
   pipelineStageId: String
+  """
+  The unique identifier of the primary contact associated with the opportunity.
+  """
   primaryContactId: String!
+  """
+  The priority level of the opportunity.
+  """
   priority: String
+  """
+  The unique identifier of the source of the opportunity.
+  """
   sourceId: String
+  """
+  The date and time when the stage of the opportunity was last changed.
+  """
   stageLastChangedAt: String
+  """
+  The current status of the opportunity.
+  """
   status: String
+  """
+  The unique identifier of the current status of the opportunity.
+  """
   statusId: String
   tags: [String]
+  """
+  The title or name of the opportunity.
+  """
   title: String!
+  """
+  The type of the opportunity
+  """
   type: String
+  """
+  The date and time when the opportunity was last updated.
+  """
   updatedAt: String
+  """
+  The unique identifier of the user who last updated the opportunity.
+  """
   updatedBy: String
+  """
+  The probability of winning the opportunity, expressed as a percentage.
+  """
   winProbability: Float
+  """
+  The reason why the opportunity was won.
+  """
   wonReason: String
+  """
+  The unique identifier of the reason why the opportunity was won.
+  """
   wonReasonId: String
 }
 
@@ -6537,38 +6647,111 @@ input NoteInput {
 }
 
 input OpportunityInput {
+  """
+  The actual closing date for the opportunity. If close_date is null, the opportunity is not closed yet.
+  """
   closeDate: String
+  """
+  The unique identifier of the company associated with the opportunity.
+  """
   companyId: String
+  """
+  The name of the company associated with the opportunity.
+  """
   companyName: String
+  """
+  The unique identifier of the contact associated with the opportunity.
+  """
   contactId: String
+  """
+  An array of unique identifiers of all contacts associated with the opportunity.
+  """
+  contactIds: [String]
   """
   Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
   """
   currency: Currency
   customFields: [CustomFieldInput]
+  """
+  A description of the opportunity.
+  """
   description: String
+  """
+  The unique identifier of the lead associated with the opportunity.
+  """
   leadId: String
   """
-  Lead source
+  The source of the lead associated with the opportunity.
   """
   leadSource: String
+  """
+  The reason why the opportunity was lost.
+  """
   lossReason: String
+  """
+  The unique identifier of the reason why the opportunity was lost.
+  """
   lossReasonId: String
+  """
+  The monetary value associated with the opportunity
+  """
   monetaryAmount: Float
+  """
+  The unique identifier of the user who owns the opportunity.
+  """
   ownerId: String
+  """
+  The unique identifier of the pipeline associated with the opportunity
+  """
   pipelineId: String
+  """
+  The unique identifier of the stage in the pipeline associated with the opportunity.
+  """
   pipelineStageId: String
+  """
+  The unique identifier of the primary contact associated with the opportunity.
+  """
   primaryContactId: String!
+  """
+  The priority level of the opportunity.
+  """
   priority: String
+  """
+  The unique identifier of the source of the opportunity.
+  """
   sourceId: String
+  """
+  The date and time when the stage of the opportunity was last changed.
+  """
   stageLastChangedAt: String
+  """
+  The current status of the opportunity.
+  """
   status: String
+  """
+  The unique identifier of the current status of the opportunity.
+  """
   statusId: String
   tags: [String]
+  """
+  The title or name of the opportunity.
+  """
   title: String!
+  """
+  The type of the opportunity
+  """
   type: String
+  """
+  The probability of winning the opportunity, expressed as a percentage.
+  """
   winProbability: Float
+  """
+  The reason why the opportunity was won.
+  """
   wonReason: String
+  """
+  The unique identifier of the reason why the opportunity was won.
+  """
   wonReasonId: String
 }
 
