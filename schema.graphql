@@ -855,6 +855,7 @@ enum Currency {
   ZMK
   ZMW
   BTC
+  ETH
 }
 
 """
