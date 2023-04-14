@@ -1113,9 +1113,13 @@ type Payment {
   """
   note: String
   """
-  Payment method
+  Payment method name
   """
   paymentMethod: String
+  """
+  Unique identifier for the payment method.
+  """
+  paymentMethodId: String
   """
   Optional reference message returned by payment method on processing
   """
@@ -2304,6 +2308,10 @@ type InvoiceItem {
   Item will be available on sales transactions
   """
   sold: Boolean
+  """
+  If true, transactions for this item are taxable
+  """
+  taxable: Boolean
   """
   Item is inventoried
   """
@@ -3888,6 +3896,10 @@ input InvoiceItemInput {
   """
   sold: Boolean
   """
+  If true, transactions for this item are taxable
+  """
+  taxable: Boolean
+  """
   Item is inventoried
   """
   tracked: Boolean
@@ -4239,9 +4251,13 @@ input PaymentInput {
   """
   note: String
   """
-  Payment method
+  Payment method name
   """
   paymentMethod: String
+  """
+  Unique identifier for the payment method.
+  """
+  paymentMethodId: String
   """
   Optional reference message returned by payment method on processing
   """
