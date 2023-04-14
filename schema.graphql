@@ -38,7 +38,7 @@ type Accounting {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -63,7 +63,7 @@ type Accounting {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -92,7 +92,7 @@ type Accounting {
     """
     filter: SuppliersFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -151,7 +151,7 @@ type Accounting {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -231,7 +231,7 @@ type Accounting {
     """
     filter: CustomersFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -294,7 +294,7 @@ type Accounting {
     """
     filter: InvoiceItemsFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -319,7 +319,7 @@ type Accounting {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -348,7 +348,7 @@ type Accounting {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -407,7 +407,7 @@ type Accounting {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -504,7 +504,7 @@ type Accounting {
     """
     filter: TaxRatesFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -4453,7 +4453,7 @@ type Ats {
     """
     filter: JobsFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -4491,7 +4491,7 @@ type Ats {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -4970,7 +4970,7 @@ type Crm {
     """
     filter: ActivitiesFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -5012,7 +5012,7 @@ type Crm {
     """
     filter: CompaniesFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -5075,7 +5075,7 @@ type Crm {
     """
     filter: ContactsFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -5121,7 +5121,7 @@ type Crm {
     """
     filter: LeadsFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -5163,7 +5163,7 @@ type Crm {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -5188,7 +5188,7 @@ type Crm {
     """
     filter: OpportunitiesFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -5247,7 +5247,7 @@ type Crm {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -5285,7 +5285,7 @@ type Crm {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -5728,7 +5728,7 @@ type Lead {
     """
     filter: LeadsFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -6858,7 +6858,7 @@ type CustomerSupport {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -7014,7 +7014,7 @@ type Ecommerce {
     """
     filter: EcommerceCustomersFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -7103,7 +7103,7 @@ type Ecommerce {
     """
     filter: EcommerceOrdersFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -7124,7 +7124,7 @@ type Ecommerce {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -7805,7 +7805,7 @@ type FileStorage {
     """
     filter: DriveGroupsFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -7830,7 +7830,7 @@ type FileStorage {
     """
     filter: DrivesFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -7855,7 +7855,7 @@ type FileStorage {
     """
     filter: FilesFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -7918,7 +7918,7 @@ type FileStorage {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -8710,7 +8710,7 @@ type Hris {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -8811,7 +8811,7 @@ type Hris {
     """
     filter: EmployeesFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -8836,7 +8836,7 @@ type Hris {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -8967,7 +8967,7 @@ type Hris {
     """
     filter: TimeOffRequestsFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -10474,7 +10474,7 @@ type Sms {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -10722,7 +10722,7 @@ type IssueTracking {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -10772,7 +10772,7 @@ type IssueTracking {
     """
     id: String!
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -10801,7 +10801,7 @@ type IssueTracking {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -10838,7 +10838,7 @@ type IssueTracking {
     """
     filter: IssuesFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -10888,7 +10888,7 @@ type IssueTracking {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -10909,7 +10909,7 @@ type IssueTracking {
     """
     fields: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
     """
@@ -11420,7 +11420,7 @@ type Vault {
     """
     cursor: String
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
   ): GetConsumersResponse
@@ -11435,7 +11435,7 @@ type Vault {
     """
     filter: LogsFilterInput
     """
-    Number of records to return
+    Number of results to return. Minimum 1, Maximum 200, Default 20
     """
     limit: Int
   ): LogList
