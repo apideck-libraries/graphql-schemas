@@ -6086,7 +6086,7 @@ type User {
   companyName: String
   createdAt: String
   """
-  The department the person is currently in.
+  The department the person is currently in. [Deprecated](https://developers.apideck.com/changelog) in favor of the dedicated department_id and department_name field.
   """
   department: String
   """
@@ -6803,7 +6803,7 @@ input UserInput {
   """
   companyName: String
   """
-  The department the person is currently in.
+  The department the person is currently in. [Deprecated](https://developers.apideck.com/changelog) in favor of the dedicated department_id and department_name field.
   """
   department: String
   """
@@ -9035,13 +9035,17 @@ type Employee {
   deceasedOn: String
   deleted: Boolean
   """
-  The department the person is currently in.
+  The department the person is currently in. [Deprecated](https://developers.apideck.com/changelog) in favor of the dedicated department_id and department_name field.
   """
   department: String
   """
   Unique identifier of the department ID this employee belongs to.
   """
   departmentId: String
+  """
+  Name of the department this employee belongs to.
+  """
+  departmentName: String
   """
   A description of the object.
   """
@@ -10087,13 +10091,17 @@ input EmployeeInput {
   deceasedOn: String
   deleted: Boolean
   """
-  The department the person is currently in.
+  The department the person is currently in. [Deprecated](https://developers.apideck.com/changelog) in favor of the dedicated department_id and department_name field.
   """
   department: String
   """
   Unique identifier of the department ID this employee belongs to.
   """
   departmentId: String
+  """
+  Name of the department this employee belongs to.
+  """
+  departmentName: String
   """
   A description of the object.
   """
