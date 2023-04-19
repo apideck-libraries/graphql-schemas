@@ -11550,6 +11550,7 @@ type Connection {
   """
   unifiedApi: String
   updatedAt: Float
+  validationSupport: Boolean
   """
   The website URL of the connection
   """
@@ -11625,6 +11626,10 @@ type FormField {
   """
   placeholder: String
   """
+  Prefix to display in front of the form field.
+  """
+  prefix: String
+  """
   Indicates if the form field is required, which means it must be filled in before the form can be submitted
   """
   required: Boolean
@@ -11632,6 +11637,10 @@ type FormField {
   Indicates if the form field contains sensitive data, which will display the value as a masked input.
   """
   sensitive: Boolean
+  """
+  Suffix to display next to the form field.
+  """
+  suffix: String
   type: Type
 }
 
@@ -11652,6 +11661,7 @@ enum ConnectionState {
   callable
   added
   authorized
+  invalid
 }
 
 type WebhookSubscription {
