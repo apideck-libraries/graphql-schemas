@@ -12222,6 +12222,7 @@ enum UnifiedApiId {
   timeregistration
   transactionalemail
   vault
+  datawarehouse
 }
 
 """
